@@ -6,6 +6,8 @@ class Core
 {
     /**
      * @param mixed $data
+     *
+     * @return null|void
      */
     public static function serialize($data)
     {

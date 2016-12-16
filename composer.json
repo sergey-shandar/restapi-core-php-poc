@@ -1,0 +1,7 @@
+{
+    "name": "sergey-shandar/restapi-core-php-poc",
+    "description": "REST API Core for PHP (Proof of concept)",
+    "license": "Apache-2.0",
+    "minimum-stability": "stable",
+    "require": {}
+}

@@ -16,7 +16,10 @@ class Core
                 return null;
             case 'integer':
                 return null;
-            case
+            case 'double':
+                return null;
+            case 'string':
+                return null;
         }
     }
 }

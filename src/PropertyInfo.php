@@ -1,5 +1,4 @@
 <?php
-
 namespace RestApiCore;
 
 
@@ -27,7 +26,7 @@ class PropertyInfo
      * @param string   $wireName
      * @param TypeInfo $typeInfo
      */
-    function __construct($name, $wireName, TypeInfo $typeInfo)
+    public function __construct($name, $wireName, TypeInfo $typeInfo)
     {
         $this->name = $name;
         $this->wireName = $wireName;

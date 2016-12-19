@@ -3,5 +3,13 @@
     "description": "REST API Core for PHP (Proof of concept)",
     "license": "Apache-2.0",
     "minimum-stability": "stable",
-    "require": {}
+    "autoload": {
+        "psr-4": { "RestApiCore\\": "src/" }
+    },
+    "require": {
+        "php": ">=5.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    }
 }

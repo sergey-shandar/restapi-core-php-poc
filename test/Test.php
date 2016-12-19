@@ -1,6 +1,12 @@
 <?php
 
-class Test extends PHPUnit_Framework_TestCase
-{
+use RestApiCore\Core;
+use PHPUnit\Framework\TestCase;
 
+class Test extends TestCase
+{
+    public function testInt()
+    {
+        Core::serialize(5);
+    }
 }

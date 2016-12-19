@@ -81,8 +81,13 @@ class Core
 
                 // $typeName is a class name
                 default:
+                    $typeInfo = $typeName::getTypeInfo();
                     return $json;
             }
         }
+    }
+
+    private function __constructor()
+    {
     }
 }

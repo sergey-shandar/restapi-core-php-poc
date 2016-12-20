@@ -15,7 +15,7 @@ class Core
     /**
      * @param mixed $data
      *
-     * @return null|void
+     * @return mixed
      */
     public static function serialize($data)
     {
@@ -23,27 +23,27 @@ class Core
         switch ($typeName)
         {
             case self::BOOLEAN_TYPE:
-                return null;
-
             case self::INTEGER_TYPE:
-                return null;
-
             case self::DOUBLE_TYPE:
-                return null;
-
             case self::STRING_TYPE:
-                return null;
-
-            case self::OBJECT_TYPE:
-                return null;
+                return $data;
 
             case self::ARRAY_TYPE:
+                $result = [];
+                foreach ($data as $dataItem)
+                {
+                    $result[] = self::serialize($dataItem);
+                }
+                return $result;
+
+            case self::OBJECT_TYPE:
+            default:
                 return null;
         }
     }
 
     /**
-     * @param array  $json JSON
+     * @param mixed  $json           deserialized JSON
      * @param string $typeName       a return type name. It could be 'string', 'boolean', 'integer', 'double' or one of
      *                               serializable classes
      * @param int    $dimensionCount a number of array dimensions, it's greater than or equal 0.
@@ -68,19 +68,14 @@ class Core
             switch ($typeName)
             {
                 case self::BOOLEAN_TYPE:
-                    return $json;
-
                 case self::INTEGER_TYPE:
-                    return $json;
-
                 case self::DOUBLE_TYPE:
-                    return $json;
-
                 case self::STRING_TYPE:
                     return $json;
 
                 // $typeName is a class name
                 default:
+                    /** @noinspection PhpUndefinedMethodInspection */
                     $typeInfo = $typeName::getTypeInfo();
                     return $json;
             }

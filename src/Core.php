@@ -13,9 +13,9 @@ class Core
     const ARRAY_TYPE = 'array';
 
     /**
-     * @param mixed $object
+     * @param array|object|bool|int|float|string|null $object
      *
-     * @return mixed
+     * @return array|bool|int|float|string|null
      */
     public static function serialize($object)
     {
@@ -38,7 +38,7 @@ class Core
                 foreach ($classInfo as $propertyInfo) {
                     $name = $propertyInfo->name;
                     $value = self::serialize($object->$name);
-                    if ($value != null) {
+                    if ($value !== null) {
                         $result[$propertyInfo->wireName] = $value;
                     }
                 }
@@ -54,10 +54,10 @@ class Core
     }
 
     /**
-     * @param mixed $data deserialized JSON
+     * @param array|bool|int|float|string|null $data serialized data
      * @param TypeInfo $typeInfo
      *
-     * @return mixed
+     * @return array|object|bool|int|float|string|null
      */
     public static function deserialize($data, TypeInfo $typeInfo)
     {
@@ -72,8 +72,7 @@ class Core
                 $result[] = self::deserialize($dataItem, $itemTypeInfo);
             }
             return $result;
-        } // $dimensionCount === 0.
-        else {
+        } else {
             $typeName = $typeInfo->name;
             switch ($typeName) {
                 case self::BOOLEAN_TYPE:
@@ -84,19 +83,30 @@ class Core
 
                 // $typeName is a class name
                 default:
-                    $result = new $typeName();
-                    $classInfo = self::getClassInfo($typeName);
-                    foreach ($classInfo as $propertyInfo) {
-                        if (array_key_exists($propertyInfo->wireName, $data)) {
-                            $name = $propertyInfo->name;
-                            $result->$name = self::deserialize(
-                                $data[$propertyInfo->wireName],
-                                $propertyInfo->typeInfo);
-                        }
-                    }
-                    return $result;
+                    return self::classDeserialize($data, $typeName);
             }
         }
+    }
+
+    /**
+     * @param array $data
+     * @param string $className
+     *
+     * @return object
+     */
+    public static function classDeserialize(array $data, $className)
+    {
+        $result = new $className();
+        $classInfo = self::getClassInfo($className);
+        foreach ($classInfo as $propertyInfo) {
+            if (array_key_exists($propertyInfo->wireName, $data)) {
+                $name = $propertyInfo->name;
+                $result->$name = self::deserialize(
+                    $data[$propertyInfo->wireName],
+                    $propertyInfo->typeInfo);
+            }
+        }
+        return $result;
     }
 
     /**

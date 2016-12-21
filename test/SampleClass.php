@@ -54,6 +54,10 @@ class SampleClass
      */
     public static function deserialize(array $data)
     {
-        return Core::deserialize($data, new TypeInfo(self::class));
+        /**
+         * @var self $result
+         */
+        $result = Core::classDeserialize($data, self::class);
+        return $result;
     }
 }

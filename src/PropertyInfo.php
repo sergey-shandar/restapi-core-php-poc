@@ -22,8 +22,8 @@ class PropertyInfo
     /**
      * PropertyInfo constructor.
      *
-     * @param string   $name
-     * @param string   $wireName
+     * @param string $name
+     * @param string $wireName
      * @param TypeInfo $typeInfo
      */
     public function __construct($name, $wireName, TypeInfo $typeInfo)

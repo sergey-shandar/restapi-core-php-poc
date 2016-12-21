@@ -6,6 +6,9 @@
     "autoload": {
         "psr-4": { "RestApiCore\\": "src/" }
     },
+    "autoload-dev": {
+        "psr-4": { "": "test/" }
+    },
     "require": {
         "php": ">=5.6"
     },

@@ -13,76 +13,103 @@ class Core
     const ARRAY_TYPE = 'array';
 
     /**
-     * @param mixed $data
+     * @param mixed $object
      *
      * @return mixed
      */
-    public static function serialize($data)
+    public static function serialize($object)
     {
-        $typeName = gettype($data);
-        switch ($typeName)
-        {
-            case self::BOOLEAN_TYPE:
-            case self::INTEGER_TYPE:
-            case self::DOUBLE_TYPE:
-            case self::STRING_TYPE:
-                return $data;
+        if ($object === null) {
+            return null;
+        }
 
+        $typeName = gettype($object);
+        switch ($typeName) {
             case self::ARRAY_TYPE:
                 $result = [];
-                foreach ($data as $dataItem)
-                {
+                foreach ($object as $dataItem) {
                     $result[] = self::serialize($dataItem);
                 }
                 return $result;
 
             case self::OBJECT_TYPE:
+                $classInfo = self::getClassInfo(get_class($object));
+                $result = [];
+                foreach ($classInfo as $propertyInfo) {
+                    $name = $propertyInfo->name;
+                    $value = self::serialize($object->$name);
+                    if ($value != null) {
+                        $result[$propertyInfo->wireName] = $value;
+                    }
+                }
+                return $result;
+
+            // case self::BOOLEAN_TYPE:
+            // case self::INTEGER_TYPE:
+            // case self::DOUBLE_TYPE:
+            // case self::STRING_TYPE:
             default:
-                return null;
+                return $object;
         }
     }
 
     /**
-     * @param mixed  $json           deserialized JSON
-     * @param string $typeName       a return type name. It could be 'string', 'boolean', 'integer', 'double' or one of
-     *                               serializable classes
-     * @param int    $dimensionCount a number of array dimensions, it's greater than or equal 0.
+     * @param mixed $data deserialized JSON
+     * @param TypeInfo $typeInfo
      *
      * @return mixed
      */
-    public static function deserialize($json, $typeName, $dimensionCount)
+    public static function deserialize($data, TypeInfo $typeInfo)
     {
-        if ($dimensionCount > 0)
-        {
+        if ($data === null) {
+            return null;
+        }
+
+        if ($typeInfo->isArray()) {
             $result = [];
-            $itemDimensionCount = $dimensionCount - 1;
-            foreach ($json as $jsonItem)
-            {
-                $result[] = self::deserialize($jsonItem, $typeName, $itemDimensionCount);
+            $itemTypeInfo = $typeInfo->getItemTypeInfo();
+            foreach ($data as $dataItem) {
+                $result[] = self::deserialize($dataItem, $itemTypeInfo);
             }
             return $result;
-        }
-        // $dimensionCount == 0.
-        else
-        {
-            switch ($typeName)
-            {
+        } // $dimensionCount === 0.
+        else {
+            $typeName = $typeInfo->name;
+            switch ($typeName) {
                 case self::BOOLEAN_TYPE:
                 case self::INTEGER_TYPE:
                 case self::DOUBLE_TYPE:
                 case self::STRING_TYPE:
-                    return $json;
+                    return $data;
 
                 // $typeName is a class name
                 default:
-                    /** @noinspection PhpUndefinedMethodInspection */
-                    $typeInfo = $typeName::getTypeInfo();
-                    return $json;
+                    $result = new $typeName();
+                    $classInfo = self::getClassInfo($typeName);
+                    foreach ($classInfo as $propertyInfo) {
+                        if (array_key_exists($propertyInfo->wireName, $data)) {
+                            $name = $propertyInfo->name;
+                            $result->$name = self::deserialize(
+                                $data[$propertyInfo->wireName],
+                                $propertyInfo->typeInfo);
+                        }
+                    }
+                    return $result;
             }
         }
     }
 
-    private function __constructor()
+    /**
+     * @param string $className
+     *
+     * @return PropertyInfo[]
+     */
+    private static function getClassInfo($className)
     {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $className::getClassInfo();
     }
+
+    /** @noinspection PhpUnusedPrivateMethodInspection */
+    private function __constructor() {}
 }

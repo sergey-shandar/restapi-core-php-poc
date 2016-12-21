@@ -1,10 +1,10 @@
-4language: php
+24language: php
 
 php:
   - '5.6'
   - '7.0'
   - '7.1'
-  - hhvm-3.14
+  - hhvm-3.12
 
 before_script:
   - composer install

@@ -5,8 +5,8 @@ namespace RestApiCore;
 class TypeInfo
 {
     /**
-     * @var string $name a type name. It could be 'string', 'boolean', 'integer', 'double' or one of
-     *                   serializable classes.
+     * @var string $name a type name. It could be 'string', 'boolean', 'integer', 'double' or one of serializable
+     *                   classes.
      */
     public $name;
 
@@ -16,8 +16,8 @@ class TypeInfo
     public $dimensionCount;
 
     /**
-     * @param string $name a type name. It could be 'string', 'boolean', 'integer', 'double' or one of
-     *                     serializable classes.
+     * @param string $name a type name. It could be 'string', 'boolean', 'integer', 'double' or one of serializable
+     *                     classes.
      * @param int $dimensionCount a number of array dimensions, it's greater than or equal 0.
      */
     public function __construct($name, $dimensionCount = 0)

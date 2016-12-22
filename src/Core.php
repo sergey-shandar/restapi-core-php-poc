@@ -1,7 +1,6 @@
 <?php
 namespace RestApiCore;
 
-
 class Core
 {
     const OBJECT_TYPE = 'object';

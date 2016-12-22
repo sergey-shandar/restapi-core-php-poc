@@ -60,10 +60,10 @@ class SampleClass
         return new ClassTypeInfo(
             self::class,
             [
-                new PropertyInfo('a', 'a', new PrimitiveTypeInfo()),
-                new PropertyInfo('b', 'b', new ArrayTypeInfo(new ArrayTypeInfo(new ArrayTypeInfo(new PrimitiveTypeInfo())))),
-                new PropertyInfo('c', 'CCC', new PrimitiveTypeInfo()),
-                new PropertyInfo('d', 'd', new PrimitiveTypeInfo()),
+                new PropertyInfo('a', 'a', PrimitiveTypeInfo::create()),
+                new PropertyInfo('b', 'b', PrimitiveTypeInfo::create()->createArray()->createArray()->createArray()),
+                new PropertyInfo('c', 'CCC', PrimitiveTypeInfo::create()),
+                new PropertyInfo('d', 'd', PrimitiveTypeInfo::create()),
                 new PropertyInfo('sub', 'sub', SampleSubClass::getClassInfo()),
             ]);
     }

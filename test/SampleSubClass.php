@@ -28,7 +28,7 @@ class SampleSubClass
         return new ClassTypeInfo(
             self::class,
             [
-                new PropertyInfo('a', 'a', new PrimitiveTypeInfo()),
+                new PropertyInfo('a', 'a', PrimitiveTypeInfo::create()),
             ]);
     }
 }

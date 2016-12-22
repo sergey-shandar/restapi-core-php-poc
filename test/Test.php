@@ -13,7 +13,7 @@ class Test extends TestCase
         $this->assertSame($v, true);
         $this->assertSame(gettype($v), 'boolean');
 
-        $x = (new PrimitiveTypeInfo)->deserialize($v);
+        $x = PrimitiveTypeInfo::create()->deserialize($v);
         $this->assertSame($x, true);
         $this->assertSame(gettype($x), 'boolean');
     }
@@ -24,7 +24,7 @@ class Test extends TestCase
         $this->assertSame($v, 45);
         $this->assertSame(gettype($v), 'integer');
 
-        $x = (new PrimitiveTypeInfo)->deserialize($v);
+        $x = PrimitiveTypeInfo::create()->deserialize($v);
         $this->assertSame($x, 45);
         $this->assertSame(gettype($x), 'integer');
     }
@@ -35,7 +35,7 @@ class Test extends TestCase
         $this->assertSame($v, 45.7);
         $this->assertSame(gettype($v), 'double');
 
-        $x = (new PrimitiveTypeInfo)->deserialize($v);
+        $x = PrimitiveTypeInfo::create()->deserialize($v);
         $this->assertSame($x, 45.7);
         $this->assertSame(gettype($x), 'double');
     }
@@ -46,7 +46,7 @@ class Test extends TestCase
         $this->assertSame($v, 'abc');
         $this->assertSame(gettype($v), 'string');
 
-        $x = (new PrimitiveTypeInfo)->deserialize($v);
+        $x = PrimitiveTypeInfo::create()->deserialize($v);
         $this->assertSame($x, 'abc');
         $this->assertSame(gettype($x), 'string');
     }
@@ -57,7 +57,7 @@ class Test extends TestCase
         $this->assertSame($v, [1, 2]);
         $this->assertSame(gettype($v), 'array');
 
-        $x = (new ArrayTypeInfo(new PrimitiveTypeInfo()))->deserialize($v);
+        $x = PrimitiveTypeInfo::create()->createArray()->deserialize($v);
         $this->assertSame($x, [1, 2]);
         $this->assertSame(gettype($x), 'array');
     }
@@ -123,7 +123,7 @@ class Test extends TestCase
         /**
          * @var SampleClass[] $y
          */
-        $y = (new ArrayTypeInfo(SampleClass::getClassInfo()))->deserialize($v);
+        $y = SampleClass::getClassInfo()->createArray()->deserialize($v);
         $this->assertSame(count($y), 2);
         $this->assertSame($y[0], null);
         $x = $y[1];

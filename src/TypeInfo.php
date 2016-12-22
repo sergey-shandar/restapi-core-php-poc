@@ -10,4 +10,12 @@ abstract class TypeInfo
      * @return mixed
      */
     public abstract function deserialize($data);
+
+    /**
+     * @return ArrayTypeInfo
+     */
+    public function createArray()
+    {
+        return new ArrayTypeInfo($this);
+    }
 }

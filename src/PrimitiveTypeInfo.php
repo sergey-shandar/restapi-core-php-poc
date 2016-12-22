@@ -21,4 +21,11 @@ class PrimitiveTypeInfo extends TypeInfo
     {
         return $data;
     }
+
+    public static function create()
+    {
+        return new PrimitiveTypeInfo();
+    }
+
+    private function __construct() {}
 }

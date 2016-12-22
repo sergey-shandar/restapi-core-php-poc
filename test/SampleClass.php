@@ -1,8 +1,9 @@
 <?php
 
-use RestApiCore\Core;
+use RestApiCore\ArrayTypeInfo;
+use RestApiCore\ClassTypeInfo;
+use RestApiCore\PrimitiveTypeInfo;
 use RestApiCore\PropertyInfo;
-use RestApiCore\TypeInfo;
 
 class SampleClass
 {
@@ -52,30 +53,18 @@ class SampleClass
     }
 
     /**
-     * @return PropertyInfo[]
+     * @return ClassTypeInfo
      */
     public static function getClassInfo()
     {
-        return [
-            new PropertyInfo('a', 'a', new TypeInfo(Core::INTEGER_TYPE)),
-            new PropertyInfo('b', 'b', new TypeInfo(Core::STRING_TYPE, 3)),
-            new PropertyInfo('c', 'CCC', new TypeInfo(Core::INTEGER_TYPE, 1)),
-            new PropertyInfo('d', 'd', new TypeInfo(Core::STRING_TYPE)),
-            new PropertyInfo('sub', 'sub', new TypeInfo(SampleSubClass::class)),
-        ];
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
-    public static function deserialize(array $data)
-    {
-        /**
-         * @var self $result
-         */
-        $result = Core::classDeserialize($data, self::class);
-        return $result;
+        return new ClassTypeInfo(
+            self::class,
+            [
+                new PropertyInfo('a', 'a', new PrimitiveTypeInfo()),
+                new PropertyInfo('b', 'b', new ArrayTypeInfo(new ArrayTypeInfo(new ArrayTypeInfo(new PrimitiveTypeInfo())))),
+                new PropertyInfo('c', 'CCC', new PrimitiveTypeInfo()),
+                new PropertyInfo('d', 'd', new PrimitiveTypeInfo()),
+                new PropertyInfo('sub', 'sub', SampleSubClass::getClassInfo()),
+            ]);
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
+use RestApiCore\ArrayTypeInfo;
 use RestApiCore\Core;
-use RestApiCore\TypeInfo;
+use RestApiCore\PrimitiveTypeInfo;
 use PHPUnit\Framework\TestCase;
 
 class Test extends TestCase
@@ -10,75 +11,75 @@ class Test extends TestCase
     {
         $v = Core::serialize(true);
         $this->assertSame($v, true);
-        $this->assertSame(gettype($v), Core::BOOLEAN_TYPE);
+        $this->assertSame(gettype($v), 'boolean');
 
-        $x = Core::deserialize($v, new TypeInfo(gettype($v)));
+        $x = (new PrimitiveTypeInfo)->deserialize($v);
         $this->assertSame($x, true);
-        $this->assertSame(gettype($x), Core::BOOLEAN_TYPE);
+        $this->assertSame(gettype($x), 'boolean');
     }
 
     public function testInt()
     {
         $v = Core::serialize(45);
         $this->assertSame($v, 45);
-        $this->assertSame(gettype($v), Core::INTEGER_TYPE);
+        $this->assertSame(gettype($v), 'integer');
 
-        $x = Core::deserialize($v, new TypeInfo(gettype($v)));
+        $x = (new PrimitiveTypeInfo)->deserialize($v);
         $this->assertSame($x, 45);
-        $this->assertSame(gettype($x), Core::INTEGER_TYPE);
+        $this->assertSame(gettype($x), 'integer');
     }
 
     public function testFloat()
     {
         $v = Core::serialize(45.7);
         $this->assertSame($v, 45.7);
-        $this->assertSame(gettype($v), Core::DOUBLE_TYPE);
+        $this->assertSame(gettype($v), 'double');
 
-        $x = Core::deserialize($v, new TypeInfo(gettype($v)));
+        $x = (new PrimitiveTypeInfo)->deserialize($v);
         $this->assertSame($x, 45.7);
-        $this->assertSame(gettype($x), Core::DOUBLE_TYPE);
+        $this->assertSame(gettype($x), 'double');
     }
 
     public function testString()
     {
         $v = Core::serialize('abc');
         $this->assertSame($v, 'abc');
-        $this->assertSame(gettype($v), Core::STRING_TYPE);
+        $this->assertSame(gettype($v), 'string');
 
-        $x = Core::deserialize($v, new TypeInfo(gettype($v)));
+        $x = (new PrimitiveTypeInfo)->deserialize($v);
         $this->assertSame($x, 'abc');
-        $this->assertSame(gettype($x), Core::STRING_TYPE);
+        $this->assertSame(gettype($x), 'string');
     }
 
     public function testIntArray()
     {
         $v = Core::serialize([1, 2]);
         $this->assertSame($v, [1, 2]);
-        $this->assertSame(gettype($v), Core::ARRAY_TYPE);
+        $this->assertSame(gettype($v), 'array');
 
-        $x = Core::deserialize($v, new TypeInfo(Core::INTEGER_TYPE, 1));
+        $x = (new ArrayTypeInfo(new PrimitiveTypeInfo()))->deserialize($v);
         $this->assertSame($x, [1, 2]);
-        $this->assertSame(gettype($x), Core::ARRAY_TYPE);
+        $this->assertSame(gettype($x), 'array');
     }
 
     public function testSampleClass()
     {
         $s = new SampleClass();
         $s->a = 1;
-        $s->b = [[['a']]];
+        $s->b = [[['a'], null]];
         $s->c = [3];
 
         $v = Core::serialize($s);
         $this->assertSame($v['a'], 1);
-        $this->assertSame($v['b'], [[['a']]]);
+        $this->assertSame($v['b'], [[['a'], null]]);
         $this->assertSame($v['CCC'], [3]);
 
         /**
          * @var SampleClass $x
          */
-        $x = SampleClass::deserialize($v);
+        $x = SampleClass::getClassInfo()->deserialize($v);
         $this->assertSame($x->a, 1);
-        $this->assertSame($x->b, [[['a']]]);
+        $this->assertSame($x->b, [[['a'], null]]);
         $this->assertSame($x->c, [3]);
     }
 
@@ -97,7 +98,7 @@ class Test extends TestCase
         /**
          * @var SampleClass $x
          */
-        $x = SampleClass::deserialize($v);
+        $x = SampleClass::getClassInfo()->deserialize($v);
         $this->assertSame($x->a, 0);
         $this->assertSame($x->b, []);
         $this->assertSame($x->c, []);
@@ -122,7 +123,7 @@ class Test extends TestCase
         /**
          * @var SampleClass[] $y
          */
-        $y = Core::deserialize($v, new TypeInfo(SampleClass::class, 1));
+        $y = (new ArrayTypeInfo(SampleClass::getClassInfo()))->deserialize($v);
         $this->assertSame(count($y), 2);
         $this->assertSame($y[0], null);
         $x = $y[1];

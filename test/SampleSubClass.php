@@ -1,7 +1,7 @@
 <?php
-use RestApiCore\Core;
+use RestApiCore\ClassTypeInfo;
+use RestApiCore\PrimitiveTypeInfo;
 use RestApiCore\PropertyInfo;
-use RestApiCore\TypeInfo;
 
 class SampleSubClass
 {
@@ -21,26 +21,14 @@ class SampleSubClass
     }
 
     /**
-     * @return PropertyInfo[]
+     * @return ClassTypeInfo
      */
     public static function getClassInfo()
     {
-        return [
-            new PropertyInfo('a', 'a', new TypeInfo(Core::INTEGER_TYPE)),
-        ];
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
-    public static function deserialize(array $data)
-    {
-        /**
-         * @var self $result
-         */
-        $result = Core::classDeserialize($data, self::class);
-        return $result;
+        return new ClassTypeInfo(
+            self::class,
+            [
+                new PropertyInfo('a', 'a', new PrimitiveTypeInfo()),
+            ]);
     }
 }

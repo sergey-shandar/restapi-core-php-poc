@@ -1,6 +1,5 @@
 <?php
 
-use RestApiCore\ArrayTypeInfo;
 use RestApiCore\ClassTypeInfo;
 use RestApiCore\PrimitiveTypeInfo;
 use RestApiCore\PropertyInfo;

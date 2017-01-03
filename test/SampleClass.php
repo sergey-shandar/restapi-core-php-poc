@@ -40,6 +40,7 @@ class SampleClass
      * @param string[][][]|null $b
      * @param int[]|null $c
      * @param string|null $d
+     * @param null $sub
      */
     public function __construct(
         $a = null, array $b = null, array $c = null, $d = null, $sub = null)

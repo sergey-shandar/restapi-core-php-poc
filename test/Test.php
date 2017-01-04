@@ -77,10 +77,11 @@ class Test extends TestCase
         /**
          * @var SampleClass $x
          */
-        $x = SampleClass::getClassInfo()->deserialize($v);
+        $x = SampleClass::createClassInfo()->deserialize($v);
         $this->assertSame($x->a, 1);
         $this->assertSame($x->b, [[['a'], null]]);
         $this->assertSame($x->c, [3]);
+        $this->assertSame($x->subArray, []);
     }
 
     public function testSampleClassWithNulls()
@@ -88,21 +89,23 @@ class Test extends TestCase
         $s = new SampleClass();
 
         $v = Core::serialize($s);
-        $this->assertSame(count($v), 4);
+        $this->assertSame(count($v), 5);
         $this->assertSame($v['a'], 0);
         $this->assertSame($v['b'], []);
         $this->assertSame($v['CCC'], []);
         $this->assertSame($v['sub'], ['a' => 0]);
         $this->assertArrayNotHasKey('d', $v);
+        $this->assertSame($v['subArray'], []);
 
         /**
          * @var SampleClass $x
          */
-        $x = SampleClass::getClassInfo()->deserialize($v);
+        $x = SampleClass::createClassInfo()->deserialize($v);
         $this->assertSame($x->a, 0);
         $this->assertSame($x->b, []);
         $this->assertSame($x->c, []);
         $this->assertSame($x->d, null);
+        $this->assertSame($x->subArray, []);
     }
 
     public function testArrayWithNulls()
@@ -113,22 +116,24 @@ class Test extends TestCase
         $this->assertSame(count($v), 2);
         $this->assertSame($v[0], null);
         $v1 = $v[1];
-        $this->assertSame(count($v1), 4);
+        $this->assertSame(count($v1), 5);
         $this->assertSame($v1['a'], 0);
         $this->assertSame($v1['b'], [[[null, 'a']]]);
         $this->assertSame($v1['CCC'], [3]);
         $this->assertSame($v1['sub'], ['a' => 0]);
         $this->assertArrayNotHasKey('d', $v);
+        $this->assertSame($v1['subArray'], []);
 
         /**
          * @var SampleClass[] $y
          */
-        $y = SampleClass::getClassInfo()->createArray()->deserialize($v);
+        $y = SampleClass::createClassInfo()->createArray()->deserialize($v);
         $this->assertSame(count($y), 2);
         $this->assertSame($y[0], null);
         $x = $y[1];
         $this->assertSame($x->a, 0);
         $this->assertSame($x->b, [[[null, 'a']]]);
         $this->assertSame($x->c, [3]);
+        $this->assertSame($x->subArray, []);
     }
 }

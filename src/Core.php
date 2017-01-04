@@ -23,7 +23,7 @@ class Core
                 return ArrayTypeInfo::serialize($object);
 
             case self::OBJECT_TYPE:
-                return self::getClassInfo(get_class($object))->serialize($object);
+                return self::createClassInfo(get_class($object))->serialize($object);
 
             default:
                 return PrimitiveTypeInfo::serialize($object);
@@ -35,10 +35,10 @@ class Core
      *
      * @return ClassTypeInfo
      */
-    private static function getClassInfo($className)
+    private static function createClassInfo($className)
     {
         /** @noinspection PhpUndefinedMethodInspection */
-        return $className::getClassInfo();
+        return $className::createClassInfo();
     }
 
     /** @noinspection PhpUnusedPrivateMethodInspection */

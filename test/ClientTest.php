@@ -7,7 +7,7 @@ class ClientTest extends TestCase
 {
     public function testClient()
     {
-        $client = new Client();
+        $client = new Client(new MockHttpClient());
         $client->request(SampleClass::createClassInfo(), "path/", "query", [], [], [], "body");
     }
 }

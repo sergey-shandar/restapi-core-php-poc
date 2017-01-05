@@ -5,6 +5,16 @@ namespace RestApiCore;
 class Client
 {
     /**
+     * @var HttpClient $httpClient
+     */
+    private $httpClient;
+
+    public function __construct(HttpClient $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
+
+    /**
      * @param TypeInfo $result
      * @param string $path
      * @param string $method
@@ -13,16 +23,17 @@ class Client
      * @param array $headerParameters
      * @param $body
      *
-     * @return object
+     * @return object|array
      */
-    function request(
+    public function request(
         TypeInfo $result,
         $path,
         $method,
         array $pathParameters,
         array $queryParameters,
-        array $headerParameters, $body)
+        array $headerParameters,
+        $body)
     {
-        return null;
+        return $result->deserialize($this->httpClient->request());
     }
 }

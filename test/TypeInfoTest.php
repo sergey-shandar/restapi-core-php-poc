@@ -1,10 +1,10 @@
 <?php
 
 use RestApiCore\PrimitiveTypeInfo;
-use PHPUnit\Framework\TestCase;
 use RestApiCore\TypeInfo;
+use PHPUnit\Framework\TestCase;
 
-class Test extends TestCase
+class TypeInfoTest extends TestCase
 {
     public function testBool()
     {

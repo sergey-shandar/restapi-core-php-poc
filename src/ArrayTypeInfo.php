@@ -37,18 +37,4 @@ class ArrayTypeInfo extends TypeInfo
         }
         return $result;
     }
-
-    /**
-     * @param array $array
-     *
-     * @return array
-     */
-    public static function serialize(array $array)
-    {
-        $result = [];
-        foreach ($array as $dataItem) {
-            $result[] = Core::serialize($dataItem);
-        }
-        return $result;
-    }
 }

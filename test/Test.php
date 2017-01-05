@@ -1,15 +1,14 @@
 <?php
 
-use RestApiCore\ArrayTypeInfo;
-use RestApiCore\Core;
 use RestApiCore\PrimitiveTypeInfo;
 use PHPUnit\Framework\TestCase;
+use RestApiCore\TypeInfo;
 
 class Test extends TestCase
 {
     public function testBool()
     {
-        $v = Core::serialize(true);
+        $v = TypeInfo::serialize(true);
         $this->assertSame($v, true);
         $this->assertSame(gettype($v), 'boolean');
 
@@ -20,7 +19,7 @@ class Test extends TestCase
 
     public function testInt()
     {
-        $v = Core::serialize(45);
+        $v = TypeInfo::serialize(45);
         $this->assertSame($v, 45);
         $this->assertSame(gettype($v), 'integer');
 
@@ -31,7 +30,7 @@ class Test extends TestCase
 
     public function testFloat()
     {
-        $v = Core::serialize(45.7);
+        $v = TypeInfo::serialize(45.7);
         $this->assertSame($v, 45.7);
         $this->assertSame(gettype($v), 'double');
 
@@ -42,7 +41,7 @@ class Test extends TestCase
 
     public function testString()
     {
-        $v = Core::serialize('abc');
+        $v = TypeInfo::serialize('abc');
         $this->assertSame($v, 'abc');
         $this->assertSame(gettype($v), 'string');
 
@@ -53,7 +52,7 @@ class Test extends TestCase
 
     public function testIntArray()
     {
-        $v = Core::serialize([1, 2]);
+        $v = TypeInfo::serialize([1, 2]);
         $this->assertSame($v, [1, 2]);
         $this->assertSame(gettype($v), 'array');
 
@@ -69,7 +68,7 @@ class Test extends TestCase
         $s->b = [[['a'], null]];
         $s->c = [3];
 
-        $v = Core::serialize($s);
+        $v = TypeInfo::serialize($s);
         $this->assertSame($v['a'], 1);
         $this->assertSame($v['b'], [[['a'], null]]);
         $this->assertSame($v['CCC'], [3]);
@@ -88,7 +87,7 @@ class Test extends TestCase
     {
         $s = new SampleClass();
 
-        $v = Core::serialize($s);
+        $v = TypeInfo::serialize($s);
         $this->assertSame(count($v), 5);
         $this->assertSame($v['a'], 0);
         $this->assertSame($v['b'], []);
@@ -112,7 +111,7 @@ class Test extends TestCase
     {
         $s = [ null, new SampleClass(null, [[[null, 'a']]], [3]) ];
 
-        $v = Core::serialize($s);
+        $v = TypeInfo::serialize($s);
         $this->assertSame(count($v), 2);
         $this->assertSame($v[0], null);
         $v1 = $v[1];

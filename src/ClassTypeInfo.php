@@ -54,12 +54,12 @@ class ClassTypeInfo extends TypeInfo
      *
      * @return array
      */
-    public function serialize($object)
+    public function serializeClass($object)
     {
         $result = [];
         foreach ($this->propertyInfoArray as $propertyInfo) {
             $name = $propertyInfo->name;
-            $value = Core::serialize($object->$name);
+            $value = TypeInfo::serialize($object->$name);
             if ($value !== null) {
                 $result[$propertyInfo->wireName] = $value;
             }

@@ -13,16 +13,6 @@ class PrimitiveTypeInfo extends TypeInfo
         return $data;
     }
 
-    /**
-     * @param $data
-     *
-     * @return mixed
-     */
-    public static function serialize($data)
-    {
-        return $data;
-    }
-
     public static function create()
     {
         return new PrimitiveTypeInfo();

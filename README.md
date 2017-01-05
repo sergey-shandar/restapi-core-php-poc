@@ -11,7 +11,7 @@ REST API Core for PHP (Proof of concept)
 Every data class should implement
 
 1. A default constructor.
-2. A `getClassInfo` static function which returns `ClassTypeInfo`.
+2. A `createClassInfo` static function which returns `ClassTypeInfo`.
  
 For example
 

@@ -23,7 +23,7 @@ class Client
      * @param array $headerParameters
      * @param $body
      *
-     * @return object|array
+     * @return mixed
      */
     public function request(
         TypeInfo $result,

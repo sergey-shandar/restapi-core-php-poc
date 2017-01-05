@@ -5,6 +5,7 @@ namespace RestApiCore;
 class Client
 {
     /**
+     * @param TypeInfo $result
      * @param string $path
      * @param string $method
      * @param array $pathParameters
@@ -12,9 +13,15 @@ class Client
      * @param array $headerParameters
      * @param $body
      *
-     * @return null
+     * @return object
      */
-    function request($path, $method, array $pathParameters, array $queryParameters, array $headerParameters, $body)
+    function request(
+        TypeInfo $result,
+        $path,
+        $method,
+        array $pathParameters,
+        array $queryParameters,
+        array $headerParameters, $body)
     {
         return null;
     }

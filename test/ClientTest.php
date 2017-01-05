@@ -8,6 +8,6 @@ class ClientTest extends TestCase
     public function testClient()
     {
         $client = new Client();
-        $client->request("path/", "query", [], [], [], "body");
+        $client->request(SampleClass::createClassInfo(), "path/", "query", [], [], [], "body");
     }
 }

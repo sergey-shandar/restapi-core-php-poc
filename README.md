@@ -6,6 +6,11 @@ REST API Core for PHP (Proof of concept)
 
 [Composer Package](https://packagist.org/packages/sergey-shandar/restapi-core-php-poc).
 
+# Required Windows Extensions
+
+- `php_mbstring.dll`
+- `php_openssl.dll`
+
 # Conventions
 
 Every data class should implement

@@ -2,20 +2,23 @@
 namespace RestApiCore;
 
 
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Psr7\Request;
+
 class Client
 {
     /**
-     * @var HttpClient $httpClient
+     * @var ClientInterface $httpClient
      */
     private $httpClient;
 
-    public function __construct(HttpClient $httpClient)
+    public function __construct(ClientInterface $httpClient)
     {
         $this->httpClient = $httpClient;
     }
 
     /**
-     * @param TypeInfo $result
+     * @param TypeInfo $resultTypeInfo
      * @param string $path
      * @param string $method
      * @param array $pathParameters
@@ -26,7 +29,7 @@ class Client
      * @return mixed
      */
     public function request(
-        TypeInfo $result,
+        TypeInfo $resultTypeInfo,
         $path,
         $method,
         array $pathParameters,
@@ -34,6 +37,8 @@ class Client
         array $headerParameters,
         $body)
     {
-        return $result->deserialize($this->httpClient->request());
+        $uri = $path;
+        $response = $this->httpClient->send(new Request($method, $uri));
+        return $resultTypeInfo->deserialize($response->getBody());
     }
 }

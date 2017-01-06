@@ -12,12 +12,19 @@ class Client
      */
     private $httpClient;
 
-    public function __construct(ClientInterface $httpClient)
+    /**
+     * @var string $baseUrl
+     */
+    private $baseUrl;
+
+    public function __construct(ClientInterface $httpClient, $baseUrl)
     {
         $this->httpClient = $httpClient;
+        $this->baseUrl = $baseUrl;
     }
 
     /**
+     * @param string $baseUrl,
      * @param TypeInfo $resultTypeInfo
      * @param string $path
      * @param string $method
@@ -37,7 +44,7 @@ class Client
         array $headerParameters,
         $body)
     {
-        $uri = $path;
+        $uri = $this->baseUrl . $path;
         $response = $this->httpClient->send(new Request($method, $uri));
         return $resultTypeInfo->deserialize($response->getBody());
     }

@@ -7,7 +7,7 @@ class SampleApi
     /**
      * @var Client $_client
      */
-    private $_client;
+    private $client;
 
     /**
      * SampleApi constructor.
@@ -16,16 +16,16 @@ class SampleApi
      */
     public function __construct(Client $client)
     {
-        $this->_client = $client;
+        $this->client = $client;
     }
 
     /**
      * @param SampleClass $sampleClass
-     * 
+     *
      * @return SampleClass
      */
     public function test(SampleClass $sampleClass)
     {
-        return $this->_client->request('', '', [], [], [], $sampleClass);
+        return $this->client->request(SampleClass::createClassInfo(), '', '', [], [], [], $sampleClass);
     }
 }

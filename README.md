@@ -4,7 +4,7 @@ REST API Core for PHP (Proof of concept)
 
 [![Build Status](https://travis-ci.org/sergey-shandar/restapi-core-php-poc.svg?branch=master)](https://travis-ci.org/sergey-shandar/restapi-core-php-poc)
 
-[Composer Package](https://packagist.org/packages/sergey-shandar/restapi-core-php-poc).
+[![Latest Unstable Version](https://poser.pugx.org/sergey-shandar/restapi-core-php-poc/v/unstable)](https://packagist.org/packages/sergey-shandar/restapi-core-php-poc)
 
 # Required Windows Extensions
 

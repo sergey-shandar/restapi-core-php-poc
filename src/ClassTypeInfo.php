@@ -1,6 +1,8 @@
 <?php
 namespace RestApiCore;
 
+use stdClass;
+
 class ClassTypeInfo extends TypeInfo
 {
     /**
@@ -26,7 +28,7 @@ class ClassTypeInfo extends TypeInfo
     }
 
     /**
-     * @param array|null $data
+     * @param object|null $data
      *
      * @return object
      */
@@ -41,9 +43,9 @@ class ClassTypeInfo extends TypeInfo
         $result = new $className();
         foreach ($this->propertyInfoArray as $propertyInfo) {
             $wireName = $propertyInfo->wireName;
-            if (array_key_exists($wireName, $data)) {
+            if (property_exists($data, $wireName)) {
                 $name = $propertyInfo->name;
-                $result->$name = $propertyInfo->typeInfo->deserialize($data[$wireName]);
+                $result->$name = $propertyInfo->typeInfo->deserialize($data->$wireName);
             }
         }
         return $result;
@@ -52,16 +54,17 @@ class ClassTypeInfo extends TypeInfo
     /**
      * @param object $object
      *
-     * @return array
+     * @return stdClass
      */
     public function serializeClass($object)
     {
-        $result = [];
+        $result = new stdClass();
         foreach ($this->propertyInfoArray as $propertyInfo) {
             $name = $propertyInfo->name;
             $value = TypeInfo::serialize($object->$name);
             if ($value !== null) {
-                $result[$propertyInfo->wireName] = $value;
+                $wireName = $propertyInfo->wireName;
+                $result->$wireName = $value;
             }
         }
         return $result;

@@ -68,10 +68,13 @@ class TypeInfoTest extends TestCase
         $s->b = [[['a'], null]];
         $s->c = [3];
 
+        /**
+         * @var stdClass $v
+         */
         $v = TypeInfo::serialize($s);
-        $this->assertSame($v['a'], 1);
-        $this->assertSame($v['b'], [[['a'], null]]);
-        $this->assertSame($v['CCC'], [3]);
+        $this->assertSame($v->a, 1);
+        $this->assertSame($v->b, [[['a'], null]]);
+        $this->assertSame($v->CCC, [3]);
 
         /**
          * @var SampleClass $x
@@ -87,14 +90,18 @@ class TypeInfoTest extends TestCase
     {
         $s = new SampleClass();
 
+        /**
+         * @var stdClass $v
+         */
         $v = TypeInfo::serialize($s);
-        $this->assertSame(count($v), 5);
-        $this->assertSame($v['a'], 0);
-        $this->assertSame($v['b'], []);
-        $this->assertSame($v['CCC'], []);
-        $this->assertSame($v['sub'], ['a' => 0]);
-        $this->assertArrayNotHasKey('d', $v);
-        $this->assertSame($v['subArray'], []);
+        $p = get_object_vars($v);
+        $this->assertSame(count($p), 5);
+        $this->assertSame($v->a, 0);
+        $this->assertSame($v->b, []);
+        $this->assertSame($v->CCC, []);
+        $this->assertSame($v->sub->a, 0);
+        $this->assertFalse(property_exists($v, 'd'));
+        $this->assertSame($v->subArray, []);
 
         /**
          * @var SampleClass $x
@@ -114,14 +121,17 @@ class TypeInfoTest extends TestCase
         $v = TypeInfo::serialize($s);
         $this->assertSame(count($v), 2);
         $this->assertSame($v[0], null);
+        /**
+         * @var stdClass $v1
+         */
         $v1 = $v[1];
-        $this->assertSame(count($v1), 5);
-        $this->assertSame($v1['a'], 0);
-        $this->assertSame($v1['b'], [[[null, 'a']]]);
-        $this->assertSame($v1['CCC'], [3]);
-        $this->assertSame($v1['sub'], ['a' => 0]);
+        $this->assertSame(count(get_object_vars($v1)), 5);
+        $this->assertSame($v1->a, 0);
+        $this->assertSame($v1->b, [[[null, 'a']]]);
+        $this->assertSame($v1->CCC, [3]);
+        $this->assertSame($v1->sub->a, 0);
         $this->assertArrayNotHasKey('d', $v);
-        $this->assertSame($v1['subArray'], []);
+        $this->assertSame($v1->subArray, []);
 
         /**
          * @var SampleClass[] $y

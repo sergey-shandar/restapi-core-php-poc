@@ -31,7 +31,7 @@ class Client
      * @param array $pathParameters
      * @param array $queryParameters
      * @param array $headerParameters
-     * @param $body
+     * @param mixed $body
      *
      * @return mixed
      */
@@ -45,7 +45,7 @@ class Client
         $body)
     {
         $uri = $this->baseUrl . $path;
-        $response = $this->httpClient->send(new Request($method, $uri));
+        $response = $this->httpClient->send(new Request($method, $uri, [], TypeInfo::serialize($body)));
         return $resultTypeInfo->deserialize($response->getBody());
     }
 }

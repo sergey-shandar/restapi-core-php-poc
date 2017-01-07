@@ -45,7 +45,8 @@ class Client
         $body)
     {
         $uri = $this->baseUrl . $path;
-        $response = $this->httpClient->send(new Request($method, $uri, [], json_encode(TypeInfo::serialize($body))));
+        $request = new Request($method, $uri, ['Content-Type' => 'application/json'], json_encode(TypeInfo::serialize($body)));
+        $response = $this->httpClient->send($request);
         return $resultTypeInfo->deserialize($response->getBody());
     }
 }

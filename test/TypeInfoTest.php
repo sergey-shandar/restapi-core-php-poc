@@ -63,7 +63,7 @@ class TypeInfoTest extends TestCase
 
     public function testSampleClass()
     {
-        $s = new SampleClass();
+        $s = new MainSampleClass();
         $s->a = 1;
         $s->b = [[['a'], null]];
         $s->c = [3];
@@ -77,9 +77,9 @@ class TypeInfoTest extends TestCase
         $this->assertSame($v->CCC, [3]);
 
         /**
-         * @var SampleClass $x
+         * @var MainSampleClass $x
          */
-        $x = SampleClass::createClassInfo()->deserialize($v);
+        $x = MainSampleClass::createClassInfo()->deserialize($v);
         $this->assertSame($x->a, 1);
         $this->assertSame($x->b, [[['a'], null]]);
         $this->assertSame($x->c, [3]);
@@ -88,7 +88,7 @@ class TypeInfoTest extends TestCase
 
     public function testSampleClassWithNulls()
     {
-        $s = new SampleClass();
+        $s = new MainSampleClass();
 
         /**
          * @var stdClass $v
@@ -104,9 +104,9 @@ class TypeInfoTest extends TestCase
         $this->assertSame($v->subArray, []);
 
         /**
-         * @var SampleClass $x
+         * @var MainSampleClass $x
          */
-        $x = SampleClass::createClassInfo()->deserialize($v);
+        $x = MainSampleClass::createClassInfo()->deserialize($v);
         $this->assertSame($x->a, 0);
         $this->assertSame($x->b, []);
         $this->assertSame($x->c, []);
@@ -116,7 +116,7 @@ class TypeInfoTest extends TestCase
 
     public function testArrayWithNulls()
     {
-        $s = [ null, new SampleClass(null, [[[null, 'a']]], [3]) ];
+        $s = [ null, new MainSampleClass(null, [[[null, 'a']]], [3]) ];
 
         $v = TypeInfo::serialize($s);
         $this->assertSame(count($v), 2);
@@ -134,9 +134,9 @@ class TypeInfoTest extends TestCase
         $this->assertSame($v1->subArray, []);
 
         /**
-         * @var SampleClass[] $y
+         * @var MainSampleClass[] $y
          */
-        $y = SampleClass::createClassInfo()->createArray()->deserialize($v);
+        $y = MainSampleClass::createClassInfo()->createArray()->deserialize($v);
         $this->assertSame(count($y), 2);
         $this->assertSame($y[0], null);
         $x = $y[1];

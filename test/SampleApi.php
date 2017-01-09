@@ -20,12 +20,12 @@ class SampleApi
     }
 
     /**
-     * @param SampleClass $sampleClass
+     * @param MainSampleClass $sampleClass
      *
-     * @return SampleClass
+     * @return MainSampleClass
      */
-    public function test(SampleClass $sampleClass)
+    public function test(MainSampleClass $sampleClass)
     {
-        return $this->client->request(SampleClass::createClassInfo(), '', '', [], [], [], $sampleClass);
+        return $this->client->request(MainSampleClass::createClassInfo(), '', '', [], [], $sampleClass);
     }
 }

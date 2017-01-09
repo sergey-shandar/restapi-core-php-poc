@@ -4,7 +4,7 @@ use RestApiCore\ClassTypeInfo;
 use RestApiCore\PrimitiveTypeInfo;
 use RestApiCore\PropertyInfo;
 
-class SampleClass
+class MainSampleClass
 {
     /**
      * @var int $a

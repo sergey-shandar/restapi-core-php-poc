@@ -42,6 +42,16 @@ class Client
         $body)
     {
         $uri = $this->baseUrl . $path;
+        if (count($queryParameters) > 0)
+        {
+            $items = [];
+            foreach ($queryParameters as $key => $value)
+            {
+                $items[] = $key . '=' . $value;
+            }
+            $uri .= "?" . join('&', $items);
+        }
+
         $request = new Request(
             $method,
             $uri,

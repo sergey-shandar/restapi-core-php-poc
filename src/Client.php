@@ -41,33 +41,28 @@ class Client
         array $headerParameters,
         $body)
     {
-        $uri = $this->baseUrl . $path;
-        if (count($queryParameters) > 0)
-        {
-            $items = [];
-            foreach ($queryParameters as $key => $value)
-            {
-                if (gettype($value) === TypeInfo::ARRAY_TYPE)
-                {
-                    foreach ($value as $v)
-                    {
-                        $items[] = $key . '=' . $v;
-                    }
-                }
-                else
-                {
-                    $items[] = $key . '=' . $value;
-                }
-            }
-            $uri .= "?" . join('&', $items);
-        }
+        $uri = $this->baseUrl . $path . self::query($queryParameters);
 
         $request = new Request(
             $method,
             $uri,
             ['Content-Type' => 'application/json'],
             json_encode(TypeInfo::serialize($body)));
+
         $response = $this->httpClient->send($request);
-        return $resultTypeInfo->deserialize($response->getBody());
+
+        $rawResult = json_decode($response->getBody());
+
+        return $resultTypeInfo->deserialize($rawResult);
+    }
+
+    /**
+     * @param array $queryParameters
+     * @return string
+     */
+    private static function query(array $queryParameters)
+    {
+        $query = http_build_query($queryParameters);
+        return  $query === '' ? '' : '?' . $query;
     }
 }

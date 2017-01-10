@@ -6,6 +6,13 @@ REST API Core for PHP (Proof of concept)
 
 [![Latest Unstable Version](https://poser.pugx.org/sergey-shandar/restapi-core-php-poc/v/unstable)](https://packagist.org/packages/sergey-shandar/restapi-core-php-poc)
 
+# Supported Run Times
+
+- PHP 5.6
+- PHP 7.0
+- PHP 7.1
+- HHVM 3.3
+
 # Required Windows Extensions
 
 - `php_mbstring.dll`
@@ -22,7 +29,6 @@ For example
 
 ```php
 <?php
-
 use RestApiCore\ClassTypeInfo;
 use RestApiCore\PrimitiveTypeInfo;
 use RestApiCore\PropertyInfo;

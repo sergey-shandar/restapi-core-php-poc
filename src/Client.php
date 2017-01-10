@@ -47,7 +47,17 @@ class Client
             $items = [];
             foreach ($queryParameters as $key => $value)
             {
-                $items[] = $key . '=' . $value;
+                if (gettype($value) === TypeInfo::ARRAY_TYPE)
+                {
+                    foreach ($value as $v)
+                    {
+                        $items[] = $key . '=' . $v;
+                    }
+                }
+                else
+                {
+                    $items[] = $key . '=' . $value;
+                }
             }
             $uri .= "?" . join('&', $items);
         }

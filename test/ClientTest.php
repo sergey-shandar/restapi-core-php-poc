@@ -28,5 +28,9 @@ class ClientTest extends TestCase
         $client->request(
             MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => ['myworld', 'herworld']], [], 'body');
         $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld&a=herworld');
+
+        $client->request(
+            MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => []], [], 'body');
+        $this->assertSame($mock->lastRequest->getUri()->getQuery(), '');
     }
 }

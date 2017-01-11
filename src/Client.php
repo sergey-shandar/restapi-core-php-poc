@@ -51,7 +51,9 @@ class Client
 
         $response = $this->httpClient->send($request);
 
-        $rawResult = json_decode($response->getBody());
+        $responseBody = $response->getBody();
+        $contents = $responseBody->getContents();
+        $rawResult = json_decode($contents);
 
         return $resultTypeInfo->deserialize($rawResult);
     }

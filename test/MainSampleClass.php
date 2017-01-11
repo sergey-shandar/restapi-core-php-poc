@@ -39,6 +39,17 @@ class MainSampleClass
     public $subArray;
 
     /**
+     * @param int $a
+     *
+     * @return self
+     */
+    public function a($a)
+    {
+        $this->a = $a;
+        return $this;
+    }
+
+    /**
      * SampleClass constructor.
      *
      * @param int|null $a

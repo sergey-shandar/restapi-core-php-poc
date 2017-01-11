@@ -10,6 +10,11 @@ use Psr\Http\Message\UriInterface;
 class MockHttpClient implements ClientInterface
 {
     /**
+     * @var RequestInterface $lastRequest
+     */
+    public $lastRequest;
+
+    /**
      * Send an HTTP request.
      *
      * @param RequestInterface $request Request to send
@@ -21,6 +26,7 @@ class MockHttpClient implements ClientInterface
      */
     public function send(RequestInterface $request, array $options = [])
     {
+        $this->lastRequest = $request;
         return new Response();
     }
 

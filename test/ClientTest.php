@@ -9,6 +9,24 @@ class ClientTest extends TestCase
     {
         $client = new Client(new MockHttpClient(), 'http://petstore.swagger.io/v2');
         $client->request(
-            MainSampleClass::createClassInfo(), 'path/', 'query', ['a' => 13, 'b' => [2, '17']], [], 'body');
+            MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => 13, 'b' => [2, '17']], [], 'body');
+    }
+
+    public function testQuery()
+    {
+        $mock = new MockHttpClient();
+        $client = new Client($mock, 'http://petstore.swagger.io/v2');
+
+        $client->request(
+            MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => 'myworld'], [], 'body');
+        $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
+
+        $client->request(
+            MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => ['myworld']], [], 'body');
+        $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
+
+        $client->request(
+            MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => ['myworld', 'herworld']], [], 'body');
+        $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld&a=herworld');
     }
 }

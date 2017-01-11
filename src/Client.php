@@ -69,7 +69,28 @@ class Client
      */
     private static function query(array $queryParameters)
     {
-        $query = http_build_query($queryParameters);
-        return  $query === '' ? '' : '?' . $query;
+        /**
+         * @var string[] $parameters
+         */
+        $parameters = [];
+        foreach ($queryParameters as $key => $value) {
+            if (gettype($value) === TypeInfo::ARRAY_TYPE) {
+                foreach ($value as $item) {
+                    $parameters[] = self::queryParam($key, $item);
+                }
+            } else {
+                $parameters[] = self::queryParam($key, $value);
+            }
+        }
+
+        if (count($parameters) === 0) {
+            return '';
+        }
+
+        return '?' . join('&', $parameters);
+    }
+
+    private static function queryParam($key, $value) {
+        return $key . '=' . urlencode($value);
     }
 }

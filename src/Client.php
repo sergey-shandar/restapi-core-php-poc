@@ -17,6 +17,8 @@ class Client
      */
     private $baseUrl;
 
+    const APPLICATION_JSON = 'application/json';
+
     public function __construct(ClientInterface $httpClient, $baseUrl)
     {
         $this->httpClient = $httpClient;
@@ -46,7 +48,10 @@ class Client
         $request = new Request(
             $method,
             $uri,
-            ['Content-Type' => 'application/json'],
+            [
+                'Content-Type' => self::APPLICATION_JSON,
+                'Accept' => self::APPLICATION_JSON,
+            ],
             json_encode(TypeInfo::serialize($body)));
 
         $response = $this->httpClient->send($request);

@@ -9,7 +9,7 @@ class ClientTest extends TestCase
     {
         $client = new Client(new MockHttpClient(), 'http://petstore.swagger.io/v2');
         $client->request(
-            MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => 13, 'b' => [2, '17']], [], 'body');
+            MainSampleClass::createClassInfo(), Client::APPLICATION_JSON, 'path/', 'get', ['a' => 13, 'b' => [2, '17']], [], 'body');
     }
 
     public function testQuery()
@@ -18,19 +18,19 @@ class ClientTest extends TestCase
         $client = new Client($mock, 'http://petstore.swagger.io/v2');
 
         $client->request(
-            MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => 'myworld'], [], 'body');
+            MainSampleClass::createClassInfo(), Client::APPLICATION_JSON, 'path/', 'get', ['a' => 'myworld'], [], 'body');
         $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
 
         $client->request(
-            MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => ['myworld']], [], 'body');
+            MainSampleClass::createClassInfo(), Client::APPLICATION_JSON, 'path/', 'get', ['a' => ['myworld']], [], 'body');
         $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
 
         $client->request(
-            MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => ['myworld', 'herworld']], [], 'body');
+            MainSampleClass::createClassInfo(), Client::APPLICATION_JSON, 'path/', 'get', ['a' => ['myworld', 'herworld']], [], 'body');
         $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld&a=herworld');
 
         $client->request(
-            MainSampleClass::createClassInfo(), 'path/', 'get', ['a' => []], [], 'body');
+            MainSampleClass::createClassInfo(), Client::APPLICATION_JSON, 'path/', 'get', ['a' => []], [], 'body');
         $this->assertSame($mock->lastRequest->getUri()->getQuery(), '');
     }
 }

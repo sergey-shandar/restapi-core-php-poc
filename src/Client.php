@@ -18,6 +18,7 @@ class Client
     private $baseUrl;
 
     const APPLICATION_JSON = 'application/json';
+    const APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
     public function __construct(ClientInterface $httpClient, $baseUrl)
     {
@@ -27,6 +28,7 @@ class Client
 
     /**
      * @param TypeInfo $resultTypeInfo
+     * @param string $contentType
      * @param string $path
      * @param string $method
      * @param array $queryParameters
@@ -37,6 +39,7 @@ class Client
      */
     public function request(
         TypeInfo $resultTypeInfo,
+        $contentType,
         $path,
         $method,
         array $queryParameters,
@@ -49,7 +52,7 @@ class Client
             $method,
             $uri,
             [
-                'Content-Type' => self::APPLICATION_JSON,
+                'Content-Type' => $contentType,
                 'Accept' => self::APPLICATION_JSON,
             ],
             json_encode(TypeInfo::serialize($body)));

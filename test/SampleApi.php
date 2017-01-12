@@ -26,6 +26,13 @@ class SampleApi
      */
     public function test(MainSampleClass $sampleClass)
     {
-        return $this->client->request(MainSampleClass::createClassInfo(), '', '', ['a' => 13], [], $sampleClass);
+        return $this->client->request(
+            MainSampleClass::createClassInfo(),
+            Client::APPLICATION_JSON,
+            '',
+            '',
+            ['a' => 13],
+            [],
+            $sampleClass);
     }
 }

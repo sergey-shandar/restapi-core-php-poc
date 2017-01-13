@@ -18,14 +18,6 @@ final class ApiMultiPartRequest extends ApiRequest
     }
 
     /**
-     * @return string
-     */
-    public function getContentType()
-    {
-        return ApiClient::MULTIPART_FORM_DATA;
-    }
-
-    /**
      * @return array
      */
     public function getOptions()

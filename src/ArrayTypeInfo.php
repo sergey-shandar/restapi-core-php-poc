@@ -2,7 +2,7 @@
 namespace RestApiCore;
 
 
-class ArrayTypeInfo extends TypeInfo
+final class ArrayTypeInfo extends TypeInfo
 {
     /**
      * @var TypeInfo $itemTypeInfo

@@ -2,7 +2,7 @@
 namespace RestApiCore;
 
 
-class PropertyInfo
+final class PropertyInfo
 {
     /**
      * @var string $name

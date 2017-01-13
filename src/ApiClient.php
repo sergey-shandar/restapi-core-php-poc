@@ -27,27 +27,26 @@ class ApiClient
         $this->baseUrl = $baseUrl;
     }
 
+
+
     /**
      * @param TypeInfo $resultTypeInfo
      * @param ApiRequest $apiRequest
      *
      * @return mixed
      */
-    public function request(
-        TypeInfo $resultTypeInfo,
-        ApiRequest $apiRequest)
+    public function request(TypeInfo $resultTypeInfo, ApiRequest $apiRequest)
     {
+        $headers = array_merge($apiRequest->getHeaders(), ['Accept' => self::APPLICATION_JSON]);
+
         $request = new Request(
             $apiRequest->method,
             $apiRequest->getUrl($this->baseUrl),
-            [
-                'Content-Type' => $apiRequest->contentType,
-                'Accept' => self::APPLICATION_JSON,
-            ],
+            $headers,
             $apiRequest->getBodyString()
         );
 
-        $response = $this->httpClient->send($request);
+        $response = $this->httpClient->send($request, $apiRequest->getOptions());
 
         $responseBody = $response->getBody();
         $contents = $responseBody->getContents();

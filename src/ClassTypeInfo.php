@@ -3,7 +3,7 @@ namespace RestApiCore;
 
 use stdClass;
 
-class ClassTypeInfo extends TypeInfo
+final class ClassTypeInfo extends TypeInfo
 {
     /**
      * @var string $name

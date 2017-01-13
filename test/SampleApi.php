@@ -1,7 +1,7 @@
 <?php
 
 use RestApiCore\ApiClient;
-use RestApiCore\ApiRequest;
+use RestApiCore\ApiJsonRequest;
 
 class SampleApi
 {
@@ -27,7 +27,7 @@ class SampleApi
      */
     public function test(MainSampleClass $sampleClass)
     {
-        $request = new ApiRequest();
+        $request = new ApiJsonRequest();
         $request->queryParameters = ['a' => 13];
         $request->body = $sampleClass;
         return $this->client->request(MainSampleClass::createClassInfo(), $request);

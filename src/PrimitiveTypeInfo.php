@@ -1,7 +1,7 @@
 <?php
 namespace RestApiCore;
 
-class PrimitiveTypeInfo extends TypeInfo
+final class PrimitiveTypeInfo extends TypeInfo
 {
     /**
      * @param mixed $data

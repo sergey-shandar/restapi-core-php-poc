@@ -6,11 +6,6 @@ abstract class ApiRequest
     /**
      * @var string
      */
-    public $contentType = ApiClient::APPLICATION_JSON;
-
-    /**
-     * @var string
-     */
     public $path = '';
 
     /**
@@ -27,11 +22,6 @@ abstract class ApiRequest
      * @var array
      */
     public $headerParameters = [];
-
-    /**
-     * @var mixed
-     */
-    public $body = '';
 
     public function getQuery()
     {
@@ -63,9 +53,20 @@ abstract class ApiRequest
         return $baseUrl . $this->path . $query;
     }
 
-    public function getBodyString() {
-        return json_encode(TypeInfo::serialize($this->body));
-    }
+    /**
+     * @return string
+     */
+    public abstract function getBodyString();
+
+    /**
+     * @return array
+     */
+    public abstract function getOptions();
+
+    /**
+     * @return array
+     */
+    public abstract function getHeaders();
 
     private static function queryParam($key, $value) {
         return $key . '=' . urlencode($value);

@@ -1,7 +1,7 @@
 <?php
 namespace RestApiCore;
 
-class ApiRequest
+abstract class ApiRequest
 {
     /**
      * @var string

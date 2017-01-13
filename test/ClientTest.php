@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use RestApiCore\ApiClient;
-use RestApiCore\ApiRequest;
+use RestApiCore\ApiJsonRequest;
 
 class ClientTest extends TestCase
 {
@@ -10,7 +10,7 @@ class ClientTest extends TestCase
     {
         $client = new ApiClient(new MockHttpClient(), 'http://petstore.swagger.io/v2');
 
-        $request = new ApiRequest();
+        $request = new ApiJsonRequest();
         $request->path = 'path/';
         $request->query = ['a' => 13, 'b' => [2, '17']];
         $request->body = 'body';
@@ -24,14 +24,14 @@ class ClientTest extends TestCase
         $client = new ApiClient($mock, 'http://petstore.swagger.io/v2');
 
         {
-            $request = new ApiRequest();
+            $request = new ApiJsonRequest();
             $request->queryParameters = ['a' => 'myworld'];
             $client->request(MainSampleClass::createClassInfo(), $request);
             $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
         }
 
         {
-            $request = new ApiRequest();
+            $request = new ApiJsonRequest();
             $request->queryParameters = ['a' => ['myworld']];
             $client->request(
                 MainSampleClass::createClassInfo(), $request);
@@ -39,14 +39,14 @@ class ClientTest extends TestCase
         }
 
         {
-            $request = new ApiRequest();
+            $request = new ApiJsonRequest();
             $request->queryParameters = ['a' => ['myworld', 'herworld']];
             $client->request(MainSampleClass::createClassInfo(), $request);
             $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld&a=herworld');
         }
 
         {
-            $request = new ApiRequest();
+            $request = new ApiJsonRequest();
             $request->queryParameters = ['a' => []];
             $client->request(MainSampleClass::createClassInfo(), $request);
             $this->assertSame($mock->lastRequest->getUri()->getQuery(), '');

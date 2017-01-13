@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
 use RestApiCore\ApiClient;
@@ -14,7 +15,7 @@ class MultiPartTest extends TestCase
             [
                 'Accept' => ApiClient::APPLICATION_JSON,
             ]);
-        $client = new \GuzzleHttp\Client();
+        $client = new Client();
         $options = [
             'multipart' => [
                 [

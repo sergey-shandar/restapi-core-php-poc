@@ -1,36 +1,55 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use RestApiCore\Client;
+use RestApiCore\ApiClient;
+use RestApiCore\ApiRequest;
 
 class ClientTest extends TestCase
 {
     public function testClient()
     {
-        $client = new Client(new MockHttpClient(), 'http://petstore.swagger.io/v2');
-        $client->request(
-            MainSampleClass::createClassInfo(), Client::APPLICATION_JSON, 'path/', 'get', ['a' => 13, 'b' => [2, '17']], [], 'body');
+        $client = new ApiClient(new MockHttpClient(), 'http://petstore.swagger.io/v2');
+
+        $request = new ApiRequest();
+        $request->path = 'path/';
+        $request->query = ['a' => 13, 'b' => [2, '17']];
+        $request->body = 'body';
+
+        $client->request(MainSampleClass::createClassInfo(), $request);
     }
 
     public function testQuery()
     {
         $mock = new MockHttpClient();
-        $client = new Client($mock, 'http://petstore.swagger.io/v2');
+        $client = new ApiClient($mock, 'http://petstore.swagger.io/v2');
 
-        $client->request(
-            MainSampleClass::createClassInfo(), Client::APPLICATION_JSON, 'path/', 'get', ['a' => 'myworld'], [], 'body');
-        $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
+        {
+            $request = new ApiRequest();
+            $request->queryParameters = ['a' => 'myworld'];
+            $client->request(MainSampleClass::createClassInfo(), $request);
+            $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
+        }
 
-        $client->request(
-            MainSampleClass::createClassInfo(), Client::APPLICATION_JSON, 'path/', 'get', ['a' => ['myworld']], [], 'body');
-        $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
+        {
+            $request = new ApiRequest();
+            $request->queryParameters = ['a' => ['myworld']];
+            $client->request(
+                MainSampleClass::createClassInfo(), $request);
+            $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
+        }
 
-        $client->request(
-            MainSampleClass::createClassInfo(), Client::APPLICATION_JSON, 'path/', 'get', ['a' => ['myworld', 'herworld']], [], 'body');
-        $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld&a=herworld');
+        {
+            $request = new ApiRequest();
+            $request->queryParameters = ['a' => ['myworld', 'herworld']];
+            $client->request(MainSampleClass::createClassInfo(), $request);
+            $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld&a=herworld');
+        }
 
-        $client->request(
-            MainSampleClass::createClassInfo(), Client::APPLICATION_JSON, 'path/', 'get', ['a' => []], [], 'body');
-        $this->assertSame($mock->lastRequest->getUri()->getQuery(), '');
+        {
+            $request = new ApiRequest();
+            $request->queryParameters = ['a' => []];
+            $client->request(MainSampleClass::createClassInfo(), $request);
+            $this->assertSame($mock->lastRequest->getUri()->getQuery(), '');
+        }
     }
 }

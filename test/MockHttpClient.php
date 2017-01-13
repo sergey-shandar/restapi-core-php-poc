@@ -10,7 +10,7 @@ use Psr\Http\Message\UriInterface;
 class MockHttpClient implements ClientInterface
 {
     /**
-     * @var RequestInterface $lastRequest
+     * @var RequestInterface
      */
     public $lastRequest;
 

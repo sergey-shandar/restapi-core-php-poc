@@ -7,34 +7,34 @@ use RestApiCore\PropertyInfo;
 class MainSampleClass
 {
     /**
-     * @var int $a
+     * @var int
      */
     public $a;
 
     /**
-     * @var string[][][] $b
+     * @var string[][][]
      */
     public $b;
 
     /**
-     * @var int[] $c
+     * @var int[]
      */
     public $c;
 
     /**
      * An optional parameter.
      *
-     * @var string|null $d
+     * @var string|null
      */
     public $d;
 
     /**
-     * @var SampleSubClass $sub
+     * @var SampleSubClass
      */
     public $sub;
 
     /**
-     * @var SampleSubClass[] $subArray
+     * @var SampleSubClass[]
      */
     public $subArray;
 

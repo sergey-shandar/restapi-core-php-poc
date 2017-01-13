@@ -1,20 +1,21 @@
 <?php
 
-use RestApiCore\Client;
+use RestApiCore\ApiClient;
+use RestApiCore\ApiRequest;
 
 class SampleApi
 {
     /**
-     * @var Client $_client
+     * @var ApiClient $_client
      */
     private $client;
 
     /**
      * SampleApi constructor.
      *
-     * @param Client $client
+     * @param ApiClient $client
      */
-    public function __construct(Client $client)
+    public function __construct(ApiClient $client)
     {
         $this->client = $client;
     }
@@ -26,13 +27,9 @@ class SampleApi
      */
     public function test(MainSampleClass $sampleClass)
     {
-        return $this->client->request(
-            MainSampleClass::createClassInfo(),
-            Client::APPLICATION_JSON,
-            '',
-            '',
-            ['a' => 13],
-            [],
-            $sampleClass);
+        $request = new ApiRequest();
+        $request->queryParameters = ['a' => 13];
+        $request->body = $sampleClass;
+        return $this->client->request(MainSampleClass::createClassInfo(), $request);
     }
 }

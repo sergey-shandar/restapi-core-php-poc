@@ -39,11 +39,13 @@ class ApiClient
     {
         $headers = array_merge($apiRequest->getHeaders(), ['Accept' => self::APPLICATION_JSON]);
 
+        $body = $apiRequest->getBodyString();
+
         $request = new Request(
             $apiRequest->method,
             $apiRequest->getUrl($this->baseUrl),
             $headers,
-            $apiRequest->getBodyString()
+            $body
         );
 
         $response = $this->httpClient->send($request, $apiRequest->getOptions());

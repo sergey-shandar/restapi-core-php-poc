@@ -18,7 +18,8 @@ final class ApiJsonRequest extends ApiRequest
      * @return string
      */
     public function getBodyString() {
-        return json_encode(TypeInfo::serialize($this->body));
+        $raw = TypeInfo::serialize($this->body);
+        return json_encode($raw);
     }
 
     /**
@@ -34,6 +35,6 @@ final class ApiJsonRequest extends ApiRequest
      */
     public function getHeaders()
     {
-        return [ 'ContentType' => $this->contentType ];
+        return [ 'Content-Type' => $this->contentType ];
     }
 }

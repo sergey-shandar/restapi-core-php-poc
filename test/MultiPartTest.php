@@ -29,7 +29,6 @@ class MultiPartTest extends TestCase
             ],
         ];
         $response = $client->send($request, $options);
-        var_dump($response->getBody()->getContents());
     }
 
     public function testApi()

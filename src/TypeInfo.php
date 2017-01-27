@@ -47,6 +47,15 @@ abstract class TypeInfo
     }
 
     /**
+     * @param \DateTime $dateTime
+     * @return string
+     */
+    public static function serializeDateTime(\DateTime $dateTime)
+    {
+        return $dateTime->format('Y-m-d\TH:i:s.u\Z');
+    }
+
+    /**
      * @param array|object|bool|int|float|string|null $object
      *
      * @return array|bool|int|float|string|null
@@ -63,6 +72,9 @@ abstract class TypeInfo
                 return self::serializeArray($object);
 
             case self::OBJECT_TYPE:
+                if ($object instanceof \DateTime) {
+                    return self::serializeDateTime($object);
+                }
                 return self::createClassInfo(get_class($object))->serializeClass($object);
 
             default:

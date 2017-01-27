@@ -114,6 +114,17 @@ class TypeInfoTest extends TestCase
         $this->assertSame($x->subArray, []);
     }
 
+    public function testDateTime()
+    {
+        $s = new DateTime('2017-01-18T18:23:32.708000Z');
+
+        $x = TypeInfo::serialize($s);
+        $this->assertSame('2017-01-18T18:23:32.708000Z', $x);
+
+        $m = (new \RestApiCore\DateTimeTypeInfo())->deserialize($x);
+        $this->assertEquals($s, $m);
+    }
+
     public function testArrayWithNulls()
     {
         $s = [ null, new MainSampleClass(null, [[[null, 'a']]], [3]) ];

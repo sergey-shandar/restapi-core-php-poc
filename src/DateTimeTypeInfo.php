@@ -11,4 +11,9 @@ final class DateTimeTypeInfo extends TypeInfo
     {
         return new \DateTime($data);
     }
+
+    public static function create()
+    {
+        return new self();
+    }
 }

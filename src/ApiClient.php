@@ -27,8 +27,6 @@ class ApiClient
         $this->baseUrl = $baseUrl;
     }
 
-
-
     /**
      * @param TypeInfo $resultTypeInfo
      * @param ApiRequest $apiRequest

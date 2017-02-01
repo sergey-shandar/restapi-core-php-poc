@@ -1,7 +1,7 @@
 <?php
 
 use RestApiCore\DateTimeTypeInfo;
-use RestApiCore\IntTypeInfo;
+use RestApiCore\LongTypeInfo;
 use RestApiCore\PrimitiveTypeInfo;
 use RestApiCore\TypeInfo;
 use PHPUnit\Framework\TestCase;
@@ -127,12 +127,12 @@ class TypeInfoTest extends TestCase
         $this->assertEquals($s, $m);
     }
 
-    public function testIntTypeInfo()
+    public function testLongTypeInfo()
     {
-        $s = '12';
+        $s = 12;
 
-        $x = IntTypeInfo::create()->deserialize($s);
-        $this->assertEquals($x, 12);
+        $x = LongTypeInfo::create()->deserialize($s);
+        $this->assertEquals($x, '12');
     }
 
     public function testArrayWithNulls()

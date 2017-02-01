@@ -2,15 +2,15 @@
 
 namespace RestApiCore;
 
-final class IntTypeInfo extends TypeInfo
+final class LongTypeInfo extends TypeInfo
 {
     /**
      * @param string|int $data
-     * @return int
+     * @return string
      */
     public function deserialize($data)
     {
-        return intval($data);
+        return strval($data);
     }
 
     public static function create()

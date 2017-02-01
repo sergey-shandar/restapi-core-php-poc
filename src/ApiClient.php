@@ -50,7 +50,7 @@ class ApiClient
 
         $responseBody = $response->getBody();
         $contents = $responseBody->getContents();
-        $rawResult = json_decode($contents);
+        $rawResult = json_decode($contents, false, 512, JSON_BIGINT_AS_STRING);
 
         return $resultTypeInfo->deserialize($rawResult);
     }

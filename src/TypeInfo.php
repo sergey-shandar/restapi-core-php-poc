@@ -7,6 +7,7 @@ abstract class TypeInfo
 {
     const OBJECT_TYPE = 'object';
     const ARRAY_TYPE = 'array';
+    const STRING_TYPE = 'string';
 
     /**
      * @param mixed $data

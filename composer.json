@@ -4,7 +4,7 @@
     "license": "Apache-2.0",
     "minimum-stability": "stable",
     "autoload": {
-        "psr-4": { "RestApiCore\\": "src/" }
+        "psr-4": { "": "src/" }
     },
     "autoload-dev": {
         "psr-4": { "": "test/" }

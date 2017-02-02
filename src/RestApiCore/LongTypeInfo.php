@@ -5,7 +5,7 @@ namespace RestApiCore;
 final class LongTypeInfo extends TypeInfo
 {
     /**
-     * @param string|int $data
+     * @param string $data
      * @return string
      */
     public function deserialize($data)

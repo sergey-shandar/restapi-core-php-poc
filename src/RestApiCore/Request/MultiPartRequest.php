@@ -1,8 +1,8 @@
 <?php
-namespace RestApiCore;
+namespace RestApiCore\Request;
 
 
-final class ApiMultiPartRequest extends ApiRequest
+final class MultiPartRequest extends Request
 {
     /**
      * @var array

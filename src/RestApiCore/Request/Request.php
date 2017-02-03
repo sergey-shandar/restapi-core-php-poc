@@ -1,7 +1,9 @@
 <?php
-namespace RestApiCore;
+namespace RestApiCore\Request;
 
-abstract class ApiRequest
+use RestApiCore\Type\Type;
+
+abstract class Request
 {
     /**
      * @var string
@@ -30,7 +32,7 @@ abstract class ApiRequest
          */
         $parameters = [];
         foreach ($this->queryParameters as $key => $value) {
-            if (gettype($value) === TypeInfo::ARRAY_TYPE) {
+            if (gettype($value) === Type::ARRAY_TYPE) {
                 foreach ($value as $item) {
                     $parameters[] = self::queryParam($key, $item);
                 }

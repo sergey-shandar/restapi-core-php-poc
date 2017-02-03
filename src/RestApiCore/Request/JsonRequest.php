@@ -1,8 +1,10 @@
 <?php
-namespace RestApiCore;
+namespace RestApiCore\Request;
 
+use RestApiCore\ApiClient;
+use RestApiCore\Type\Type;
 
-final class ApiJsonRequest extends ApiRequest
+final class JsonRequest extends Request
 {
     /**
      * @var string
@@ -18,7 +20,7 @@ final class ApiJsonRequest extends ApiRequest
      * @return string
      */
     public function getBodyString() {
-        $raw = TypeInfo::serialize($this->body);
+        $raw = Type::serialize($this->body);
         return json_encode($raw);
     }
 

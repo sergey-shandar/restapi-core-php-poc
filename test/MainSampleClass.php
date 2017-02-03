@@ -1,8 +1,8 @@
 <?php
 
-use RestApiCore\ClassTypeInfo;
-use RestApiCore\PrimitiveTypeInfo;
 use RestApiCore\PropertyInfo;
+use RestApiCore\Type\PrimitiveType;
+use RestApiCore\Type\ClassType;
 
 class MainSampleClass
 {
@@ -71,17 +71,17 @@ class MainSampleClass
     }
 
     /**
-     * @return ClassTypeInfo
+     * @return ClassType
      */
     public static function createClassInfo()
     {
-        return new ClassTypeInfo(
+        return new ClassType(
             self::class,
             [
-                new PropertyInfo('a', 'a', PrimitiveTypeInfo::create()),
-                new PropertyInfo('b', 'b', PrimitiveTypeInfo::create()->createArray()->createArray()->createArray()),
-                new PropertyInfo('c', 'CCC', PrimitiveTypeInfo::create()->createArray()),
-                new PropertyInfo('d', 'd', PrimitiveTypeInfo::create()),
+                new PropertyInfo('a', 'a', PrimitiveType::create()),
+                new PropertyInfo('b', 'b', PrimitiveType::create()->createArray()->createArray()->createArray()),
+                new PropertyInfo('c', 'CCC', PrimitiveType::create()->createArray()),
+                new PropertyInfo('d', 'd', PrimitiveType::create()),
                 new PropertyInfo('sub', 'sub', SampleSubClass::createClassInfo()),
                 new PropertyInfo('subArray', 'subArray', SampleSubClass::createClassInfo()->createArray()),
             ]);

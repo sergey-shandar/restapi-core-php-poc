@@ -1,64 +1,64 @@
 <?php
 
-use RestApiCore\DateTimeTypeInfo;
-use RestApiCore\LongTypeInfo;
-use RestApiCore\PrimitiveTypeInfo;
-use RestApiCore\TypeInfo;
+use RestApiCore\Type\DateTimeType;
+use RestApiCore\Type\LongType;
+use RestApiCore\Type\PrimitiveType;
+use RestApiCore\Type\Type;
 use PHPUnit\Framework\TestCase;
 
 class TypeInfoTest extends TestCase
 {
     public function testBool()
     {
-        $v = TypeInfo::serialize(true);
+        $v = Type::serialize(true);
         $this->assertSame($v, true);
         $this->assertSame(gettype($v), 'boolean');
 
-        $x = PrimitiveTypeInfo::create()->deserialize($v);
+        $x = PrimitiveType::create()->deserialize($v);
         $this->assertSame($x, true);
         $this->assertSame(gettype($x), 'boolean');
     }
 
     public function testInt()
     {
-        $v = TypeInfo::serialize(45);
+        $v = Type::serialize(45);
         $this->assertSame($v, 45);
         $this->assertSame(gettype($v), 'integer');
 
-        $x = PrimitiveTypeInfo::create()->deserialize($v);
+        $x = PrimitiveType::create()->deserialize($v);
         $this->assertSame($x, 45);
         $this->assertSame(gettype($x), 'integer');
     }
 
     public function testFloat()
     {
-        $v = TypeInfo::serialize(45.7);
+        $v = Type::serialize(45.7);
         $this->assertSame($v, 45.7);
         $this->assertSame(gettype($v), 'double');
 
-        $x = PrimitiveTypeInfo::create()->deserialize($v);
+        $x = PrimitiveType::create()->deserialize($v);
         $this->assertSame($x, 45.7);
         $this->assertSame(gettype($x), 'double');
     }
 
     public function testString()
     {
-        $v = TypeInfo::serialize('abc');
+        $v = Type::serialize('abc');
         $this->assertSame($v, 'abc');
         $this->assertSame(gettype($v), 'string');
 
-        $x = PrimitiveTypeInfo::create()->deserialize($v);
+        $x = PrimitiveType::create()->deserialize($v);
         $this->assertSame($x, 'abc');
         $this->assertSame(gettype($x), 'string');
     }
 
     public function testIntArray()
     {
-        $v = TypeInfo::serialize([1, 2]);
+        $v = Type::serialize([1, 2]);
         $this->assertSame($v, [1, 2]);
         $this->assertSame(gettype($v), 'array');
 
-        $x = PrimitiveTypeInfo::create()->createArray()->deserialize($v);
+        $x = PrimitiveType::create()->createArray()->deserialize($v);
         $this->assertSame($x, [1, 2]);
         $this->assertSame(gettype($x), 'array');
     }
@@ -73,7 +73,7 @@ class TypeInfoTest extends TestCase
         /**
          * @var stdClass $v
          */
-        $v = TypeInfo::serialize($s);
+        $v = Type::serialize($s);
         $this->assertSame($v->a, 1);
         $this->assertSame($v->b, [[['a'], null]]);
         $this->assertSame($v->CCC, [3]);
@@ -95,7 +95,7 @@ class TypeInfoTest extends TestCase
         /**
          * @var stdClass $v
          */
-        $v = TypeInfo::serialize($s);
+        $v = Type::serialize($s);
         $p = get_object_vars($v);
         $this->assertSame(count($p), 5);
         $this->assertSame($v->a, 0);
@@ -120,10 +120,10 @@ class TypeInfoTest extends TestCase
     {
         $s = new DateTime('2017-01-18T18:23:32.708000Z');
 
-        $x = TypeInfo::serialize($s);
+        $x = Type::serialize($s);
         $this->assertSame('2017-01-18T18:23:32.708000Z', $x);
 
-        $m = DateTimeTypeInfo::create()->deserialize($x);
+        $m = DateTimeType::create()->deserialize($x);
         $this->assertEquals($s, $m);
     }
 
@@ -131,7 +131,7 @@ class TypeInfoTest extends TestCase
     {
         $s = 12;
 
-        $x = LongTypeInfo::create()->deserialize($s);
+        $x = LongType::create()->deserialize($s);
         $this->assertEquals($x, '12');
     }
 
@@ -139,7 +139,7 @@ class TypeInfoTest extends TestCase
     {
         $s = [ null, new MainSampleClass(null, [[[null, 'a']]], [3]) ];
 
-        $v = TypeInfo::serialize($s);
+        $v = Type::serialize($s);
         $this->assertSame(count($v), 2);
         $this->assertSame($v[0], null);
         /**

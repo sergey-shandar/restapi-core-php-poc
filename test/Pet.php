@@ -114,7 +114,15 @@ class Pet
      */
     public static function createClassInfo()
     {
-        return new RestApiCore\ClassTypeInfo(self::class, [new RestApiCore\PropertyInfo('id', 'id', RestApiCore\PrimitiveTypeInfo::create()), new RestApiCore\PropertyInfo('category', 'category', Category::createClassInfo()), new RestApiCore\PropertyInfo('name', 'name', RestApiCore\PrimitiveTypeInfo::create()), new RestApiCore\PropertyInfo('photoUrls', 'photoUrls', RestApiCore\PrimitiveTypeInfo::create()->createArray()), new RestApiCore\PropertyInfo('tags', 'tags', Tag::createClassInfo()->createArray()), new RestApiCore\PropertyInfo('status', 'status', RestApiCore\PrimitiveTypeInfo::create())]);
+        return new \RestApiCore\Type\ClassType(
+            self::class,
+            [
+                new \RestApiCore\PropertyInfo('id', 'id', \RestApiCore\Type\PrimitiveType::create()),
+                new \RestApiCore\PropertyInfo('category', 'category', Category::createClassInfo()),
+                new \RestApiCore\PropertyInfo('name', 'name', \RestApiCore\Type\PrimitiveType::create()),
+                new \RestApiCore\PropertyInfo('photoUrls', 'photoUrls', \RestApiCore\Type\PrimitiveType::create()->createArray()),
+                new \RestApiCore\PropertyInfo('tags', 'tags', Tag::createClassInfo()->createArray()),
+                new \RestApiCore\PropertyInfo('status', 'status', \RestApiCore\Type\PrimitiveType::create())]);
     }
 
     /**

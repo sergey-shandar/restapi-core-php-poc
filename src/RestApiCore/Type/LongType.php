@@ -1,8 +1,7 @@
 <?php
+namespace RestApiCore\Type;
 
-namespace RestApiCore;
-
-final class LongTypeInfo extends TypeInfo
+final class LongType extends Type
 {
     /**
      * @param string $data

@@ -1,7 +1,7 @@
 <?php
-namespace RestApiCore;
+namespace RestApiCore\Type;
 
-final class PrimitiveTypeInfo extends TypeInfo
+final class PrimitiveType extends Type
 {
     /**
      * @param mixed $data
@@ -15,7 +15,7 @@ final class PrimitiveTypeInfo extends TypeInfo
 
     public static function create()
     {
-        return new PrimitiveTypeInfo();
+        return new PrimitiveType();
     }
 
     private function __construct() {}

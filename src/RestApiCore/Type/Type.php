@@ -1,9 +1,9 @@
 <?php
 
-namespace RestApiCore;
+namespace RestApiCore\Type;
 
 
-abstract class TypeInfo
+abstract class Type
 {
     const OBJECT_TYPE = 'object';
     const ARRAY_TYPE = 'array';
@@ -16,11 +16,11 @@ abstract class TypeInfo
     public abstract function deserialize($data);
 
     /**
-     * @return ArrayTypeInfo
+     * @return ArrayType
      */
     public function createArray()
     {
-        return new ArrayTypeInfo($this);
+        return new ArrayType($this);
     }
 
     /**
@@ -32,7 +32,7 @@ abstract class TypeInfo
     {
         $result = [];
         foreach ($array as $dataItem) {
-            $result[] = TypeInfo::serialize($dataItem);
+            $result[] = Type::serialize($dataItem);
         }
         return $result;
     }
@@ -86,7 +86,7 @@ abstract class TypeInfo
     /**
      * @param string $className
      *
-     * @return ClassTypeInfo
+     * @return ClassType
      */
     private static function createClassInfo($className)
     {

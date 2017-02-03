@@ -2,6 +2,8 @@
 namespace RestApiCore;
 
 
+use RestApiCore\Type\Type;
+
 final class PropertyInfo
 {
     /**
@@ -15,7 +17,7 @@ final class PropertyInfo
     public $wireName;
 
     /**
-     * @var TypeInfo $typeInfo
+     * @var Type $typeInfo
      */
     public $typeInfo;
 
@@ -24,9 +26,9 @@ final class PropertyInfo
      *
      * @param string $name
      * @param string $wireName
-     * @param TypeInfo $typeInfo
+     * @param Type $typeInfo
      */
-    public function __construct($name, $wireName, TypeInfo $typeInfo)
+    public function __construct($name, $wireName, Type $typeInfo)
     {
         $this->name = $name;
         $this->wireName = $wireName;

@@ -1,9 +1,9 @@
 <?php
-namespace RestApiCore;
+namespace RestApiCore\Type;
 
 use stdClass;
 
-final class ClassTypeInfo extends TypeInfo
+final class ClassType extends Type
 {
     /**
      * @var string $name
@@ -61,7 +61,7 @@ final class ClassTypeInfo extends TypeInfo
         $result = new stdClass();
         foreach ($this->propertyInfoArray as $propertyInfo) {
             $name = $propertyInfo->name;
-            $value = TypeInfo::serialize($object->$name);
+            $value = Type::serialize($object->$name);
             if ($value !== null) {
                 $wireName = $propertyInfo->wireName;
                 $result->$wireName = $value;

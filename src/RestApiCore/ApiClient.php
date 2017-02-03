@@ -1,9 +1,10 @@
 <?php
 namespace RestApiCore;
 
-
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7;
+use RestApiCore\Request\Request;
+use RestApiCore\Type\Type;
 
 class ApiClient
 {
@@ -18,8 +19,8 @@ class ApiClient
     private $baseUrl;
 
     const APPLICATION_JSON = 'application/json';
-    const APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
-    const MULTIPART_FORM_DATA = 'multipart/form-data';
+    // const APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
+    // const MULTIPART_FORM_DATA = 'multipart/form-data';
 
     public function __construct(ClientInterface $httpClient, $baseUrl)
     {
@@ -28,18 +29,18 @@ class ApiClient
     }
 
     /**
-     * @param TypeInfo $resultTypeInfo
-     * @param ApiRequest $apiRequest
+     * @param Type $resultTypeInfo
+     * @param Request $apiRequest
      *
      * @return mixed
      */
-    public function request(TypeInfo $resultTypeInfo, ApiRequest $apiRequest)
+    public function request(Type $resultTypeInfo, Request $apiRequest)
     {
         $headers = array_merge($apiRequest->getHeaders(), ['Accept' => self::APPLICATION_JSON]);
 
         $body = $apiRequest->getBodyString();
 
-        $request = new Request(
+        $request = new Psr7\Request(
             $apiRequest->method,
             $apiRequest->getUrl($this->baseUrl),
             $headers,

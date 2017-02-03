@@ -1,6 +1,6 @@
 <?php
-use RestApiCore\ClassTypeInfo;
-use RestApiCore\PrimitiveTypeInfo;
+use RestApiCore\Type\ClassType;
+use RestApiCore\Type\PrimitiveType;
 use RestApiCore\PropertyInfo;
 
 class SampleSubClass
@@ -21,14 +21,14 @@ class SampleSubClass
     }
 
     /**
-     * @return ClassTypeInfo
+     * @return ClassType
      */
     public static function createClassInfo()
     {
-        return new ClassTypeInfo(
+        return new ClassType(
             self::class,
             [
-                new PropertyInfo('a', 'a', PrimitiveTypeInfo::create()),
+                new PropertyInfo('a', 'a', PrimitiveType::create()),
             ]);
     }
 }

@@ -4,9 +4,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
 use RestApiCore\ApiClient;
-use RestApiCore\ApiJsonRequest;
-use RestApiCore\ApiMultiPartRequest;
-use RestApiCore\PrimitiveTypeInfo;
+use RestApiCore\Request\JsonRequest;
+use RestApiCore\Request\MultiPartRequest;
+use RestApiCore\Type\PrimitiveType;
 
 class MultiPartTest extends TestCase
 {
@@ -33,23 +33,23 @@ class MultiPartTest extends TestCase
 
     public function testApi()
     {
-        $apiRequest = new ApiMultiPartRequest();
+        $apiRequest = new MultiPartRequest();
         $apiRequest->method = 'POST';
         $apiRequest->path = 'v2/pet/425/uploadImage';
         $apiRequest->formDataParameters = [ 'file' => 'something' ];
         $client = new ApiClient(new Client(), 'http://petstore.swagger.io/');
-        $client->request(PrimitiveTypeInfo::create(), $apiRequest);
+        $client->request(PrimitiveType::create(), $apiRequest);
     }
 
     public function testJsojApi()
     {
-        $apiRequest = new ApiJsonRequest();
+        $apiRequest = new JsonRequest();
         $apiRequest->method = 'POST';
         $apiRequest->path = 'v2/pet';
         $apiRequest->contentType = 'application/json';
         $apiRequest->body = new Pet();
         $client = new ApiClient(new Client(), 'http://petstore.swagger.io/');
-        $client->request(PrimitiveTypeInfo::create(), $apiRequest);
+        $client->request(PrimitiveType::create(), $apiRequest);
     }
 }
 

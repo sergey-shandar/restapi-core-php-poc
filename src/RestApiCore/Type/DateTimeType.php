@@ -1,7 +1,7 @@
 <?php
-namespace RestApiCore;
+namespace RestApiCore\Type;
 
-final class DateTimeTypeInfo extends TypeInfo
+final class DateTimeType extends Type
 {
     /**
      * @param string $data

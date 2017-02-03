@@ -1,20 +1,20 @@
 <?php
-namespace RestApiCore;
+namespace RestApiCore\Type;
 
 
-final class ArrayTypeInfo extends TypeInfo
+final class ArrayType extends Type
 {
     /**
-     * @var TypeInfo $itemTypeInfo
+     * @var Type $itemTypeInfo
      */
     public $itemTypeInfo;
 
     /**
      * ArrayTypeInfo constructor.
      *
-     * @param TypeInfo $itemTypeInfo
+     * @param Type $itemTypeInfo
      */
-    public function __construct(TypeInfo $itemTypeInfo)
+    public function __construct(Type $itemTypeInfo)
     {
         $this->itemTypeInfo = $itemTypeInfo;
     }

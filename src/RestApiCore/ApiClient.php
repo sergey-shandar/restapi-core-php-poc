@@ -6,7 +6,7 @@ use GuzzleHttp\Psr7;
 use RestApiCore\Request\Request;
 use RestApiCore\Type\Type;
 
-class ApiClient
+final class ApiClient
 {
     /**
      * @var ClientInterface $httpClient

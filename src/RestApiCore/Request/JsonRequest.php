@@ -7,11 +7,6 @@ use RestApiCore\Type\Type;
 final class JsonRequest extends Request
 {
     /**
-     * @var string
-     */
-    public $contentType = ApiClient::APPLICATION_JSON;
-
-    /**
      * @var mixed
      */
     public $body = '';
@@ -37,6 +32,6 @@ final class JsonRequest extends Request
      */
     public function getHeaders()
     {
-        return [ 'Content-Type' => $this->contentType ];
+        return [];
     }
 }

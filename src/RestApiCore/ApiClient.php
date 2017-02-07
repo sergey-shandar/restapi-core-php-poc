@@ -47,7 +47,7 @@ final class ApiClient
             $body
         );
 
-        $query = ['query' => $apiRequest->queryParameters];
+        $query = ['query' => $apiRequest->getQuery()];
         $options = array_merge($query, $apiRequest->getOptions());
         $response = $this->httpClient->send($request, $options);
 

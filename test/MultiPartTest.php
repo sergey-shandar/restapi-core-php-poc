@@ -36,7 +36,7 @@ class MultiPartTest extends TestCase
         $apiRequest = new MultiPartRequest();
         $apiRequest->method = 'POST';
         $apiRequest->path = 'v2/pet/425/uploadImage';
-        $apiRequest->formDataParameters = [ 'file' => 'something' ];
+        $apiRequest->parameters = [ 'file' => 'something' ];
         $client = new ApiClient(new Client(), 'http://petstore.swagger.io/');
         $client->request(PrimitiveType::create(), $apiRequest);
     }
@@ -46,7 +46,6 @@ class MultiPartTest extends TestCase
         $apiRequest = new JsonRequest();
         $apiRequest->method = 'POST';
         $apiRequest->path = 'v2/pet';
-        $apiRequest->contentType = 'application/json';
         $apiRequest->body = Pet::create()->id(525);
         $client = new ApiClient(new Client(), 'http://petstore.swagger.io/');
         $client->request(PrimitiveType::create(), $apiRequest);
@@ -66,22 +65,12 @@ class MultiPartTest extends TestCase
         }
 
         {
-            /*
-            $apiRequest = new \RestApiCore\Request\JsonRequest();
-            $apiRequest->path = '/pet/525';
-            $apiRequest->method = 'Post';
-            $apiRequest->queryParameters = [];
-            $apiRequest->headerParameters = [];
-            $apiRequest->contentType = 'application/x-www-form-urlencoded';
-            $apiRequest->body = null;
-            $client->request(\RestApiCore\Type\PrimitiveType::create(), $apiRequest);
-            */
             $apiRequest = new \RestApiCore\Request\FormRequest();
             $apiRequest->path = '/pet/525';
             $apiRequest->method = 'Post';
             $apiRequest->queryParameters = [];
             $apiRequest->headerParameters = [];
-            $apiRequest->formParams = [ 'status' => 'sold' ];
+            $apiRequest->parameters = [ 'status' => 'sold' ];
             $client->request(\RestApiCore\Type\PrimitiveType::create(), $apiRequest);
         }
 
@@ -91,7 +80,6 @@ class MultiPartTest extends TestCase
             $apiRequest->method = 'Get';
             $apiRequest->queryParameters = [];
             $apiRequest->headerParameters = [];
-            $apiRequest->contentType = 'application/json;';
             $apiRequest->body = null;
             $response = $client->request(Pet::createClassInfo(), $apiRequest);
             var_dump($response);

@@ -34,7 +34,7 @@ final class ApiClient
      */
     public function request(Type $resultTypeInfo, Request $apiRequest)
     {
-        $headers = array_merge($apiRequest->getHeaders(), ['Accept' => self::APPLICATION_JSON]);
+        $headers = ['Accept' => self::APPLICATION_JSON];
 
         $request = new Psr7\Request(
             $apiRequest->method,

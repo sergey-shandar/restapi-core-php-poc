@@ -54,11 +54,6 @@ abstract class Request
      */
     public abstract function getOptions();
 
-    /**
-     * @return array
-     */
-    public abstract function getHeaders();
-
     private static function queryParam($key, $value) {
         return $key . '=' . urlencode($value);
     }

@@ -2,33 +2,20 @@
 namespace RestApiCore\Request;
 
 
-final class MultiPartRequest extends Request
+final class MultiPartRequest extends FormDataRequest
 {
-    /**
-     * @var array
-     */
-    public $formDataParameters = [];
-
     /**
      * @return array
      */
     public function getOptions()
     {
         $multipart = [];
-        foreach ($this->formDataParameters as $key => $value)
+        foreach ($this->parameters as $key => $value)
         {
             $multipart[] = [ 'name' => $key, 'contents' => $value];
         }
         return [
             'multipart' => $multipart,
         ];
-    }
-
-    /**
-     * @return array
-     */
-    public function getHeaders()
-    {
-        return [];
     }
 }

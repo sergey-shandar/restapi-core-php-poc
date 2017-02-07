@@ -1,7 +1,6 @@
 <?php
 namespace RestApiCore\Request;
 
-use RestApiCore\ApiClient;
 use RestApiCore\Type\Type;
 
 final class JsonRequest extends Request
@@ -18,13 +17,5 @@ final class JsonRequest extends Request
     {
         $raw = Type::serialize($this->body);
         return ['json' => $raw];
-    }
-
-    /**
-     * @return array
-     */
-    public function getHeaders()
-    {
-        return [];
     }
 }

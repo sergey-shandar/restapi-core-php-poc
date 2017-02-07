@@ -1,26 +1,13 @@
 <?php
 namespace RestApiCore\Request;
 
-final class FormRequest extends Request
+final class FormRequest extends FormDataRequest
 {
-    /**
-     * @var array $formParams
-     */
-    public $formParams = [];
-
     /**
      * @return array
      */
     public function getOptions()
     {
-        return [ 'form_params' => $this->formParams ];
-    }
-
-    /**
-     * @return array
-     */
-    public function getHeaders()
-    {
-        return [];
+        return [ 'form_params' => $this->parameters ];
     }
 }

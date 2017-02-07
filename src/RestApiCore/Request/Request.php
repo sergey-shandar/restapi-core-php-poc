@@ -46,13 +46,15 @@ abstract class Request
 
     public function getUrl($baseUrl)
     {
+        /*
         $query = $this->getQuery();
 
         if (!empty($query)) {
             $query = '?' . $query;
         }
+        */
 
-        return $baseUrl . $this->path . $query;
+        return $baseUrl . $this->path /*. $query*/;
     }
 
     /**

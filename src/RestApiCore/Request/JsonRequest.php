@@ -20,8 +20,7 @@ final class JsonRequest extends Request
      * @return string
      */
     public function getBodyString() {
-        $raw = Type::serialize($this->body);
-        return json_encode($raw);
+        return null;
     }
 
     /**
@@ -29,7 +28,8 @@ final class JsonRequest extends Request
      */
     public function getOptions()
     {
-        return [];
+        $raw = Type::serialize($this->body);
+        return ['json' => $raw];
     }
 
     /**

@@ -12,13 +12,6 @@ final class JsonRequest extends Request
     public $body = '';
 
     /**
-     * @return string
-     */
-    public function getBodyString() {
-        return null;
-    }
-
-    /**
      * @return array
      */
     public function getOptions()

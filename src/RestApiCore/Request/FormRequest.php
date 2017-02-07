@@ -9,14 +9,6 @@ final class FormRequest extends Request
     public $formParams = [];
 
     /**
-     * @return string
-     */
-    public function getBodyString()
-    {
-        return null;
-    }
-
-    /**
      * @return array
      */
     public function getOptions()

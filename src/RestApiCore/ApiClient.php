@@ -19,8 +19,6 @@ final class ApiClient
     private $baseUrl;
 
     const APPLICATION_JSON = 'application/json';
-    // const APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
-    // const MULTIPART_FORM_DATA = 'multipart/form-data';
 
     public function __construct(ClientInterface $httpClient, $baseUrl)
     {
@@ -38,13 +36,11 @@ final class ApiClient
     {
         $headers = array_merge($apiRequest->getHeaders(), ['Accept' => self::APPLICATION_JSON]);
 
-        $body = $apiRequest->getBodyString();
-
         $request = new Psr7\Request(
             $apiRequest->method,
             $apiRequest->getUrl($this->baseUrl),
             $headers,
-            $body
+            null
         );
 
         $query = ['query' => $apiRequest->getQuery()];

@@ -10,14 +10,6 @@ final class MultiPartRequest extends Request
     public $formDataParameters = [];
 
     /**
-     * @return null
-     */
-    public function getBodyString()
-    {
-        return null;
-    }
-
-    /**
      * @return array
      */
     public function getOptions()

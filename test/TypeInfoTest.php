@@ -1,5 +1,6 @@
 <?php
 
+use RestApiCore\Type\DateIntervalType;
 use RestApiCore\Type\DateTimeType;
 use RestApiCore\Type\LongType;
 use RestApiCore\Type\PrimitiveType;
@@ -124,6 +125,17 @@ class TypeInfoTest extends TestCase
         $this->assertSame('2017-01-18T18:23:32.708000Z', $x);
 
         $m = DateTimeType::create()->deserialize($x);
+        $this->assertEquals($s, $m);
+    }
+
+    public function testDateInterval()
+    {
+        $s = new DateInterval('P1Y2M3DT4H5M6S');
+
+        $x = Type::serialize($s);
+        $this->assertSame('P1Y2M3DT4H5M6S', $x);
+
+        $m = DateIntervalType::create()->deserialize($x);
         $this->assertEquals($s, $m);
     }
 

@@ -82,7 +82,6 @@ class MultiPartTest extends TestCase
             $apiRequest->headerParameters = [];
             $apiRequest->body = null;
             $response = $client->request(Pet::createClassInfo(), $apiRequest);
-            var_dump($response);
         }
     }
 }

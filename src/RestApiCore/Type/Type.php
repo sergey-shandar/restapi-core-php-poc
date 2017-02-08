@@ -57,6 +57,27 @@ abstract class Type
     }
 
     /**
+     * @param \DateInterval $dateInterval
+     * @return string
+     */
+    public static function serializeDateInterval(\DateInterval $dateInterval)
+    {
+        return 'P'
+            . $dateInterval->y
+            . 'Y'
+            . $dateInterval->m
+            . 'M'
+            . $dateInterval->d
+            . 'DT'
+            . $dateInterval->h
+            . 'H'
+            . $dateInterval->i
+            . 'M'
+            . $dateInterval->s
+            . 'S';
+    }
+
+    /**
      * @param array|object|bool|int|float|string|null $object
      *
      * @return array|bool|int|float|string|null
@@ -75,6 +96,8 @@ abstract class Type
             case self::OBJECT_TYPE:
                 if ($object instanceof \DateTime) {
                     return self::serializeDateTime($object);
+                } else if ($object instanceof \DateInterval) {
+                    return self::serializeDateInterval($object);
                 }
                 return self::createClassInfo(get_class($object))->serializeClass($object);
 

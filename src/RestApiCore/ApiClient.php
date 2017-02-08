@@ -1,6 +1,7 @@
 <?php
 namespace RestApiCore;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7;
 use RestApiCore\Request\Request;
@@ -20,6 +21,11 @@ final class ApiClient
 
     const APPLICATION_JSON = 'application/json';
 
+    /**
+     * ApiClient constructor.
+     * @param ClientInterface $httpClient
+     * @param string $baseUrl
+     */
     public function __construct(ClientInterface $httpClient, $baseUrl)
     {
         $this->httpClient = $httpClient;
@@ -52,5 +58,16 @@ final class ApiClient
         $rawResult = json_decode($contents, false, 512, JSON_BIGINT_AS_STRING);
 
         return $resultTypeInfo->deserialize($rawResult);
+    }
+
+    /**
+     * @param string $baseUrl
+     * @param ApiClient|null $apiClient
+     *
+     * @return ApiClient
+     */
+    public static function create($baseUrl, self $apiClient = null)
+    {
+        return $apiClient === null ? new self(new Client(), $baseUrl) : $apiClient;
     }
 }

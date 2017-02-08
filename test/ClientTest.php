@@ -52,4 +52,9 @@ class ClientTest extends TestCase
             // $this->assertSame($mock->lastRequest->getUri()->getQuery(), '');
         }
     }
+
+    public function testClientCreate()
+    {
+        ApiClient::create("http://example.com/");
+    }
 }

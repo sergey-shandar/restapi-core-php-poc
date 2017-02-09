@@ -1,7 +1,6 @@
 <?php
 namespace RestApiCore\Request;
 
-
 final class MultiPartRequest extends FormDataRequest
 {
     /**

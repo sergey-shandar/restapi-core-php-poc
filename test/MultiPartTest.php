@@ -53,7 +53,7 @@ class MultiPartTest extends TestCase
 
     public function testFormApi()
     {
-        $client = new ApiClient(new Client(), 'http://petstore.swagger.io/v2');
+        $client = new ApiClient(new Client(), 'http://petstore.swagger.io/v2', 'TOKEN');
 
         {
             $apiRequest = new JsonRequest();

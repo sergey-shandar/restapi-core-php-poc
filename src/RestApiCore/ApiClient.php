@@ -10,26 +10,34 @@ use RestApiCore\Type\Type;
 final class ApiClient
 {
     /**
-     * @var ClientInterface $httpClient
+     * @var ClientInterface
      */
     private $httpClient;
 
     /**
-     * @var string $baseUrl
+     * @var string
      */
     private $baseUrl;
+
+    /**
+     * @var string
+     */
+    private $bearerToken;
 
     const APPLICATION_JSON = 'application/json';
 
     /**
      * ApiClient constructor.
+     *
      * @param ClientInterface $httpClient
      * @param string $baseUrl
+     * @param string $bearerToken
      */
-    public function __construct(ClientInterface $httpClient, $baseUrl)
+    public function __construct(ClientInterface $httpClient, $baseUrl, $bearerToken = null)
     {
         $this->httpClient = $httpClient;
         $this->baseUrl = $baseUrl;
+        $this->bearerToken = $bearerToken;
     }
 
     /**
@@ -40,7 +48,11 @@ final class ApiClient
      */
     public function request(Type $resultTypeInfo, Request $apiRequest)
     {
-        $headers = ['Accept' => self::APPLICATION_JSON];
+        $headers = [ 'Accept' => self::APPLICATION_JSON ];
+
+        if ($this->bearerToken !== null) {
+            $headers['Authorization'] = 'Bearer ' . $this->bearerToken;
+        }
 
         $request = new Psr7\Request(
             $apiRequest->method,

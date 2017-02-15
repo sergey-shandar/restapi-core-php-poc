@@ -14,4 +14,9 @@ abstract class TestClient
      * @param $actual
      */
     public abstract function assertSame($expected, $actual);
+
+    /**
+     * @param \stdClass $parameters
+     */
+    public abstract function filter(\stdClass $parameters);
 }

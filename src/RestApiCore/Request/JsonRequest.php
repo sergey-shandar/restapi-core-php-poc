@@ -6,20 +6,21 @@ use RestApiCore\Type\Type;
 final class JsonRequest extends Request
 {
     /**
+     * @var Type|null
+     */
+    public $type = null;
+
+    /**
      * @var mixed
      */
-    private $body = '';
-
-    public function __construct(Type $type, $object)
-    {
-        $this->body = $type->serialize($object);
-    }
+    public $body = '';
 
     /**
      * @return array
      */
     public function getOptions()
     {
-        return ['json' => $this->body];
+        $raw = $this->type === null ? '' : $this->type->serialize($this->body);
+        return ['json' => $raw];
     }
 }

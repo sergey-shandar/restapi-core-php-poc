@@ -13,8 +13,6 @@ final class MultiPartRequest extends FormDataRequest
         {
             $multipart[] = [ 'name' => $key, 'contents' => $value];
         }
-        return [
-            'multipart' => $multipart,
-        ];
+        return [ 'multipart' => $multipart ];
     }
 }

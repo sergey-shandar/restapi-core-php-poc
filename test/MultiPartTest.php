@@ -43,10 +43,9 @@ class MultiPartTest extends TestCase
 
     public function testJsonApi()
     {
-        $apiRequest = new JsonRequest();
+        $apiRequest = new JsonRequest(Pet::createClassInfo(), Pet::create()->id(525));
         $apiRequest->method = 'POST';
         $apiRequest->path = 'v2/pet';
-        $apiRequest->body = Pet::create()->id(525);
         $client = new ApiClient(new Client(), 'http://petstore.swagger.io/');
         $client->request(PrimitiveType::create(), $apiRequest);
     }
@@ -56,11 +55,10 @@ class MultiPartTest extends TestCase
         $client = new ApiClient(new Client(), 'http://petstore.swagger.io/v2', 'TOKEN');
 
         {
-            $apiRequest = new JsonRequest();
+            $apiRequest = new JsonRequest(Pet::createClassInfo(), Pet::create()->id(525)->status('available'));
             $apiRequest->method = 'POST';
             $apiRequest->path = '/pet';
             $apiRequest->contentType = 'application/json';
-            $apiRequest->body = Pet::create()->id(525)->status('available');
             $client->request(PrimitiveType::create(), $apiRequest);
         }
 
@@ -75,12 +73,11 @@ class MultiPartTest extends TestCase
         }
 
         {
-            $apiRequest = new \RestApiCore\Request\JsonRequest();
+            $apiRequest = new \RestApiCore\Request\JsonRequest(PrimitiveType::create(), null);
             $apiRequest->path = '/pet/525';
             $apiRequest->method = 'Get';
             $apiRequest->queryParameters = [];
             $apiRequest->headerParameters = [];
-            $apiRequest->body = null;
             $response = $client->request(Pet::createClassInfo(), $apiRequest);
         }
     }

@@ -1,19 +1,9 @@
 <?php
-
 namespace RestApiCore\Type;
-
 
 abstract class Type
 {
-    const OBJECT_TYPE = 'object';
     const ARRAY_TYPE = 'array';
-    const STRING_TYPE = 'string';
-
-    /**
-     * @param mixed $data
-     * @return mixed
-     */
-    public abstract function deserialize($data);
 
     /**
      * @return ArrayType
@@ -23,120 +13,38 @@ abstract class Type
         return new ArrayType($this);
     }
 
-    /**
-     * @return StdClassType
-     */
-    public function createStdClass()
+    public function createMap()
     {
-        return new StdClassType($this);
+        return new MapType($this);
     }
 
     /**
-     * @param array $array
-     *
-     * @return array
+     * @param mixed|null $object
+     * @return mixed|null
      */
-    public static function serializeArray(array $array)
+    public function serialize($object)
     {
-        $result = [];
-        foreach ($array as $dataItem) {
-            $result[] = Type::serialize($dataItem);
-        }
-        return $result;
+        return $object === null ? null : $this->serializeNotNull($object);
     }
 
     /**
-     * @param $data
-     *
+     * @param mixed|null $data
+     * @return mixed|null
+     */
+    public function deserialize($data)
+    {
+        return $data === null ? null : $this->deserializeNotNull($data);
+    }
+
+    /**
+     * @param mixed $object
      * @return mixed
      */
-    public static function serializePrimitive($data)
-    {
-        return $data;
-    }
+    protected abstract function serializeNotNull($object);
 
     /**
-     * @param \stdClass $data
-     * @return \stdClass
+     * @param mixed $data
+     * @return mixed
      */
-    public static function serializeStdClass(\stdClass $data)
-    {
-        $result = new \stdClass();
-        foreach (get_object_vars($data) as $key => $value) {
-            $result->$key = self::serialize($value);
-        }
-        return $result;
-    }
-
-    /**
-     * @param \DateTime $dateTime
-     * @return string
-     */
-    public static function serializeDateTime(\DateTime $dateTime)
-    {
-        return $dateTime->format('Y-m-d\TH:i:s.u\Z');
-    }
-
-    /**
-     * @param \DateInterval $dateInterval
-     * @return string
-     */
-    public static function serializeDateInterval(\DateInterval $dateInterval)
-    {
-        return 'P'
-            . $dateInterval->y
-            . 'Y'
-            . $dateInterval->m
-            . 'M'
-            . $dateInterval->d
-            . 'DT'
-            . $dateInterval->h
-            . 'H'
-            . $dateInterval->i
-            . 'M'
-            . $dateInterval->s
-            . 'S';
-    }
-
-    /**
-     * @param array|object|bool|int|float|string|null $object
-     *
-     * @return array|bool|int|float|string|null
-     */
-    public static function serialize($object)
-    {
-        if ($object === null) {
-            return null;
-        }
-
-        $typeName = gettype($object);
-        switch ($typeName) {
-            case self::ARRAY_TYPE:
-                return self::serializeArray($object);
-
-            case self::OBJECT_TYPE:
-                if ($object instanceof \stdClass) {
-                    return self::serializeStdClass($object);
-                } else if ($object instanceof \DateTime) {
-                    return self::serializeDateTime($object);
-                } else if ($object instanceof \DateInterval) {
-                    return self::serializeDateInterval($object);
-                }
-                return self::createClassInfo(get_class($object))->serializeClass($object);
-
-            default:
-                return self::serializePrimitive($object);
-        }
-    }
-
-    /**
-     * @param string $className
-     *
-     * @return ClassType
-     */
-    private static function createClassInfo($className)
-    {
-        /** @noinspection PhpUndefinedMethodInspection */
-        return $className::createClassInfo();
-    }
+    protected abstract function deserializeNotNull($data);
 }

@@ -8,14 +8,18 @@ final class JsonRequest extends Request
     /**
      * @var mixed
      */
-    public $body = '';
+    private $body = '';
+
+    public function __construct(Type $type, $object)
+    {
+        $this->body = $type->serialize($object);
+    }
 
     /**
      * @return array
      */
     public function getOptions()
     {
-        $raw = Type::serialize($this->body);
-        return ['json' => $raw];
+        return ['json' => $this->body];
     }
 }

@@ -2,22 +2,21 @@
 namespace RestApiCore\Type;
 
 use RestApiCore\PropertyInfo;
-use stdClass;
 
 final class ClassType extends Type
 {
     /**
-     * @var string $name
+     * @var string
      */
-    public $name;
+    private $name;
 
     /**
-     * @var PropertyInfo[] $propertyInfoArray
+     * @var PropertyInfo[]
      */
-    public $propertyInfoArray;
+    private $propertyInfoArray;
 
     /**
-     * ClassTypeInfo constructor.
+     * ClassType constructor.
      *
      * @param string $name
      * @param PropertyInfo[] $propertyInfoArray
@@ -29,17 +28,29 @@ final class ClassType extends Type
     }
 
     /**
-     * @param object|null $data
-     *
+     * @param object $object
+     * @return \stdClass
+     */
+    protected function serializeNotNull($object)
+    {
+        $result = new \stdClass();
+        foreach ($this->propertyInfoArray as $propertyInfo) {
+            $name = $propertyInfo->name;
+            $value = $propertyInfo->typeInfo->serialize($object->$name);
+            if ($value !== null) {
+                $wireName = $propertyInfo->wireName;
+                $result->$wireName = $value;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @param \stdClass $data
      * @return object
      */
-    public function deserialize($data)
+    protected function deserializeNotNull($data)
     {
-        if ($data === null)
-        {
-            return $data;
-        }
-
         $className = $this->name;
         $result = new $className();
         foreach ($this->propertyInfoArray as $propertyInfo) {
@@ -47,25 +58,6 @@ final class ClassType extends Type
             if (property_exists($data, $wireName)) {
                 $name = $propertyInfo->name;
                 $result->$name = $propertyInfo->typeInfo->deserialize($data->$wireName);
-            }
-        }
-        return $result;
-    }
-
-    /**
-     * @param object $object
-     *
-     * @return stdClass
-     */
-    public function serializeClass($object)
-    {
-        $result = new stdClass();
-        foreach ($this->propertyInfoArray as $propertyInfo) {
-            $name = $propertyInfo->name;
-            $value = Type::serialize($object->$name);
-            if ($value !== null) {
-                $wireName = $propertyInfo->wireName;
-                $result->$wireName = $value;
             }
         }
         return $result;

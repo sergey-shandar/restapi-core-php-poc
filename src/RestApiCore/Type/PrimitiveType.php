@@ -4,19 +4,28 @@ namespace RestApiCore\Type;
 final class PrimitiveType extends Type
 {
     /**
-     * @param mixed $data
-     *
-     * @return mixed
+     * @return PrimitiveType
      */
-    public function deserialize($data)
-    {
-        return $data;
-    }
-
     public static function create()
     {
         return new PrimitiveType();
     }
 
-    private function __construct() {}
+    /**
+     * @param mixed $object
+     * @return mixed
+     */
+    protected function serializeNotNull($object)
+    {
+        return $object;
+    }
+
+    /**
+     * @param mixed $data
+     * @return mixed
+     */
+    protected function deserializeNotNull($data)
+    {
+        return $data;
+    }
 }

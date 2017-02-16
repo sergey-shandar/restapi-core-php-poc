@@ -4,16 +4,40 @@ namespace RestApiCore\Type;
 final class DateIntervalType extends Type
 {
     /**
-     * @param mixed $data
-     * @return mixed
+     * @return DateIntervalType
      */
-    public function deserialize($data)
-    {
-        return new \DateInterval($data);
-    }
-
     public static function create()
     {
-        return new self();
+        return new DateIntervalType();
+    }
+
+    /**
+     * @param \DateInterval $object
+     * @return string
+     */
+    protected function serializeNotNull($object)
+    {
+        return 'P'
+            . $object->y
+            . 'Y'
+            . $object->m
+            . 'M'
+            . $object->d
+            . 'DT'
+            . $object->h
+            . 'H'
+            . $object->i
+            . 'M'
+            . $object->s
+            . 'S';
+    }
+
+    /**
+     * @param string $data
+     * @return \DateInterval
+     */
+    protected function deserializeNotNull($data)
+    {
+        return new \DateInterval($data);
     }
 }

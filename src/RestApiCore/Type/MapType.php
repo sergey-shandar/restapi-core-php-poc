@@ -1,7 +1,7 @@
 <?php
 namespace RestApiCore\Type;
 
-final class ArrayType extends Type
+final class MapType extends Type
 {
     /**
      * @var Type
@@ -9,7 +9,7 @@ final class ArrayType extends Type
     private $itemType;
 
     /**
-     * ArrayType constructor.
+     * MapType constructor.
      * @param Type $itemType
      */
     public function __construct(Type $itemType)
@@ -19,28 +19,28 @@ final class ArrayType extends Type
 
     /**
      * @param array $object
-     * @return array
+     * @return \stdClass
      */
-    public function serializeNotNull($object)
+    protected function serializeNotNull($object)
     {
-        $result = [];
+        $result = new \stdClass();
         $itemType = $this->itemType;
-        foreach ($object as $item) {
-            $result[] = $itemType->serialize($item);
+        foreach ($object as $key => $value) {
+            $result->$key = $itemType->serialize($value);
         }
         return $result;
     }
 
     /**
-     * @param array $data
+     * @param \stdClass $data
      * @return array
      */
-    public function deserializeNotNull($data)
+    protected function deserializeNotNull($data)
     {
         $result = [];
         $itemType = $this->itemType;
-        foreach ($data as $item) {
-            $result[] = $itemType->deserialize($item);
+        foreach (get_object_vars($data) as $key => $value) {
+            $result[$key] = $itemType->serialize($value);
         }
         return $result;
     }

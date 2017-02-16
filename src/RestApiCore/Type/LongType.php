@@ -21,11 +21,11 @@ final class LongType extends Type
     }
 
     /**
-     * @param string $data
+     * @param string|int $data
      * @return string
      */
     protected function deserializeNotNull($data)
     {
-        return $data;
+        return strval($data);
     }
 }

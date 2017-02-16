@@ -11,16 +11,16 @@ final class JsonRequest extends Request
     public $type = null;
 
     /**
-     * @var mixed
+     * @var mixed|null
      */
-    public $body = '';
+    public $body = null;
 
     /**
      * @return array
      */
     public function getOptions()
     {
-        $raw = $this->type === null ? '' : $this->type->serialize($this->body);
+        $raw = $this->type === null ? null : $this->type->serialize($this->body);
         return ['json' => $raw];
     }
 }

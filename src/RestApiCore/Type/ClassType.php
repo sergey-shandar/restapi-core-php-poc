@@ -1,6 +1,7 @@
 <?php
 namespace RestApiCore\Type;
 
+use RestApiCore\PropertyInfo;
 use stdClass;
 
 final class ClassType extends Type

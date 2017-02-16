@@ -24,6 +24,14 @@ abstract class Type
     }
 
     /**
+     * @return StdClassType
+     */
+    public function createStdClass()
+    {
+        return new StdClassType($this);
+    }
+
+    /**
      * @param array $array
      *
      * @return array
@@ -45,6 +53,19 @@ abstract class Type
     public static function serializePrimitive($data)
     {
         return $data;
+    }
+
+    /**
+     * @param \stdClass $data
+     * @return \stdClass
+     */
+    public static function serializeStdClass(\stdClass $data)
+    {
+        $result = new \stdClass();
+        foreach (get_object_vars($data) as $key => $value) {
+            $result->$key = self::serialize($value);
+        }
+        return $result;
     }
 
     /**
@@ -94,7 +115,9 @@ abstract class Type
                 return self::serializeArray($object);
 
             case self::OBJECT_TYPE:
-                if ($object instanceof \DateTime) {
+                if ($object instanceof \stdClass) {
+                    return self::serializeStdClass($object);
+                } else if ($object instanceof \DateTime) {
                     return self::serializeDateTime($object);
                 } else if ($object instanceof \DateInterval) {
                     return self::serializeDateInterval($object);

@@ -178,4 +178,51 @@ class TypeInfoTest extends TestCase
         $this->assertSame($x->c, [3]);
         $this->assertSame($x->subArray, []);
     }
+
+    public function testEmptyArray() {
+        $x = [];
+        /**
+         * @var [] $o
+         */
+        $o = Type::serialize($x);
+        $s = json_encode($o);
+        $this->assertSame($s, '[]');
+        $type = PrimitiveType::create()->createArray();
+        $result = $type->deserialize($o);
+        $this->assertSame($result, []);
+    }
+
+    public function testDictionary() {
+        $x = new stdClass();
+        $z = 'api-version';
+        $x->$z = 3;
+        /**
+         * @var \stdClass $o
+         */
+        $o = Type::serialize($x);
+        $s = json_encode($o);
+        $this->assertSame($s, '{"api-version":3}');
+        $type = PrimitiveType::create()->createStdClass();
+        $result = $type->deserialize($o);
+        $this->assertSame($result->$z, 3);
+    }
+
+    public function testEmptyDictionary() {
+        $x = new stdClass();
+        /**
+         * @var \stdClass $o
+         */
+        $o = Type::serialize($x);
+        $s = json_encode($o);
+        $this->assertSame($s, '{}');
+        $type = PrimitiveType::create()->createStdClass();
+        $result = $type->deserialize($o);
+        $this->assertEquals($result, new \stdClass());
+    }
+
+    public function testNullDictionary() {
+        $type = PrimitiveType::create()->createStdClass();
+        $result = $type->deserialize(null);
+        $this->assertNull($result);
+    }
 }

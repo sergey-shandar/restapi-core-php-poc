@@ -32,8 +32,8 @@ final class ArrayType extends Type
         }
 
         $result = [];
-        foreach ($data as $key => $dataItem) {
-            $result[$key] = $this->itemTypeInfo->deserialize($dataItem);
+        foreach ($data as $dataItem) {
+            $result[] = $this->itemTypeInfo->deserialize($dataItem);
         }
         return $result;
     }

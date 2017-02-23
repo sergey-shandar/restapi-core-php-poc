@@ -18,9 +18,19 @@ REST API Core for PHP (Proof of concept)
 - `php_mbstring.dll`
 - `php_openssl.dll`
 
+# Supported Types
+
+- `LongType` deserialized as a `string`.
+- `DateIntervalType` deserialized as a `\DateInterval`.
+- `DateTimeType` deserialized as a `\DateTime`.
+- `PrimitiveType` deserialized as a `boolean`, `int`, `float`. 
+- `ArrayType` deserialized as an `array`.
+- `MapType` deserialized as a `stdClass`.
+- `ClassType` deserialized as a user class.
+
 # Conventions
 
-Every data class should implement
+Each user class should implement
 
 1. A default constructor.
 2. A `createClassInfo` static function which returns `ClassTypeInfo`.
@@ -80,12 +90,12 @@ class SampleClass
     public function __construct(
         $a = null, array $b = null, array $c = null, $d = null, $sub = null, array $subArray = null)
     {
-        $this->a = $a !== null ? $a : 0;
-        $this->b = $b !== null ? $b : [];
-        $this->c = $c !== null ? $c : [];
+        $this->a = $a;
+        $this->b = $b;
+        $this->c = $c;
         $this->d = $d;
-        $this->sub = $sub !== null ? $sub : new SampleSubClass();
-        $this->subArray = $subArray !== null ? $subArray : [];
+        $this->sub = $sub;
+        $this->subArray = $subArray;
     }
 
     /**

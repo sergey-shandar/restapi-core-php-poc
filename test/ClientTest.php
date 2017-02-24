@@ -14,7 +14,7 @@ class ClientTest extends TestCase
         $request->path = 'path/';
         $request->query = ['a' => 13, 'b' => [2, '17']];
 
-        $client->request(MainSampleClass::createClassInfo(), $request);
+        $client->request(MainSampleClass::createClassType(), $request);
     }
 
     public function testQuery()
@@ -25,7 +25,7 @@ class ClientTest extends TestCase
         {
             $request = new JsonRequest(PrimitiveType::create(), '');
             $request->queryParameters = ['a' => 'myworld'];
-            $client->request(MainSampleClass::createClassInfo(), $request);
+            $client->request(MainSampleClass::createClassType(), $request);
             // $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
         }
 
@@ -33,21 +33,21 @@ class ClientTest extends TestCase
             $request = new JsonRequest(PrimitiveType::create(), '');
             $request->queryParameters = ['a' => ['myworld']];
             $client->request(
-                MainSampleClass::createClassInfo(), $request);
+                MainSampleClass::createClassType(), $request);
             // $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
         }
 
         {
             $request = new JsonRequest(PrimitiveType::create(), '');
             $request->queryParameters = ['a' => ['myworld', 'herworld']];
-            $client->request(MainSampleClass::createClassInfo(), $request);
+            $client->request(MainSampleClass::createClassType(), $request);
             // $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld&a=herworld');
         }
 
         {
             $request = new JsonRequest(PrimitiveType::create(), '');
             $request->queryParameters = ['a' => []];
-            $client->request(MainSampleClass::createClassInfo(), $request);
+            $client->request(MainSampleClass::createClassType(), $request);
             // $this->assertSame($mock->lastRequest->getUri()->getQuery(), '');
         }
     }

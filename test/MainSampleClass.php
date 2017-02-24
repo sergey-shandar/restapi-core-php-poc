@@ -73,7 +73,7 @@ class MainSampleClass
     /**
      * @return ClassType
      */
-    public static function createClassInfo()
+    public static function createClassType()
     {
         return new ClassType(
             self::class,
@@ -82,8 +82,8 @@ class MainSampleClass
                 new PropertyInfo('b', 'b', PrimitiveType::create()->createArray()->createArray()->createArray()),
                 new PropertyInfo('c', 'CCC', PrimitiveType::create()->createArray()),
                 new PropertyInfo('d', 'd', PrimitiveType::create()),
-                new PropertyInfo('sub', 'sub', SampleSubClass::createClassInfo()),
-                new PropertyInfo('subArray', 'subArray', SampleSubClass::createClassInfo()->createArray()),
+                new PropertyInfo('sub', 'sub', SampleSubClass::createClassType()),
+                new PropertyInfo('subArray', 'subArray', SampleSubClass::createClassType()->createArray()),
             ]);
     }
 }

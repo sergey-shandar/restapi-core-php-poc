@@ -23,7 +23,7 @@ class SampleSubClass
     /**
      * @return ClassType
      */
-    public static function createClassInfo()
+    public static function createClassType()
     {
         return new ClassType(
             self::class,

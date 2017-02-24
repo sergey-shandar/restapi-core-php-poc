@@ -114,15 +114,15 @@ class Pet
      */
     public static function createClassInfo()
     {
-        return new \RestApiCore\Type\ClassType(
+        return new \RestApiCore\Types\ClassType(
             self::class,
             [
-                new \RestApiCore\PropertyInfo('id', 'id', \RestApiCore\Type\PrimitiveType::create()),
+                new \RestApiCore\PropertyInfo('id', 'id', \RestApiCore\Types\PrimitiveType::create()),
                 new \RestApiCore\PropertyInfo('category', 'category', Category::createClassInfo()),
-                new \RestApiCore\PropertyInfo('name', 'name', \RestApiCore\Type\PrimitiveType::create()),
-                new \RestApiCore\PropertyInfo('photoUrls', 'photoUrls', \RestApiCore\Type\PrimitiveType::create()->createArray()),
+                new \RestApiCore\PropertyInfo('name', 'name', \RestApiCore\Types\PrimitiveType::create()),
+                new \RestApiCore\PropertyInfo('photoUrls', 'photoUrls', \RestApiCore\Types\PrimitiveType::create()->createArray()),
                 new \RestApiCore\PropertyInfo('tags', 'tags', Tag::createClassInfo()->createArray()),
-                new \RestApiCore\PropertyInfo('status', 'status', \RestApiCore\Type\PrimitiveType::create())]);
+                new \RestApiCore\PropertyInfo('status', 'status', \RestApiCore\Types\PrimitiveType::create())]);
     }
 
     /**

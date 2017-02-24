@@ -1,5 +1,5 @@
 <?php
-namespace RestApiCore\Type;
+namespace RestApiCore\Types;
 
 use RestApiCore\PropertyInfo;
 

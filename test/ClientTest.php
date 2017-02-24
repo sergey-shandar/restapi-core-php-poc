@@ -1,8 +1,8 @@
 <?php
 use PHPUnit\Framework\TestCase;
 use RestApiCore\ApiClient;
-use RestApiCore\Request\JsonRequest;
-use RestApiCore\Type\PrimitiveType;
+use RestApiCore\Requests\JsonRequest;
+use RestApiCore\Types\PrimitiveType;
 
 class ClientTest extends TestCase
 {

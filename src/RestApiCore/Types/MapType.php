@@ -1,5 +1,5 @@
 <?php
-namespace RestApiCore\Type;
+namespace RestApiCore\Types;
 
 final class MapType extends Type
 {

@@ -4,8 +4,8 @@ namespace RestApiCore;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7;
-use RestApiCore\Request\Request;
-use RestApiCore\Type\Type;
+use RestApiCore\Requests\Request;
+use RestApiCore\Types\Type;
 
 final class ApiClient
 {
@@ -67,7 +67,7 @@ final class ApiClient
 
         $responseBody = $response->getBody();
         $contents = $responseBody->getContents();
-        $rawResult = json_decode($contents, false, 512, JSON_BIGINT_AS_STRING);
+        $rawResult = Json::decode($contents);
 
         return $resultTypeInfo->deserialize($rawResult);
     }

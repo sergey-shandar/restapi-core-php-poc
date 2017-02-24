@@ -1,10 +1,9 @@
 <?php
 
-use RestApiCore\Type\DateIntervalType;
-use RestApiCore\Type\DateTimeType;
-use RestApiCore\Type\LongType;
-use RestApiCore\Type\PrimitiveType;
-use RestApiCore\Type\Type;
+use RestApiCore\Types\DateIntervalType;
+use RestApiCore\Types\DateTimeType;
+use RestApiCore\Types\LongType;
+use RestApiCore\Types\PrimitiveType;
 use PHPUnit\Framework\TestCase;
 
 class TypeInfoTest extends TestCase
@@ -228,5 +227,12 @@ class TypeInfoTest extends TestCase
         $type = PrimitiveType::create()->createMap();
         $result = $type->deserialize(null);
         $this->assertNull($result);
+    }
+
+    public function testDeserializeParam() {
+        $params = new \stdClass();
+        $params->a = 23;
+        $value = PrimitiveType::create()->deserializeParam($params, 'a');
+        $this->assertSame(23, $value);
     }
 }

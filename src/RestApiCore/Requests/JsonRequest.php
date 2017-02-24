@@ -1,7 +1,7 @@
 <?php
-namespace RestApiCore\Request;
+namespace RestApiCore\Requests;
 
-use RestApiCore\Type\Type;
+use RestApiCore\Types\Type;
 
 final class JsonRequest extends Request
 {

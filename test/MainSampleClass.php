@@ -1,8 +1,8 @@
 <?php
 
 use RestApiCore\PropertyInfo;
-use RestApiCore\Type\PrimitiveType;
-use RestApiCore\Type\ClassType;
+use RestApiCore\Types\PrimitiveType;
+use RestApiCore\Types\ClassType;
 
 class MainSampleClass
 {

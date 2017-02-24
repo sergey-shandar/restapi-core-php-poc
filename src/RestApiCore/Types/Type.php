@@ -1,5 +1,5 @@
 <?php
-namespace RestApiCore\Type;
+namespace RestApiCore\Types;
 
 abstract class Type
 {
@@ -34,6 +34,22 @@ abstract class Type
     public function deserialize($data)
     {
         return $data === null ? null : $this->deserializeNotNull($data);
+    }
+
+    /**
+     * The function is used to get parameters from JSON-RPC 2.0 Parameter Structure
+     * http://www.jsonrpc.org/specification#parameter_structures
+     *
+     * - 'by-position' is not supported.
+     * - 'by-name' is supported.
+     *
+     * @param object $params
+     * @param string $paramName
+     * @return mixed|null
+     */
+    public function deserializeParam($params, $paramName)
+    {
+        return $this->deserialize($params->$paramName);
     }
 
     /**

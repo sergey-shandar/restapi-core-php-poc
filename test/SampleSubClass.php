@@ -1,6 +1,6 @@
 <?php
-use RestApiCore\Type\ClassType;
-use RestApiCore\Type\PrimitiveType;
+use RestApiCore\Types\ClassType;
+use RestApiCore\Types\PrimitiveType;
 use RestApiCore\PropertyInfo;
 
 class SampleSubClass

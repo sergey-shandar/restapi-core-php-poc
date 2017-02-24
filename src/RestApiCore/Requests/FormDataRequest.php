@@ -1,5 +1,5 @@
 <?php
-namespace RestApiCore\Request;
+namespace RestApiCore\Requests;
 
 abstract class FormDataRequest extends Request
 {

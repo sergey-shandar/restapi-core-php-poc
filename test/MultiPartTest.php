@@ -4,9 +4,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\TestCase;
 use RestApiCore\ApiClient;
-use RestApiCore\Request\JsonRequest;
-use RestApiCore\Request\MultiPartRequest;
-use RestApiCore\Type\PrimitiveType;
+use RestApiCore\Requests\JsonRequest;
+use RestApiCore\Requests\MultiPartRequest;
+use RestApiCore\Types\PrimitiveType;
 
 class MultiPartTest extends TestCase
 {
@@ -66,17 +66,17 @@ class MultiPartTest extends TestCase
         }
 
         {
-            $apiRequest = new \RestApiCore\Request\FormRequest();
+            $apiRequest = new \RestApiCore\Requests\FormRequest();
             $apiRequest->path = '/pet/525';
             $apiRequest->method = 'Post';
             $apiRequest->queryParameters = [];
             $apiRequest->headerParameters = [];
             $apiRequest->parameters = [ 'status' => 'sold' ];
-            $client->request(\RestApiCore\Type\PrimitiveType::create(), $apiRequest);
+            $client->request(\RestApiCore\Types\PrimitiveType::create(), $apiRequest);
         }
 
         {
-            $apiRequest = new \RestApiCore\Request\JsonRequest(PrimitiveType::create(), null);
+            $apiRequest = new \RestApiCore\Requests\JsonRequest(PrimitiveType::create(), null);
             $apiRequest->path = '/pet/525';
             $apiRequest->method = 'Get';
             $apiRequest->queryParameters = [];

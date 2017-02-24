@@ -1,8 +1,7 @@
 <?php
 namespace RestApiCore;
 
-
-use RestApiCore\Type\Type;
+use RestApiCore\Types\Type;
 
 final class PropertyInfo
 {

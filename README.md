@@ -33,7 +33,7 @@ REST API Core for PHP (Proof of concept)
 Each user class should implement
 
 1. A default constructor.
-2. A `createClassInfo` static function which returns `ClassTypeInfo`.
+2. A `createClassType` static function which returns `\RestApiCore\Types\ClassType`.
  
 For example
 

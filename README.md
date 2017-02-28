@@ -20,13 +20,19 @@ REST API Core for PHP (Proof of concept)
 
 # Supported Types
 
-- `LongType` deserialized as a `string`.
-- `DateIntervalType` deserialized as a `\DateInterval`.
-- `DateTimeType` deserialized as a `\DateTime`.
-- `PrimitiveType` deserialized as a `boolean`, `int`, `float`. 
-- `ArrayType` deserialized as an `array`.
-- `MapType` deserialized as a `stdClass`.
-- `ClassType` deserialized as a user class.
+|Meta Type         |PHP Type       |PHP JSON Type|Swagger Type|Swagger Format|
+|------------------|---------------|-------------|------------|--------------|
+|`PrimitiveType`   |`string`       |`string`     |`string`    |              |
+|                  |`boolean`      |`boolean`    |`boolean`   |              |
+|                  |`int`          |`int`        |`integer`   |`int32`       |
+|                  |`float`        |`float`      |`number`    |`float`       |
+|                  |               |             |            |`double`      |
+|`LongType`        |`string`       |`string`     |`integer`   |`int64`       |
+|`DateTimeType`    |`\DateTime`    |`string`     |`string`    |`date-time`   |
+|`DateIntervalType`|`\DateInterval`|`string`     |`string`    |`duration`    |
+|`ArrayType`       |`T[]`          |`T[]`        |`array`     |              |
+|`MapType`         |`array`        |`\stdClass`  |`object`    |              |
+|`ClassType`       |`UserClass`    |`\stdClass`  |`object`    |              |
 
 # Conventions
 

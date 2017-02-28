@@ -31,7 +31,7 @@ REST API Core for PHP (Proof of concept)
 |`DateTimeType`    |`\DateTime`    |`string`     |`string`    |`date-time`   |
 |`DateIntervalType`|`\DateInterval`|`string`     |`string`    |`duration`    |
 |`ArrayType`       |`T[]`          |`T[]`        |`array`     |              |
-|`MapType`         |`array`        |`\stdClass`  |`object`    |              |
+|`MapType`         |`T[]`          |`\stdClass`  |`object`    |              |
 |`ClassType`       |`UserClass`    |`\stdClass`  |`object`    |              |
 
 # Conventions

@@ -19,7 +19,7 @@ class JsonRpcErrorTest extends TestCase
     public function testMethodNotFound()
     {
         try {
-            JsonRpcError::methodNotFound("method");
+            throw JsonRpcError::createMethodNotFound("method");
         } catch (JsonRpcError $exception) {
             $this->assertInstanceOf(JsonRpcError::class, $exception);
             $this->assertSame(-32601, $exception->getCode());

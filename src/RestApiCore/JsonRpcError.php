@@ -28,4 +28,13 @@ final class JsonRpcError extends \Exception
         parent::__construct($message, $code);
         $this->data = $data;
     }
+
+    /**
+     * @param string $method
+     * @throws JsonRpcError
+     */
+    public static function methodNotFound($method)
+    {
+        throw new self('"'.$method.'" not found', self::METHOD_NOT_FOUND);
+    }
 }

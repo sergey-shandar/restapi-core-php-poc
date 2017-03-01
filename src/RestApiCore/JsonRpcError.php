@@ -34,7 +34,7 @@ final class JsonRpcError extends \Exception
      *
      * @return JsonRpcError
      */
-    public static function createMethodNotFound($method)
+    public static function methodNotFound($method)
     {
         return new self('"'.$method.'" not found', self::METHOD_NOT_FOUND);
     }

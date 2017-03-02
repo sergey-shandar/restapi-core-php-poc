@@ -49,7 +49,7 @@ abstract class Type
      */
     public function deserializeParam($params, $paramName)
     {
-        return isset($params, $paramName) ? $this->deserialize($params->$paramName) : null;
+        return isset($params->$paramName) ? $this->deserialize($params->$paramName) : null;
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
-namespace RestApiCore;
+namespace RestApiCore\JsonRpc;
 
-final class JsonRpcError extends \Exception
+final class Error extends \Exception
 {
     const PARSE_ERROR = -32700;
     const INVALID_REQUEST = -32600;
@@ -32,7 +32,7 @@ final class JsonRpcError extends \Exception
     /**
      * @param string $method
      *
-     * @return JsonRpcError
+     * @return Error
      */
     public static function methodNotFound($method)
     {

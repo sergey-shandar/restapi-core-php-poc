@@ -2,7 +2,7 @@
 use PHPUnit\Framework\TestCase;
 use RestApiCore\ApiClient;
 use RestApiCore\Requests\JsonRequest;
-use RestApiCore\Types\PrimitiveType;
+use RestApiCore\Types\NullType;
 
 class ClientTest extends TestCase
 {
@@ -10,7 +10,7 @@ class ClientTest extends TestCase
     {
         $client = new ApiClient(new MockHttpClient(), 'http://petstore.swagger.io/v2');
 
-        $request = new JsonRequest(PrimitiveType::create(), 'body');
+        $request = new JsonRequest(NullType::create(), 'body');
         $request->path = 'path/';
         $request->query = ['a' => 13, 'b' => [2, '17']];
 
@@ -23,14 +23,14 @@ class ClientTest extends TestCase
         $client = new ApiClient($mock, 'http://petstore.swagger.io/v2');
 
         {
-            $request = new JsonRequest(PrimitiveType::create(), '');
+            $request = new JsonRequest(NullType::create(), '');
             $request->queryParameters = ['a' => 'myworld'];
             $client->request(MainSampleClass::createClassType(), $request);
             // $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld');
         }
 
         {
-            $request = new JsonRequest(PrimitiveType::create(), '');
+            $request = new JsonRequest(NullType::create(), '');
             $request->queryParameters = ['a' => ['myworld']];
             $client->request(
                 MainSampleClass::createClassType(), $request);
@@ -38,14 +38,14 @@ class ClientTest extends TestCase
         }
 
         {
-            $request = new JsonRequest(PrimitiveType::create(), '');
+            $request = new JsonRequest(NullType::create(), '');
             $request->queryParameters = ['a' => ['myworld', 'herworld']];
             $client->request(MainSampleClass::createClassType(), $request);
             // $this->assertSame($mock->lastRequest->getUri()->getQuery(), 'a=myworld&a=herworld');
         }
 
         {
-            $request = new JsonRequest(PrimitiveType::create(), '');
+            $request = new JsonRequest(NullType::create(), '');
             $request->queryParameters = ['a' => []];
             $client->request(MainSampleClass::createClassType(), $request);
             // $this->assertSame($mock->lastRequest->getUri()->getQuery(), '');

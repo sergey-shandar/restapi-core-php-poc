@@ -1,25 +1,8 @@
 <?php
 namespace RestApiCore\Types;
 
-final class PrimitiveType extends Type
+abstract class PrimitiveType extends Type
 {
-    /**
-     * @return PrimitiveType
-     */
-    public static function create()
-    {
-        return new PrimitiveType();
-    }
-
-    /**
-     * @param mixed $object
-     * @return mixed
-     */
-    protected function serializeNotNull($object)
-    {
-        return $object;
-    }
-
     /**
      * @param mixed $data
      * @return mixed

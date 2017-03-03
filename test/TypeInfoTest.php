@@ -1,64 +1,63 @@
 <?php
 
+use RestApiCore\Types\BooleanType;
 use RestApiCore\Types\DateIntervalType;
 use RestApiCore\Types\DateTimeType;
 use RestApiCore\Types\LongType;
+use RestApiCore\Types\NullType;
+use RestApiCore\Types\NumberType;
 use RestApiCore\Types\PrimitiveType;
 use PHPUnit\Framework\TestCase;
+use RestApiCore\Types\StringType;
 
 class TypeInfoTest extends TestCase
 {
     public function testBool()
     {
-        $v = PrimitiveType::create()->serialize(true);
-        $this->assertSame($v, true);
-        $this->assertSame(gettype($v), 'boolean');
+        $v = BooleanType::create()->jsonSerialize(true);
+        $this->assertSame($v, 'true');
 
-        $x = PrimitiveType::create()->deserialize($v);
+        $x = BooleanType::create()->jsonDeserialize($v);
         $this->assertSame($x, true);
         $this->assertSame(gettype($x), 'boolean');
     }
 
     public function testInt()
     {
-        $v = PrimitiveType::create()->serialize(45);
-        $this->assertSame($v, 45);
-        $this->assertSame(gettype($v), 'integer');
+        $v = NumberType::create()->jsonSerialize(45);
+        $this->assertSame($v, '45');
 
-        $x = PrimitiveType::create()->deserialize($v);
+        $x = NumberType::create()->jsonDeserialize($v);
         $this->assertSame($x, 45);
         $this->assertSame(gettype($x), 'integer');
     }
 
     public function testFloat()
     {
-        $v = PrimitiveType::create()->serialize(45.7);
-        $this->assertSame($v, 45.7);
-        $this->assertSame(gettype($v), 'double');
+        $v = NumberType::create()->jsonSerialize(45.7);
+        $this->assertSame($v, '45.7');
 
-        $x = PrimitiveType::create()->deserialize($v);
+        $x = NumberType::create()->jsonDeserialize($v);
         $this->assertSame($x, 45.7);
         $this->assertSame(gettype($x), 'double');
     }
 
     public function testString()
     {
-        $v = PrimitiveType::create()->serialize('abc');
-        $this->assertSame($v, 'abc');
-        $this->assertSame(gettype($v), 'string');
+        $v = StringType::create()->jsonSerialize('abc');
+        $this->assertSame($v, '"abc"');
 
-        $x = PrimitiveType::create()->deserialize($v);
+        $x = StringType::create()->jsonDeserialize($v);
         $this->assertSame($x, 'abc');
         $this->assertSame(gettype($x), 'string');
     }
 
     public function testIntArray()
     {
-        $v = PrimitiveType::create()->createArray()->serialize([1, 2]);
-        $this->assertSame($v, [1, 2]);
-        $this->assertSame(gettype($v), 'array');
+        $v = NumberType::create()->createArray()->jsonSerialize([1, 2]);
+        $this->assertSame($v, '[1,2]');
 
-        $x = PrimitiveType::create()->createArray()->deserialize($v);
+        $x = NumberType::create()->createArray()->jsonDeserialize($v);
         $this->assertSame($x, [1, 2]);
         $this->assertSame(gettype($x), 'array');
     }
@@ -73,15 +72,13 @@ class TypeInfoTest extends TestCase
         /**
          * @var stdClass $v
          */
-        $v = MainSampleClass::createClassType()->serialize($s);
-        $this->assertSame($v->a, 1);
-        $this->assertSame($v->b, [[['a'], null]]);
-        $this->assertSame($v->CCC, [3]);
+        $v = MainSampleClass::createClassType()->jsonSerialize($s);
+        $this->assertSame('{"a":1,"b":[[["a"],null]],"CCC":[3],"sub":{"a":0},"subArray":[]}', $v);
 
         /**
          * @var MainSampleClass $x
          */
-        $x = MainSampleClass::createClassType()->deserialize($v);
+        $x = MainSampleClass::createClassType()->jsonDeserialize($v);
         $this->assertSame($x->a, 1);
         $this->assertSame($x->b, [[['a'], null]]);
         $this->assertSame($x->c, [3]);
@@ -95,20 +92,13 @@ class TypeInfoTest extends TestCase
         /**
          * @var stdClass $v
          */
-        $v = MainSampleClass::createClassType()->serialize($s);
-        $p = get_object_vars($v);
-        $this->assertSame(count($p), 5);
-        $this->assertSame($v->a, 0);
-        $this->assertSame($v->b, []);
-        $this->assertSame($v->CCC, []);
-        $this->assertSame($v->sub->a, 0);
-        $this->assertFalse(property_exists($v, 'd'));
-        $this->assertSame($v->subArray, []);
+        $v = MainSampleClass::createClassType()->jsonSerialize($s);
+        $this->assertSame($v, '{"a":0,"b":[],"CCC":[],"sub":{"a":0},"subArray":[]}');
 
         /**
          * @var MainSampleClass $x
          */
-        $x = MainSampleClass::createClassType()->deserialize($v);
+        $x = MainSampleClass::createClassType()->jsonDeserialize($v);
         $this->assertSame($x->a, 0);
         $this->assertSame($x->b, []);
         $this->assertSame($x->c, []);
@@ -120,10 +110,10 @@ class TypeInfoTest extends TestCase
     {
         $s = new DateTime('2017-01-18T18:23:32.708000Z');
 
-        $x = DateTimeType::create()->serialize($s);
-        $this->assertSame('2017-01-18T18:23:32.708000Z', $x);
+        $x = DateTimeType::create()->jsonSerialize($s);
+        $this->assertSame('"2017-01-18T18:23:32.708000Z"', $x);
 
-        $m = DateTimeType::create()->deserialize($x);
+        $m = DateTimeType::create()->jsonDeserialize($x);
         $this->assertEquals($s, $m);
     }
 
@@ -131,24 +121,24 @@ class TypeInfoTest extends TestCase
     {
         $s = new DateInterval('P1Y2M3DT4H5M6S');
 
-        $x = DateIntervalType::create()->serialize($s);
-        $this->assertSame('P1Y2M3DT4H5M6S', $x);
+        $x = DateIntervalType::create()->jsonSerialize($s);
+        $this->assertSame('"P1Y2M3DT4H5M6S"', $x);
 
-        $m = DateIntervalType::create()->deserialize($x);
+        $m = DateIntervalType::create()->jsonDeserialize($x);
         $this->assertEquals($s, $m);
     }
 
     public function testLongTypeInfo()
     {
-        $s = 12;
+        $s = '12';
 
         $x = LongType::create()->deserialize($s);
         $this->assertEquals($x, '12');
 
-        $r = LongType::create()->serialize('345');
+        $r = LongType::create()->jsonSerialize('345');
         $this->assertEquals($r, '345');
 
-        $ra = LongType::create()->serialize(345);
+        $ra = LongType::create()->jsonSerialize(345);
         $this->assertEquals($ra, '345');
     }
 
@@ -156,25 +146,13 @@ class TypeInfoTest extends TestCase
     {
         $s = [ null, new MainSampleClass(null, [[[null, 'a']]], [3]) ];
 
-        $v = MainSampleClass::createClassType()->createArray()->serialize($s);
-        $this->assertSame(count($v), 2);
-        $this->assertSame($v[0], null);
-        /**
-         * @var stdClass $v1
-         */
-        $v1 = $v[1];
-        $this->assertSame(count(get_object_vars($v1)), 5);
-        $this->assertSame($v1->a, 0);
-        $this->assertSame($v1->b, [[[null, 'a']]]);
-        $this->assertSame($v1->CCC, [3]);
-        $this->assertSame($v1->sub->a, 0);
-        $this->assertArrayNotHasKey('d', $v);
-        $this->assertSame($v1->subArray, []);
+        $v = MainSampleClass::createClassType()->createArray()->jsonSerialize($s);
+        $this->assertSame('[null,{"a":0,"b":[[[null,"a"]]],"CCC":[3],"sub":{"a":0},"subArray":[]}]', $v);
 
         /**
          * @var MainSampleClass[] $y
          */
-        $y = MainSampleClass::createClassType()->createArray()->deserialize($v);
+        $y = MainSampleClass::createClassType()->createArray()->jsonDeserialize($v);
         $this->assertSame(count($y), 2);
         $this->assertSame($y[0], null);
         $x = $y[1];
@@ -189,11 +167,10 @@ class TypeInfoTest extends TestCase
         /**
          * @var [] $o
          */
-        $o = PrimitiveType::create()->createArray()->serialize($x);
-        $s = json_encode($o);
-        $this->assertSame($s, '[]');
-        $type = PrimitiveType::create()->createArray();
-        $result = $type->deserialize($o);
+        $o = NullType::create()->createArray()->jsonSerialize($x);
+        $this->assertSame($o, '[]');
+        $type = NullType::create()->createArray();
+        $result = $type->jsonDeserialize($o);
         $this->assertSame($result, []);
     }
 
@@ -202,11 +179,10 @@ class TypeInfoTest extends TestCase
         /**
          * @var \stdClass $o
          */
-        $o = PrimitiveType::create()->createMap()->serialize($x);
-        $s = json_encode($o);
-        $this->assertSame($s, '{"api-version":3}');
-        $type = PrimitiveType::create()->createMap();
-        $result = $type->deserialize($o);
+        $o = NumberType::create()->createMap()->jsonSerialize($x);
+        $this->assertSame($o, '{"api-version":3}');
+        $type = StringType::create()->createMap();
+        $result = $type->jsonDeserialize($o);
         $this->assertSame($result['api-version'], 3);
     }
 
@@ -215,16 +191,15 @@ class TypeInfoTest extends TestCase
         /**
          * @var \stdClass $o
          */
-        $o = PrimitiveType::create()->createMap()->serialize($x);
-        $s = json_encode($o);
-        $this->assertSame($s, '{}');
-        $type = PrimitiveType::create()->createMap();
-        $result = $type->deserialize($o);
+        $o = StringType::create()->createMap()->jsonSerialize($x);
+        $this->assertSame($o, '{}');
+        $type = StringType::create()->createMap();
+        $result = $type->jsonDeserialize($o);
         $this->assertEquals($result, []);
     }
 
     public function testNullDictionary() {
-        $type = PrimitiveType::create()->createMap();
+        $type = StringType::create()->createMap();
         $result = $type->deserialize(null);
         $this->assertNull($result);
     }
@@ -232,7 +207,7 @@ class TypeInfoTest extends TestCase
     public function testDeserializeParam() {
         $params = new \stdClass();
         $params->a = 23;
-        $value = PrimitiveType::create()->deserializeParam($params, 'a');
+        $value = StringType::create()->deserializeParam($params, 'a');
         $this->assertSame(23, $value);
     }
 }

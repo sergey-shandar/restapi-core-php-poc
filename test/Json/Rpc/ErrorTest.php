@@ -1,8 +1,8 @@
 <?php
-namespace JsonRpc;
+namespace Json\Rpc;
 
 use PHPUnit\Framework\TestCase;
-use RestApiCore\JsonRpc\Error;
+use RestApiCore\Json\Rpc\Error;
 
 class ErrorTest extends TestCase
 {

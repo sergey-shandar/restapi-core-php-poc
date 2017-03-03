@@ -1,6 +1,9 @@
 <?php
 namespace RestApiCore\Types;
 
+use RestApiCore\Json;
+use RestApiCore\Json\ObjectBuilder;
+use RestApiCore\Json\SeqBuilder;
 use RestApiCore\PropertyInfo;
 
 final class ClassType extends Type
@@ -29,20 +32,18 @@ final class ClassType extends Type
 
     /**
      * @param object $object
-     * @return \stdClass
+     * @return string
      */
-    protected function serializeNotNull($object)
+    public function jsonSerializeNotNull($object)
     {
-        $result = new \stdClass();
+        $result = new ObjectBuilder();
         foreach ($this->propertyInfoArray as $propertyInfo) {
             $name = $propertyInfo->name;
-            $value = $propertyInfo->typeInfo->serialize($object->$name);
-            if ($value !== null) {
-                $wireName = $propertyInfo->wireName;
-                $result->$wireName = $value;
+            if (isset($object->$name)) {
+                $result->append($propertyInfo->typeInfo, $propertyInfo->wireName, $object->$name);
             }
         }
-        return $result;
+        return $result->get();
     }
 
     /**

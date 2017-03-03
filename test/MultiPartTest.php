@@ -6,7 +6,9 @@ use PHPUnit\Framework\TestCase;
 use RestApiCore\ApiClient;
 use RestApiCore\Requests\JsonRequest;
 use RestApiCore\Requests\MultiPartRequest;
+use RestApiCore\Types\NullType;
 use RestApiCore\Types\PrimitiveType;
+use RestApiCore\Types\StringType;
 
 class MultiPartTest extends TestCase
 {
@@ -16,7 +18,7 @@ class MultiPartTest extends TestCase
             'POST',
             'http://petstore.swagger.io/v2/pet/425/uploadImage',
             [
-                'Accept' => ApiClient::APPLICATION_JSON,
+                'Accept' => JsonRequest::CONTENT_TYPE,
             ],
             null);
         $client = new Client();
@@ -38,7 +40,7 @@ class MultiPartTest extends TestCase
         $apiRequest->path = 'v2/pet/425/uploadImage';
         $apiRequest->parameters = [ 'file' => 'something' ];
         $client = new ApiClient(new Client(), 'http://petstore.swagger.io/');
-        $client->request(PrimitiveType::create(), $apiRequest);
+        $client->request(NullType::create(), $apiRequest);
     }
 
     public function testJsonApi()
@@ -49,7 +51,7 @@ class MultiPartTest extends TestCase
         $apiRequest->type = Pet::createClassInfo();
         $apiRequest->body = Pet::create()->id(525);
         $client = new ApiClient(new Client(), 'http://petstore.swagger.io/');
-        $client->request(PrimitiveType::create(), $apiRequest);
+        $client->request(NullType::create(), $apiRequest);
     }
 
     public function testFormApi()
@@ -62,7 +64,7 @@ class MultiPartTest extends TestCase
             $apiRequest->path = '/pet';
             $apiRequest->type = Pet::createClassInfo();
             $apiRequest->body = Pet::create()->id(525)->status('available');
-            $client->request(PrimitiveType::create(), $apiRequest);
+            $client->request(NullType::create(), $apiRequest);
         }
 
         {
@@ -70,19 +72,16 @@ class MultiPartTest extends TestCase
             $apiRequest->path = '/pet/525';
             $apiRequest->method = 'Post';
             $apiRequest->queryParameters = [];
-            $apiRequest->headerParameters = [];
             $apiRequest->parameters = [ 'status' => 'sold' ];
-            $client->request(\RestApiCore\Types\PrimitiveType::create(), $apiRequest);
+            $client->request(\RestApiCore\Types\NullType::create(), $apiRequest);
         }
 
         {
-            $apiRequest = new \RestApiCore\Requests\JsonRequest(PrimitiveType::create(), null);
+            $apiRequest = new \RestApiCore\Requests\JsonRequest(NullType::create(), null);
             $apiRequest->path = '/pet/525';
             $apiRequest->method = 'Get';
             $apiRequest->queryParameters = [];
-            $apiRequest->headerParameters = [];
             $response = $client->request(Pet::createClassInfo(), $apiRequest);
         }
     }
 }
-

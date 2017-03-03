@@ -1,5 +1,6 @@
 <?php
 use RestApiCore\Types\ClassType;
+use RestApiCore\Types\NumberType;
 use RestApiCore\Types\PrimitiveType;
 use RestApiCore\PropertyInfo;
 
@@ -28,7 +29,7 @@ class SampleSubClass
         return new ClassType(
             self::class,
             [
-                new PropertyInfo('a', 'a', PrimitiveType::create()),
+                new PropertyInfo('a', 'a', NumberType::create()),
             ]);
     }
 }

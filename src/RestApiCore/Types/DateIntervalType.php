@@ -1,6 +1,8 @@
 <?php
 namespace RestApiCore\Types;
 
+use RestApiCore\Json\Common;
+
 final class DateIntervalType extends Type
 {
     /**
@@ -12,12 +14,22 @@ final class DateIntervalType extends Type
     }
 
     /**
+     * @param string $data
+     * @return \DateInterval
+     */
+    protected function deserializeNotNull($data)
+    {
+        return new \DateInterval($data);
+    }
+
+    /**
      * @param \DateInterval $object
      * @return string
      */
-    protected function serializeNotNull($object)
+    public function jsonSerializeNotNull($object)
     {
-        return 'P'
+        $result =
+            'P'
             . $object->y
             . 'Y'
             . $object->m
@@ -30,14 +42,6 @@ final class DateIntervalType extends Type
             . 'M'
             . $object->s
             . 'S';
-    }
-
-    /**
-     * @param string $data
-     * @return \DateInterval
-     */
-    protected function deserializeNotNull($data)
-    {
-        return new \DateInterval($data);
+        return Common::encodeStr($result);
     }
 }

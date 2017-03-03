@@ -1,5 +1,5 @@
 <?php
-namespace RestApiCore\JsonRpc;
+namespace RestApiCore\Json\Rpc;
 
 final class Error extends \Exception
 {

@@ -1,6 +1,8 @@
 <?php
 namespace RestApiCore\Types;
 
+use RestApiCore\Json\ObjectBuilder;
+
 final class MapType extends Type
 {
     /**
@@ -18,20 +20,6 @@ final class MapType extends Type
     }
 
     /**
-     * @param array $object
-     * @return \stdClass
-     */
-    protected function serializeNotNull($object)
-    {
-        $result = new \stdClass();
-        $itemType = $this->itemType;
-        foreach ($object as $key => $value) {
-            $result->$key = $itemType->serialize($value);
-        }
-        return $result;
-    }
-
-    /**
      * @param \stdClass $data
      * @return array
      */
@@ -40,8 +28,22 @@ final class MapType extends Type
         $result = [];
         $itemType = $this->itemType;
         foreach (get_object_vars($data) as $key => $value) {
-            $result[$key] = $itemType->serialize($value);
+            $result[$key] = $itemType->deserialize($value);
         }
         return $result;
+    }
+
+    /**
+     * @param array $object
+     * @return string
+     */
+    public function jsonSerializeNotNull($object)
+    {
+        $result = new ObjectBuilder();
+        $itemType = $this->itemType;
+        foreach ($object as $key => $value) {
+            $result->append($itemType, $key, $value);
+        }
+        return $result->get();
     }
 }

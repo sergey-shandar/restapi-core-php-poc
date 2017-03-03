@@ -32,9 +32,9 @@ REST API Core for PHP (Proof of concept)
 
 |Class Name              |PHP Type       |PHP JSON Type|Swagger Type|Swagger Format|
 |------------------------|---------------|-------------|------------|--------------|
-|`Types\PrimitiveType`   |`string`       |`string`     |`string`    |              |
-|                        |`boolean`      |`boolean`    |`boolean`   |              |
-|                        |`int`          |`int`        |`integer`   |`int32`       |
+|`Types\StringType`      |`string`       |`string`     |`string`    |              |
+|`Types\BooleanType`     |`boolean`      |`boolean`    |`boolean`   |              |
+|`Types\NumberType`      |`int`          |`int`        |`integer`   |`int32`       |
 |                        |`float`        |`float`      |`number`    |`float`       |
 |                        |               |             |            |`double`      |
 |`Types\LongType`        |`string`       |`string`     |`integer`   |`int64`       |

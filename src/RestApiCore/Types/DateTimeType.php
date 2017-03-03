@@ -1,6 +1,8 @@
 <?php
 namespace RestApiCore\Types;
 
+use RestApiCore\Json\Common;
+
 final class DateTimeType extends Type
 {
     /**
@@ -12,20 +14,20 @@ final class DateTimeType extends Type
     }
 
     /**
-     * @param \DateTime $object
-     * @return string
-     */
-    protected function serializeNotNull($object)
-    {
-        return $object->format('Y-m-d\TH:i:s.u\Z');
-    }
-
-    /**
      * @param string $data
      * @return \DateTime
      */
     protected function deserializeNotNull($data)
     {
         return new \DateTime($data);
+    }
+
+    /**
+     * @param \DateTime $object
+     * @return string
+     */
+    public function jsonSerializeNotNull($object)
+    {
+        return Common::encodeStr($object->format('Y-m-d\TH:i:s.u\Z'));
     }
 }

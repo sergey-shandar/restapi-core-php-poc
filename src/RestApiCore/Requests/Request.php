@@ -20,11 +20,6 @@ abstract class Request
      */
     public $queryParameters = [];
 
-    /**
-     * @var array
-     */
-    public $headerParameters = [];
-
     public function getQuery()
     {
         /**
@@ -53,6 +48,16 @@ abstract class Request
      * @return array
      */
     public abstract function getOptions();
+
+    /**
+     * @return string|null
+     */
+    public abstract function getBody();
+
+    /**
+     * @return string[]
+     */
+    public abstract function getHeaders();
 
     private static function queryParam($key, $value) {
         return $key . '=' . urlencode($value);

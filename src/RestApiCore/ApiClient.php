@@ -4,6 +4,8 @@ namespace RestApiCore;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7;
+use RestApiCore\Json\Common;
+use RestApiCore\Requests\JsonRequest;
 use RestApiCore\Requests\Request;
 use RestApiCore\Types\Type;
 
@@ -23,8 +25,6 @@ final class ApiClient
      * @var string
      */
     private $bearerToken;
-
-    const APPLICATION_JSON = 'application/json';
 
     /**
      * ApiClient constructor.
@@ -48,7 +48,9 @@ final class ApiClient
      */
     public function request(Type $resultTypeInfo, Request $apiRequest)
     {
-        $headers = [ 'Accept' => self::APPLICATION_JSON ];
+        $headers = $apiRequest->getHeaders();
+
+        $headers['Accept'] = JsonRequest::CONTENT_TYPE;
 
         if ($this->bearerToken !== null) {
             $headers['Authorization'] = 'Bearer ' . $this->bearerToken;
@@ -58,16 +60,17 @@ final class ApiClient
             $apiRequest->method,
             $apiRequest->getUrl($this->baseUrl),
             $headers,
-            null
+            $apiRequest->getBody()
         );
 
-        $query = ['query' => $apiRequest->getQuery()];
-        $options = array_merge($query, $apiRequest->getOptions());
+        $options = $apiRequest->getOptions();
+        $options['query'] = $apiRequest->getQuery();
+
         $response = $this->httpClient->send($request, $options);
 
         $responseBody = $response->getBody();
         $contents = $responseBody->getContents();
-        $rawResult = Json::decode($contents);
+        $rawResult = Common::decode($contents);
 
         return $resultTypeInfo->deserialize($rawResult);
     }

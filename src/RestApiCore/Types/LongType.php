@@ -22,20 +22,20 @@ final class LongType extends Type
     }
 
     /**
-     * @param int|string $object
+     * @param string $object
      * @return string
      */
-    protected function serializeNotNull($object)
+    protected function deserializeNotNull($object)
     {
         return strval($object);
     }
 
     /**
-     * @param string|int $data
+     * @param string $object
      * @return string
      */
-    protected function deserializeNotNull($data)
+    public function jsonSerializeNotNull($object)
     {
-        return strval($data);
+        return bcadd($object, '0');
     }
 }

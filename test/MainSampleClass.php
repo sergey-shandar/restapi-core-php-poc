@@ -1,8 +1,10 @@
 <?php
 
 use RestApiCore\PropertyInfo;
+use RestApiCore\Types\NumberType;
 use RestApiCore\Types\PrimitiveType;
 use RestApiCore\Types\ClassType;
+use RestApiCore\Types\StringType;
 
 class MainSampleClass
 {
@@ -78,10 +80,10 @@ class MainSampleClass
         return new ClassType(
             self::class,
             [
-                new PropertyInfo('a', 'a', PrimitiveType::create()),
-                new PropertyInfo('b', 'b', PrimitiveType::create()->createArray()->createArray()->createArray()),
-                new PropertyInfo('c', 'CCC', PrimitiveType::create()->createArray()),
-                new PropertyInfo('d', 'd', PrimitiveType::create()),
+                new PropertyInfo('a', 'a', NumberType::create()),
+                new PropertyInfo('b', 'b', StringType::create()->createArray()->createArray()->createArray()),
+                new PropertyInfo('c', 'CCC', NumberType::create()->createArray()),
+                new PropertyInfo('d', 'd', StringType::create()),
                 new PropertyInfo('sub', 'sub', SampleSubClass::createClassType()),
                 new PropertyInfo('subArray', 'subArray', SampleSubClass::createClassType()->createArray()),
             ]);

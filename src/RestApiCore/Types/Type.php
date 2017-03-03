@@ -1,6 +1,8 @@
 <?php
 namespace RestApiCore\Types;
 
+use RestApiCore\Json\Common;
+
 abstract class Type
 {
     const ARRAY_TYPE = 'array';
@@ -16,15 +18,6 @@ abstract class Type
     public function createMap()
     {
         return new MapType($this);
-    }
-
-    /**
-     * @param mixed|null $object
-     * @return mixed|null
-     */
-    public function serialize($object)
-    {
-        return $object === null ? null : $this->serializeNotNull($object);
     }
 
     /**
@@ -53,10 +46,28 @@ abstract class Type
     }
 
     /**
-     * @param mixed $object
-     * @return mixed
+     * @param mixed|null $object
+     * @return string
      */
-    protected abstract function serializeNotNull($object);
+    public function jsonSerialize($object)
+    {
+        return $object === null ? Common::NULL : $this->jsonSerializeNotNull($object);
+    }
+
+    /**
+     * @param string $json
+     * @return mixed|null
+     */
+    public function jsonDeserialize($json)
+    {
+        return $json === null ? null : $this->deserialize(Common::decode($json));
+    }
+
+    /**
+     * @param mixed $data
+     * @return string
+     */
+    public abstract function jsonSerializeNotNull($data);
 
     /**
      * @param mixed $data

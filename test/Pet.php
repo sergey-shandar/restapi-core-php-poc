@@ -117,12 +117,12 @@ class Pet
         return new \RestApiCore\Types\ClassType(
             self::class,
             [
-                new \RestApiCore\PropertyInfo('id', 'id', \RestApiCore\Types\PrimitiveType::create()),
+                new \RestApiCore\PropertyInfo('id', 'id', \RestApiCore\Types\NumberType::create()),
                 new \RestApiCore\PropertyInfo('category', 'category', Category::createClassInfo()),
-                new \RestApiCore\PropertyInfo('name', 'name', \RestApiCore\Types\PrimitiveType::create()),
-                new \RestApiCore\PropertyInfo('photoUrls', 'photoUrls', \RestApiCore\Types\PrimitiveType::create()->createArray()),
+                new \RestApiCore\PropertyInfo('name', 'name', \RestApiCore\Types\StringType::create()),
+                new \RestApiCore\PropertyInfo('photoUrls', 'photoUrls', \RestApiCore\Types\StringType::create()->createArray()),
                 new \RestApiCore\PropertyInfo('tags', 'tags', Tag::createClassInfo()->createArray()),
-                new \RestApiCore\PropertyInfo('status', 'status', \RestApiCore\Types\PrimitiveType::create())]);
+                new \RestApiCore\PropertyInfo('status', 'status', \RestApiCore\Types\StringType::create())]);
     }
 
     /**

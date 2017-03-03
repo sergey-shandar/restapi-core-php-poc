@@ -48,7 +48,7 @@ class Category
      */
     public static function createClassInfo()
     {
-        return new \RestApiCore\Types\ClassType(self::class, [new \RestApiCore\PropertyInfo('id', 'id', \RestApiCore\Types\PrimitiveType::create()), new RestApiCore\PropertyInfo('name', 'name', \RestApiCore\Types\PrimitiveType::create())]);
+        return new \RestApiCore\Types\ClassType(self::class, [new \RestApiCore\PropertyInfo('id', 'id', \RestApiCore\Types\StringType::create()), new RestApiCore\PropertyInfo('name', 'name', \RestApiCore\Types\StringType::create())]);
     }
 
     /**

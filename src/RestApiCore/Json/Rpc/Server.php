@@ -4,10 +4,10 @@ namespace RestApiCore\Json\Rpc;
 interface Server
 {
     /**
-     * @param string $operationId
+     * @param string $method
      * @param \stdClass $params
      *
-     * @return mixed
+     * @return string
      */
-    public function call($operationId, \stdClass $params);
+    public function call($method, \stdClass $params);
 }

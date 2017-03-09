@@ -1,7 +1,6 @@
 <?php
 namespace RestApiCore\Json;
 
-use RestApiCore\Json;
 use RestApiCore\Types\Type;
 
 final class ObjectBuilder
@@ -17,6 +16,15 @@ final class ObjectBuilder
     }
 
     /**
+     * @param string $name
+     * @param string $jsonValue
+     */
+    public function appendJson($name, $jsonValue)
+    {
+        $this->seq->append(Common::encodeStr($name) . ':' . $jsonValue);
+    }
+
+    /**
      * @param Type $type
      * @param string $name
      * @param mixed|null $value
@@ -24,7 +32,7 @@ final class ObjectBuilder
     public function append(Type $type, $name, $value)
     {
         if ($value !== null) {
-            $this->seq->append(Common::encodeStr($name) . ':' . $type->jsonSerializeNotNull($value));
+            $this->appendJson($name, $type->jsonSerializeNotNull($value));
         }
     }
 

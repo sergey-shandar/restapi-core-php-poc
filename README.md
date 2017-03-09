@@ -44,6 +44,11 @@ REST API Core for PHP (Proof of concept)
 |`Types\MapType`         |`T[]`          |`\stdClass`  |`object`    |              |
 |`Types\ClassType`       |`UserClass`    |`\stdClass`  |`object`    |              |
 
+# JSON
+
+- Serialization: PHP User's Object => string
+- Deserializtion: string => PHP Object => PHP User's Object
+
 # Conventions
 
 Each user class should implement
@@ -56,7 +61,8 @@ For example
 ```php
 <?php
 use \RestApiCore\Types\ClassType;
-use \RestApiCore\Types\PrimitiveType;
+use \RestApiCore\Types\NumberType;
+use \RestApiCore\Types\StringType;
 use \RestApiCore\PropertyInfo;
 
 class SampleClass
@@ -122,10 +128,10 @@ class SampleClass
         return new ClassType(
             self::class,
             [
-                new PropertyInfo('a', 'a', PrimitiveType::create()),
-                new PropertyInfo('b', 'b', PrimitiveType::create()->createArray()->createArray()->createArray()),
-                new PropertyInfo('c', 'CCC', PrimitiveType::create()->createArray()),
-                new PropertyInfo('d', 'd', PrimitiveType::create()),
+                new PropertyInfo('a', 'a', NumberType::create()),
+                new PropertyInfo('b', 'b', StringType::create()->createArray()->createArray()->createArray()),
+                new PropertyInfo('c', 'CCC', NumberType::create()->createArray()),
+                new PropertyInfo('d', 'd', StringType::create()),
                 new PropertyInfo('sub', 'sub', SampleSubClass::createClassType()),
                 new PropertyInfo('subArray', 'subArray', SampleSubClass::createClassType()->createArray()),
             ]);

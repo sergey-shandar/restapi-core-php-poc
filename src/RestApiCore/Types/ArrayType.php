@@ -12,6 +12,7 @@ final class ArrayType extends Type
 
     /**
      * ArrayType constructor.
+     *
      * @param Type $itemType
      */
     public function __construct(Type $itemType)

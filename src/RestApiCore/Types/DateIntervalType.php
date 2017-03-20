@@ -3,6 +3,14 @@ namespace RestApiCore\Types;
 
 use RestApiCore\Json\Common;
 
+/**
+ * Class DateIntervalType
+ *
+ * PHP: new \DateIntervalType()
+ * JSON: "..."
+ *
+ * @package RestApiCore\Types
+ */
 final class DateIntervalType extends Type
 {
     /**

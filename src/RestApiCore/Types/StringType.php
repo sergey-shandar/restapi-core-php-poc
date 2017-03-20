@@ -3,6 +3,14 @@ namespace RestApiCore\Types;
 
 use RestApiCore\Json\Common;
 
+/**
+ * Class StringType
+ *
+ * PHP: 'abc'
+ * JSON: "abc"
+ *
+ * @package RestApiCore\Types
+ */
 final class StringType extends PrimitiveType
 {
     /**

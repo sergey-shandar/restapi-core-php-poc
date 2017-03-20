@@ -3,6 +3,14 @@ namespace RestApiCore\Types;
 
 use RestApiCore\Json\Common;
 
+/**
+ * Class DateTimeType
+ *
+ * PHP: \DateTime
+ * JSON: "..."
+ *
+ * @package RestApiCore\Types
+ */
 final class DateTimeType extends Type
 {
     /**

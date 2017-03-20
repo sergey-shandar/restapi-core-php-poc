@@ -47,7 +47,7 @@ REST API Core for PHP (Proof of concept)
 # JSON
 
 - Serialization: PHP User's Object => string
-- Deserializtion: string => PHP Object => PHP User's Object
+- Deserialization: string => PHP Object => PHP User's Object
 
 # Conventions
 

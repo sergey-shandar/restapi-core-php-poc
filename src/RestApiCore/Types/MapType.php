@@ -1,8 +1,16 @@
 <?php
 namespace RestApiCore\Types;
 
-use RestApiCore\Json\ObjectBuilder;
+use RestApiCore\Json\FromObject;
 
+/**
+ * Class MapType
+ *
+ * PHP: [ 'a' => 12 ]
+ * JSON: { "a" : 12 }
+ *
+ * @package RestApiCore\Types
+ */
 final class MapType extends Type
 {
     /**
@@ -39,7 +47,7 @@ final class MapType extends Type
      */
     public function jsonSerializeNotNull($object)
     {
-        $result = new ObjectBuilder();
+        $result = new FromObject();
         $itemType = $this->itemType;
         foreach ($object as $key => $value) {
             $result->append($itemType, $key, $value);

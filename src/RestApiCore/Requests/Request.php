@@ -16,10 +16,16 @@ abstract class Request
     public $method = 'GET';
 
     /**
+     * An associative array of parameters. Each parameter is a value which is convertible to a string or an array of
+     * such values.
+     *
      * @var array
      */
     public $queryParameters = [];
 
+    /**
+     * @return string
+     */
     public function getQuery()
     {
         /**
@@ -39,6 +45,11 @@ abstract class Request
         return join('&', $parameters);
     }
 
+    /**
+     * @param string $baseUrl
+     *
+     * @return string
+     */
     public function getUrl($baseUrl)
     {
         return $baseUrl . $this->path;
@@ -59,6 +70,12 @@ abstract class Request
      */
     public abstract function getHeaders();
 
+    /**
+     * @param string $key
+     * @param string $value
+     *
+     * @return string
+     */
     private static function queryParam($key, $value) {
         return $key . '=' . urlencode($value);
     }

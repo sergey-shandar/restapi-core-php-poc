@@ -1,8 +1,16 @@
 <?php
 namespace RestApiCore\Types;
 
-use RestApiCore\Json\SeqBuilder;
+use RestApiCore\Json\FromSeq;
 
+/**
+ * Class ArrayType.
+ *
+ * PHP: [ 'a', 'b', 'c' ]
+ * JSON: [ "a", "b", "c" ]
+ *
+ * @package RestApiCore\Types
+ */
 final class ArrayType extends Type
 {
     /**
@@ -41,7 +49,7 @@ final class ArrayType extends Type
     public function jsonSerializeNotNull($object)
     {
         $itemType = $this->itemType;
-        $result = new SeqBuilder();
+        $result = new FromSeq();
         foreach ($object as $item) {
             $result->append($itemType->jsonSerialize($item));
         }

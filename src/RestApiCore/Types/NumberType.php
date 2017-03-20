@@ -6,6 +6,9 @@ namespace RestApiCore\Types;
  *
  * int|float
  *
+ * PHP: 1234.56, 59
+ * JSON: 1234.56, 59
+ *
  * @package RestApiCore\Types
  */
 final class NumberType extends PrimitiveType

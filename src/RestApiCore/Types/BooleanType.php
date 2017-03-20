@@ -1,6 +1,14 @@
 <?php
 namespace RestApiCore\Types;
 
+/**
+ * Class BooleanType
+ *
+ * PHP: true, false
+ * JSON: true, false
+ *
+ * @package RestApiCore\Types
+ */
 final class BooleanType extends PrimitiveType
 {
     /**

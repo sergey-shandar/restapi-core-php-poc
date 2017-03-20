@@ -3,16 +3,23 @@ namespace RestApiCore\Json;
 
 use RestApiCore\Types\Type;
 
-final class ObjectBuilder
+/**
+ * Class FromObject.
+ *
+ * Build a JSON string from an object.
+ *
+ * @package RestApiCore\Json
+ */
+final class FromObject
 {
     /**
-     * @var SeqBuilder
+     * @var FromSeq
      */
     private $seq;
 
     public function __construct()
     {
-        $this->seq = new SeqBuilder();
+        $this->seq = new FromSeq();
     }
 
     /**

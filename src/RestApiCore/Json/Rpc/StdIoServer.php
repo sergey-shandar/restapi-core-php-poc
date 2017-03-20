@@ -2,7 +2,7 @@
 namespace RestApiCore\Json\Rpc;
 
 use RestApiCore\Json\Common;
-use RestApiCore\Json\ObjectBuilder;
+use RestApiCore\Json\FromObject;
 
 /**
  * Class StdIoServer
@@ -77,7 +77,7 @@ final class StdIoServer
 
         $result = $server->call($method, $params);
 
-        $response = new ObjectBuilder();
+        $response = new FromObject();
         $response->appendJson('result', $result);
 
         return self::createMessage($response->get());

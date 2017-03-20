@@ -5,6 +5,9 @@ namespace RestApiCore\Types;
  * Class LongType
  * @package RestApiCore\Types
  *
+ * PHP: '1234'
+ * JSON: 1234
+ *
  * The wire 'long' type is always [de]serialized as a string because only PHP x64 supports 64 bit integers. See
  * http://php.net/manual/en/function.json-decode.php
  *
@@ -23,6 +26,7 @@ final class LongType extends Type
 
     /**
      * @param string $object
+     *
      * @return string
      */
     protected function deserializeNotNull($object)
@@ -32,6 +36,7 @@ final class LongType extends Type
 
     /**
      * @param string $object
+     *
      * @return string
      */
     public function jsonSerializeNotNull($object)

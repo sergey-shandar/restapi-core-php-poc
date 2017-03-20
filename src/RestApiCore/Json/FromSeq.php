@@ -1,7 +1,14 @@
 <?php
 namespace RestApiCore\Json;
 
-final class SeqBuilder
+/**
+ * Class FromSeq.
+ *
+ * Build a JSON string from a sequence.
+ *
+ * @package RestApiCore\Json
+ */
+final class FromSeq
 {
     /**
      * @var string

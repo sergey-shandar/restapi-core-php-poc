@@ -2,10 +2,18 @@
 namespace RestApiCore\Types;
 
 use RestApiCore\Json;
-use RestApiCore\Json\ObjectBuilder;
-use RestApiCore\Json\SeqBuilder;
+use RestApiCore\Json\FromObject;
+use RestApiCore\Json\FromSeq;
 use RestApiCore\PropertyInfo;
 
+/**
+ * Class ClassType
+ *
+ * PHP: class A { public $x; }
+ * JSON: { "x": ... }
+ *
+ * @package RestApiCore\Types
+ */
 final class ClassType extends Type
 {
     /**
@@ -36,7 +44,7 @@ final class ClassType extends Type
      */
     public function jsonSerializeNotNull($object)
     {
-        $result = new ObjectBuilder();
+        $result = new FromObject();
         foreach ($this->propertyInfoArray as $propertyInfo) {
             $name = $propertyInfo->name;
             if (isset($object->$name)) {

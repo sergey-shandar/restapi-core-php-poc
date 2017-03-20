@@ -3,6 +3,14 @@ namespace RestApiCore\Types;
 
 use RestApiCore\Json\Common;
 
+/**
+ * Class NullType
+ *
+ * PHP: null
+ * JSON: null
+ *
+ * @package RestApiCore\Types
+ */
 final class NullType extends PrimitiveType
 {
     /**

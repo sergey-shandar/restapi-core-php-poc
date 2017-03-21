@@ -16,7 +16,11 @@ final class NullInfo extends PrimitiveInfo
      */
     public static function create()
     {
-        return new self();
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new NullInfo();
+        }
+        return $instance;
     }
 
     /**
@@ -26,5 +30,9 @@ final class NullInfo extends PrimitiveInfo
     public function jsonSerializeNotNull($object)
     {
         return Common::NULL;
+    }
+
+    private function __construct()
+    {
     }
 }

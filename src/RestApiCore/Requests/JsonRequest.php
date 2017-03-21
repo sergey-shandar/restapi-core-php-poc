@@ -1,14 +1,14 @@
 <?php
 namespace RestApiCore\Requests;
 
-use RestApiCore\Types\Type;
+use RestApiCore\Reflection\Types\TypeInfo;
 
 final class JsonRequest extends Request
 {
     const CONTENT_TYPE = 'application/json';
 
     /**
-     * @var Type|null
+     * @var TypeInfo|null
      */
     public $type = null;
 

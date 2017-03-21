@@ -16,7 +16,11 @@ final class StringInfo extends PrimitiveInfo
      */
     public static function create()
     {
-        return new self();
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new StringInfo();
+        }
+        return $instance;
     }
 
     /**
@@ -26,5 +30,9 @@ final class StringInfo extends PrimitiveInfo
     public function jsonSerializeNotNull($object)
     {
         return Common::encodeStr($object);
+    }
+
+    private function __construct()
+    {
     }
 }

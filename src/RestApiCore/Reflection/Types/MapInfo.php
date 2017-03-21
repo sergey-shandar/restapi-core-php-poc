@@ -18,6 +18,9 @@ final class MapInfo extends TypeInfo
 
     /**
      * MapType constructor.
+     *
+     * Use the TypeInfo::createMap() function instead.
+     *
      * @param TypeInfo $itemType
      */
     public function __construct(TypeInfo $itemType)

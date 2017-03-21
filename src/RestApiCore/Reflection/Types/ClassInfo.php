@@ -37,7 +37,7 @@ final class ClassInfo extends TypeInfo
     /**
      * @param string $name
      *
-     * @return ClassInfo
+     * @return self
      */
     public static function create($name)
     {

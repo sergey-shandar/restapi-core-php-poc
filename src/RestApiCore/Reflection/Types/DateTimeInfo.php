@@ -6,7 +6,7 @@ use RestApiCore\Json\Common;
 /**
  * Class DateTimeInfo
  *
- * PHP: \DateTime
+ * PHP: new \DateTime("...")
  * JSON: "..."
  */
 final class DateTimeInfo extends TypeInfo
@@ -16,7 +16,11 @@ final class DateTimeInfo extends TypeInfo
      */
     public static function create()
     {
-        return new DateTimeInfo();
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new DateTimeInfo();
+        }
+        return $instance;
     }
 
     /**
@@ -35,5 +39,9 @@ final class DateTimeInfo extends TypeInfo
     public function jsonSerializeNotNull($object)
     {
         return Common::encodeStr($object->format('Y-m-d\TH:i:s.u\Z'));
+    }
+
+    private function __construct()
+    {
     }
 }

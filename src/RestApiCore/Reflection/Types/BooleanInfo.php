@@ -10,11 +10,15 @@ namespace RestApiCore\Reflection\Types;
 final class BooleanInfo extends PrimitiveInfo
 {
     /**
-     * @return BooleanInfo
+     * @return self
      */
     public static function create()
     {
-        return new self();
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new BooleanInfo();
+        }
+        return $instance;
     }
 
     /**
@@ -24,5 +28,9 @@ final class BooleanInfo extends PrimitiveInfo
     public function jsonSerializeNotNull($object)
     {
         return $object ? 'true' : 'false';
+    }
+
+    private function __construct()
+    {
     }
 }

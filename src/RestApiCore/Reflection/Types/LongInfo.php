@@ -16,11 +16,15 @@ namespace RestApiCore\Reflection\Types;
 final class LongInfo extends TypeInfo
 {
     /**
-     * @return LongInfo
+     * @return self
      */
     public static function create()
     {
-        return new LongInfo();
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new LongInfo();
+        }
+        return $instance;
     }
 
     /**
@@ -41,5 +45,9 @@ final class LongInfo extends TypeInfo
     public function jsonSerializeNotNull($object)
     {
         return bcadd($object, '0');
+    }
+
+    private function __construct()
+    {
     }
 }

@@ -16,7 +16,11 @@ final class NumberInfo extends PrimitiveInfo
      */
     public static function create()
     {
-        return new self();
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new NumberInfo();
+        }
+        return $instance;
     }
 
     /**
@@ -27,5 +31,9 @@ final class NumberInfo extends PrimitiveInfo
     {
         $type = gettype($object);
         return $type === 'integer' || $type === 'double' ? strval($object) : '0';
+    }
+
+    private function __construct()
+    {
     }
 }

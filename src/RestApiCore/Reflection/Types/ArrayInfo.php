@@ -17,7 +17,9 @@ final class ArrayInfo extends TypeInfo
     private $itemType;
 
     /**
-     * ArrayType constructor.
+     * constructor.
+     *
+     * Use the TypeInfo::createArray() function instead.
      *
      * @param TypeInfo $itemType
      */

@@ -6,7 +6,7 @@ use RestApiCore\Json\Common;
 /**
  * Class DateIntervalInfo
  *
- * PHP: new \DateIntervalType()
+ * PHP: new \DateInterval("...")
  * JSON: "..."
  */
 final class DateIntervalInfo extends TypeInfo
@@ -16,7 +16,11 @@ final class DateIntervalInfo extends TypeInfo
      */
     public static function create()
     {
-        return new DateIntervalInfo();
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new DateIntervalInfo();
+        }
+        return $instance;
     }
 
     /**
@@ -49,5 +53,9 @@ final class DateIntervalInfo extends TypeInfo
             . $object->s
             . 'S';
         return Common::encodeStr($result);
+    }
+
+    private function __construct()
+    {
     }
 }

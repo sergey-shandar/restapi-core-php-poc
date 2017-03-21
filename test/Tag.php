@@ -48,7 +48,12 @@ class Tag
      */
     public static function createClassInfo()
     {
-        return new \RestApiCore\Types\ClassType(self::class, [new RestApiCore\PropertyInfo('id', 'id', \RestApiCore\Types\NumberType::create()), new RestApiCore\PropertyInfo('name', 'name', \RestApiCore\Types\StringType::create())]);
+        return new \RestApiCore\Reflection\Types\ClassInfo(
+            self::class,
+            [
+                new RestApiCore\Reflection\PropertyInfo('id', 'id', \RestApiCore\Reflection\Types\NumberInfo::create()),
+                new RestApiCore\Reflection\PropertyInfo('name', 'name', \RestApiCore\Reflection\Types\StringInfo::create())
+            ]);
     }
 
     /**

@@ -1,8 +1,7 @@
 <?php
-use RestApiCore\Types\ClassType;
-use RestApiCore\Types\NumberType;
-use RestApiCore\Types\PrimitiveType;
-use RestApiCore\PropertyInfo;
+use RestApiCore\Reflection\Types\ClassInfo;
+use RestApiCore\Reflection\Types\NumberInfo;
+use RestApiCore\Reflection\PropertyInfo;
 
 class SampleSubClass
 {
@@ -22,14 +21,14 @@ class SampleSubClass
     }
 
     /**
-     * @return ClassType
+     * @return ClassInfo
      */
     public static function createClassType()
     {
-        return new ClassType(
+        return new ClassInfo(
             self::class,
             [
-                new PropertyInfo('a', 'a', NumberType::create()),
+                new PropertyInfo('a', 'a', NumberInfo::create()),
             ]);
     }
 }

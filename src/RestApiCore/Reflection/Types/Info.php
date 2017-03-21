@@ -1,23 +1,26 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
 use RestApiCore\Json\Common;
 
-abstract class Type
+abstract class Info
 {
     const ARRAY_TYPE = 'array';
 
     /**
-     * @return ArrayType
+     * @return ArrayInfo
      */
     public function createArray()
     {
-        return new ArrayType($this);
+        return new ArrayInfo($this);
     }
 
+    /**
+     * @return MapInfo
+     */
     public function createMap()
     {
-        return new MapType($this);
+        return new MapInfo($this);
     }
 
     /**

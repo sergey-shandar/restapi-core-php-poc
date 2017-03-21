@@ -1,20 +1,16 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
-use RestApiCore\Json;
 use RestApiCore\Json\FromObject;
-use RestApiCore\Json\FromSeq;
-use RestApiCore\PropertyInfo;
+use RestApiCore\Reflection\PropertyInfo;
 
 /**
- * Class ClassType
+ * Class ClassInfo
  *
  * PHP: class A { public $x; }
  * JSON: { "x": ... }
- *
- * @package RestApiCore\Types
  */
-final class ClassType extends Type
+final class ClassInfo extends Info
 {
     /**
      * @var string
@@ -32,10 +28,33 @@ final class ClassType extends Type
      * @param string $name
      * @param PropertyInfo[] $propertyInfoArray
      */
-    public function __construct($name, array $propertyInfoArray)
+    public function __construct($name, array $propertyInfoArray = [])
     {
         $this->name = $name;
         $this->propertyInfoArray = $propertyInfoArray;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return ClassInfo
+     */
+    public static function create($name)
+    {
+        return new self($name);
+    }
+
+    /**
+     * @param string $name
+     * @param string $wireName
+     * @param Info $typeInfo
+     *
+     * @return ClassInfo
+     */
+    public function withProperty($name, $wireName, Info $typeInfo)
+    {
+        $this->propertyInfoArray[] = new PropertyInfo($name, $wireName, $typeInfo);
+        return $this;
     }
 
     /**

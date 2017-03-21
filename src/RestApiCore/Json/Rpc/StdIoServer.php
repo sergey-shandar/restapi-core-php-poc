@@ -5,11 +5,9 @@ use RestApiCore\Json\Common;
 use RestApiCore\Json\FromObject;
 
 /**
- * Class StdIoServer
+ * A JSON RPC STDIO server.
  *
  * See https://github.com/Microsoft/language-server-protocol/blob/master/protocol.md
- *
- * @package RestApiCore\Json\Rpc
  */
 final class StdIoServer
 {

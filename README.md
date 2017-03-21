@@ -30,7 +30,7 @@ REST API Core for PHP (Proof of concept)
 
 ## Supported Types
 
-|Class Name              |PHP Type       |PHP JSON Type|Swagger Type|Swagger Format|
+|Reflection Type         |PHP Type       |PHP JSON Type|Swagger Type|Swagger Format|
 |------------------------|---------------|-------------|------------|--------------|
 |`Types\StringType`      |`string`       |`string`     |`string`    |              |
 |`Types\BooleanType`     |`boolean`      |`boolean`    |`boolean`   |              |

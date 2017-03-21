@@ -1,6 +1,9 @@
 <?php
 namespace RestApiCore\Json;
 
+/**
+ * Common utilities.
+ */
 final class Common
 {
     const NULL = 'null';

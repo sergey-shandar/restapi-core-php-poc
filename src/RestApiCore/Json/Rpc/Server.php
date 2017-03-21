@@ -1,6 +1,9 @@
 <?php
 namespace RestApiCore\Json\Rpc;
 
+/**
+ * A JSON RPC server interface.
+ */
 interface Server
 {
     /**

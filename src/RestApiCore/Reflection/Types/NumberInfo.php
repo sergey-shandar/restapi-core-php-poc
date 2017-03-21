@@ -1,20 +1,18 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
 /**
- * Class NumberType
+ * Class NumberInfo
  *
  * int|float
  *
  * PHP: 1234.56, 59
  * JSON: 1234.56, 59
- *
- * @package RestApiCore\Types
  */
-final class NumberType extends PrimitiveType
+final class NumberInfo extends PrimitiveInfo
 {
     /**
-     * @return self
+     * @return NumberInfo
      */
     public static function create()
     {

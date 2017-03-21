@@ -1,7 +1,10 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
-abstract class PrimitiveType extends Type
+/**
+ * Class PrimitiveInfo
+ */
+abstract class PrimitiveInfo extends Info
 {
     /**
      * @param mixed $data

@@ -1,14 +1,14 @@
 <?php
-namespace Types;
+namespace Reflection;
 
 use PHPUnit\Framework\TestCase;
-use RestApiCore\Types\StringType;
+use RestApiCore\Reflection\Types\StringInfo;
 
 class ArrayTypeTest extends TestCase
 {
     public function test()
     {
-        $type = StringType::create()->createArray();
+        $type = StringInfo::create()->createArray();
 
         $json = $type->jsonSerialize(['a', 'b', null]);
         $this->assertSame('["a","b",null]', $json);

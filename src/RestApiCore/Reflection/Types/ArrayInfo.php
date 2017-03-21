@@ -1,5 +1,5 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
 use RestApiCore\Json\FromSeq;
 
@@ -8,22 +8,20 @@ use RestApiCore\Json\FromSeq;
  *
  * PHP: [ 'a', 'b', 'c' ]
  * JSON: [ "a", "b", "c" ]
- *
- * @package RestApiCore\Types
  */
-final class ArrayType extends Type
+final class ArrayInfo extends Info
 {
     /**
-     * @var Type
+     * @var Info
      */
     private $itemType;
 
     /**
      * ArrayType constructor.
      *
-     * @param Type $itemType
+     * @param Info $itemType
      */
-    public function __construct(Type $itemType)
+    public function __construct(Info $itemType)
     {
         $this->itemType = $itemType;
     }

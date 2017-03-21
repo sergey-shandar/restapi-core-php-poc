@@ -1,20 +1,18 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
 use RestApiCore\Json\Common;
 
 /**
- * Class StringType
+ * Class StringInfo
  *
  * PHP: 'abc'
  * JSON: "abc"
- *
- * @package RestApiCore\Types
  */
-final class StringType extends PrimitiveType
+final class StringInfo extends PrimitiveInfo
 {
     /**
-     * @return self
+     * @return StringInfo
      */
     public static function create()
     {

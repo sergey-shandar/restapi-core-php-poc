@@ -1,14 +1,14 @@
 <?php
-namespace Types;
+namespace Reflection;
 
 use PHPUnit\Framework\TestCase;
-use RestApiCore\Types\NullType;
+use RestApiCore\Reflection\Types\NullInfo;
 
 class NullTypeTest extends TestCase
 {
     public function test()
     {
-        $type = NullType::create();
+        $type = NullInfo::create();
 
         $json = $type->jsonSerialize(90);
         $this->assertSame('null', $json);

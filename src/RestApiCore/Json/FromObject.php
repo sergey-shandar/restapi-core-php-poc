@@ -1,14 +1,10 @@
 <?php
 namespace RestApiCore\Json;
 
-use RestApiCore\Types\Type;
+use RestApiCore\Reflection\Types\Info;
 
 /**
- * Class FromObject.
- *
  * Build a JSON string from an object.
- *
- * @package RestApiCore\Json
  */
 final class FromObject
 {
@@ -32,11 +28,11 @@ final class FromObject
     }
 
     /**
-     * @param Type $type
+     * @param Info $type
      * @param string $name
      * @param mixed|null $value
      */
-    public function append(Type $type, $name, $value)
+    public function append(Info $type, $name, $value)
     {
         if ($value !== null) {
             $this->appendJson($name, $type->jsonSerializeNotNull($value));

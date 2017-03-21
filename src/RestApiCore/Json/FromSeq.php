@@ -2,11 +2,7 @@
 namespace RestApiCore\Json;
 
 /**
- * Class FromSeq.
- *
  * Build a JSON string from a sequence.
- *
- * @package RestApiCore\Json
  */
 final class FromSeq
 {

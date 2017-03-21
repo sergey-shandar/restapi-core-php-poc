@@ -1,24 +1,22 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
 use RestApiCore\Json\Common;
 
 /**
- * Class DateIntervalType
+ * Class DateIntervalInfo
  *
  * PHP: new \DateIntervalType()
  * JSON: "..."
- *
- * @package RestApiCore\Types
  */
-final class DateIntervalType extends Type
+final class DateIntervalInfo extends Info
 {
     /**
-     * @return DateIntervalType
+     * @return DateIntervalInfo
      */
     public static function create()
     {
-        return new DateIntervalType();
+        return new DateIntervalInfo();
     }
 
     /**

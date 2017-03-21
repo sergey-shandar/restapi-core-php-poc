@@ -1,6 +1,9 @@
 <?php
 namespace RestApiCore\Json\Rpc;
 
+/**
+ * A JSON RPC error.
+ */
 final class Error extends \Exception
 {
     const PARSE_ERROR = -32700;

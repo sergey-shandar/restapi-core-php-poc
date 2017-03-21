@@ -1,24 +1,22 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
 use RestApiCore\Json\Common;
 
 /**
- * Class DateTimeType
+ * Class DateTimeInfo
  *
  * PHP: \DateTime
  * JSON: "..."
- *
- * @package RestApiCore\Types
  */
-final class DateTimeType extends Type
+final class DateTimeInfo extends Info
 {
     /**
-     * @return DateTimeType
+     * @return DateTimeInfo
      */
     public static function create()
     {
-        return new DateTimeType();
+        return new DateTimeInfo();
     }
 
     /**

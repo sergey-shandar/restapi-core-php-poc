@@ -1,10 +1,8 @@
 <?php
 
-use RestApiCore\PropertyInfo;
-use RestApiCore\Types\NumberType;
-use RestApiCore\Types\PrimitiveType;
-use RestApiCore\Types\ClassType;
-use RestApiCore\Types\StringType;
+use RestApiCore\Reflection\Types\ClassInfo;
+use RestApiCore\Reflection\Types\NumberInfo;
+use RestApiCore\Reflection\Types\StringInfo;
 
 class MainSampleClass
 {
@@ -73,19 +71,16 @@ class MainSampleClass
     }
 
     /**
-     * @return ClassType
+     * @return ClassInfo
      */
     public static function createClassType()
     {
-        return new ClassType(
-            self::class,
-            [
-                new PropertyInfo('a', 'a', NumberType::create()),
-                new PropertyInfo('b', 'b', StringType::create()->createArray()->createArray()->createArray()),
-                new PropertyInfo('c', 'CCC', NumberType::create()->createArray()),
-                new PropertyInfo('d', 'd', StringType::create()),
-                new PropertyInfo('sub', 'sub', SampleSubClass::createClassType()),
-                new PropertyInfo('subArray', 'subArray', SampleSubClass::createClassType()->createArray()),
-            ]);
+        return ClassInfo::create(self::class)
+            ->withProperty('a', 'a', NumberInfo::create())
+            ->withProperty('b', 'b', StringInfo::create()->createArray()->createArray()->createArray())
+            ->withProperty('c', 'CCC', NumberInfo::create()->createArray())
+            ->withProperty('d', 'd', StringInfo::create())
+            ->withProperty('sub', 'sub', SampleSubClass::createClassType())
+            ->withProperty('subArray', 'subArray', SampleSubClass::createClassType()->createArray());
     }
 }

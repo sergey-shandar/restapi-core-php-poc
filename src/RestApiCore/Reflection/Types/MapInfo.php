@@ -1,28 +1,26 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
 use RestApiCore\Json\FromObject;
 
 /**
- * Class MapType
+ * Class MapInfo
  *
  * PHP: [ 'a' => 12 ]
  * JSON: { "a" : 12 }
- *
- * @package RestApiCore\Types
  */
-final class MapType extends Type
+final class MapInfo extends Info
 {
     /**
-     * @var Type
+     * @var Info
      */
     private $itemType;
 
     /**
      * MapType constructor.
-     * @param Type $itemType
+     * @param Info $itemType
      */
-    public function __construct(Type $itemType)
+    public function __construct(Info $itemType)
     {
         $this->itemType = $itemType;
     }

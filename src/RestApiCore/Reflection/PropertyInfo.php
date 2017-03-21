@@ -1,7 +1,7 @@
 <?php
-namespace RestApiCore;
+namespace RestApiCore\Reflection;
 
-use RestApiCore\Types\Type;
+use RestApiCore\Reflection\Types\Info;
 
 final class PropertyInfo
 {
@@ -16,7 +16,7 @@ final class PropertyInfo
     public $wireName;
 
     /**
-     * @var Type $typeInfo
+     * @var Info $typeInfo
      */
     public $typeInfo;
 
@@ -25,9 +25,9 @@ final class PropertyInfo
      *
      * @param string $name
      * @param string $wireName
-     * @param Type $typeInfo
+     * @param Info $typeInfo
      */
-    public function __construct($name, $wireName, Type $typeInfo)
+    public function __construct($name, $wireName, Info $typeInfo)
     {
         $this->name = $name;
         $this->wireName = $wireName;

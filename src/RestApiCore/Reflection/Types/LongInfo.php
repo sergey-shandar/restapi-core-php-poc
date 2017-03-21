@@ -1,9 +1,8 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
 /**
- * Class LongType
- * @package RestApiCore\Types
+ * Class LongInfo
  *
  * PHP: '1234'
  * JSON: 1234
@@ -14,14 +13,14 @@ namespace RestApiCore\Types;
  * Note: Always use the JSON_BIGINT_AS_STRING option to deserialize from Json or Json::decode() function instead of
  * json_decode().
  */
-final class LongType extends Type
+final class LongInfo extends Info
 {
     /**
-     * @return LongType
+     * @return LongInfo
      */
     public static function create()
     {
-        return new LongType();
+        return new LongInfo();
     }
 
     /**

@@ -114,15 +114,13 @@ class Pet
      */
     public static function createClassInfo()
     {
-        return new \RestApiCore\Types\ClassType(
-            self::class,
-            [
-                new \RestApiCore\PropertyInfo('id', 'id', \RestApiCore\Types\NumberType::create()),
-                new \RestApiCore\PropertyInfo('category', 'category', Category::createClassInfo()),
-                new \RestApiCore\PropertyInfo('name', 'name', \RestApiCore\Types\StringType::create()),
-                new \RestApiCore\PropertyInfo('photoUrls', 'photoUrls', \RestApiCore\Types\StringType::create()->createArray()),
-                new \RestApiCore\PropertyInfo('tags', 'tags', Tag::createClassInfo()->createArray()),
-                new \RestApiCore\PropertyInfo('status', 'status', \RestApiCore\Types\StringType::create())]);
+        return \RestApiCore\Reflection\Types\ClassInfo::create(self::class)
+            ->withProperty('id', 'id', \RestApiCore\Reflection\Types\NumberInfo::create())
+            ->withProperty('category', 'category', Category::createClassInfo())
+            ->withProperty('name', 'name', \RestApiCore\Reflection\Types\StringInfo::create())
+            ->withProperty('photoUrls', 'photoUrls', \RestApiCore\Reflection\Types\StringInfo::create()->createArray())
+            ->withProperty('tags', 'tags', Tag::createClassInfo()->createArray())
+            ->withProperty('status', 'status', \RestApiCore\Reflection\Types\StringInfo::create());
     }
 
     /**

@@ -1,18 +1,16 @@
 <?php
-namespace RestApiCore\Types;
+namespace RestApiCore\Reflection\Types;
 
 /**
- * Class BooleanType
+ * Class BooleanInfo
  *
  * PHP: true, false
  * JSON: true, false
- *
- * @package RestApiCore\Types
  */
-final class BooleanType extends PrimitiveType
+final class BooleanInfo extends PrimitiveInfo
 {
     /**
-     * @return self
+     * @return BooleanInfo
      */
     public static function create()
     {

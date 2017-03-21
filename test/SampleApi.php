@@ -30,6 +30,6 @@ class SampleApi
         $request = new JsonRequest();
         $request->queryParameters = ['a' => 13];
         $request->body = $sampleClass;
-        return $this->client->request(MainSampleClass::createClassInfo(), $request);
+        return $this->client->request(MainSampleClass::createClassType(), $request);
     }
 }

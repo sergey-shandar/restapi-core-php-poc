@@ -6,9 +6,7 @@ use PHPUnit\Framework\TestCase;
 use RestApiCore\ApiClient;
 use RestApiCore\Requests\JsonRequest;
 use RestApiCore\Requests\MultiPartRequest;
-use RestApiCore\Types\NullType;
-use RestApiCore\Types\PrimitiveType;
-use RestApiCore\Types\StringType;
+use RestApiCore\Reflection\Types\NullInfo;
 
 class MultiPartTest extends TestCase
 {
@@ -40,7 +38,7 @@ class MultiPartTest extends TestCase
         $apiRequest->path = 'v2/pet/425/uploadImage';
         $apiRequest->parameters = [ 'file' => 'something' ];
         $client = new ApiClient(new Client(), 'http://petstore.swagger.io/');
-        $client->request(NullType::create(), $apiRequest);
+        $client->request(NullInfo::create(), $apiRequest);
     }
 
     public function testJsonApi()
@@ -51,7 +49,7 @@ class MultiPartTest extends TestCase
         $apiRequest->type = Pet::createClassInfo();
         $apiRequest->body = Pet::create()->id(525);
         $client = new ApiClient(new Client(), 'http://petstore.swagger.io/');
-        $client->request(NullType::create(), $apiRequest);
+        $client->request(NullInfo::create(), $apiRequest);
     }
 
     public function testFormApi()
@@ -64,7 +62,7 @@ class MultiPartTest extends TestCase
             $apiRequest->path = '/pet';
             $apiRequest->type = Pet::createClassInfo();
             $apiRequest->body = Pet::create()->id(525)->status('available');
-            $client->request(NullType::create(), $apiRequest);
+            $client->request(NullInfo::create(), $apiRequest);
         }
 
         {
@@ -73,11 +71,11 @@ class MultiPartTest extends TestCase
             $apiRequest->method = 'Post';
             $apiRequest->queryParameters = [];
             $apiRequest->parameters = [ 'status' => 'sold' ];
-            $client->request(\RestApiCore\Types\NullType::create(), $apiRequest);
+            $client->request(\RestApiCore\Reflection\Types\NullInfo::create(), $apiRequest);
         }
 
         {
-            $apiRequest = new \RestApiCore\Requests\JsonRequest(NullType::create(), null);
+            $apiRequest = new \RestApiCore\Requests\JsonRequest(NullInfo::create(), null);
             $apiRequest->path = '/pet/525';
             $apiRequest->method = 'Get';
             $apiRequest->queryParameters = [];

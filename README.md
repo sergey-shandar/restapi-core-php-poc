@@ -11,7 +11,7 @@ REST API Core for PHP (Proof of concept)
 - PHP 5.6
 - PHP 7.0
 - PHP 7.1
-- HHVM 3.3
+- HHVM 3.6
 
 # Required Windows Extensions
 

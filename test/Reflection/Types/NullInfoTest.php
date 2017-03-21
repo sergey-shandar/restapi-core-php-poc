@@ -1,10 +1,10 @@
 <?php
-namespace Reflection;
+namespace Reflection\Types;
 
 use PHPUnit\Framework\TestCase;
 use RestApiCore\Reflection\Types\NullInfo;
 
-class NullTypeTest extends TestCase
+class NullInfoTest extends TestCase
 {
     public function test()
     {

@@ -26,23 +26,23 @@ REST API Core for PHP (Proof of concept)
 |`Requests\FormRequest`     |`application/x-www-form-urlencoded`|
 |`Requests\MultiPartRequest`|`multipart/form-data`              |
 
-# Serialization
+# Reflection
 
 ## Supported Types
 
-|Reflection Type         |PHP Type       |PHP JSON Type|Swagger Type|Swagger Format|
-|------------------------|---------------|-------------|------------|--------------|
-|`Types\StringType`      |`string`       |`string`     |`string`    |              |
-|`Types\BooleanType`     |`boolean`      |`boolean`    |`boolean`   |              |
-|`Types\NumberType`      |`int`          |`int`        |`integer`   |`int32`       |
-|                        |`float`        |`float`      |`number`    |`float`       |
-|                        |               |             |            |`double`      |
-|`Types\LongType`        |`string`       |`string`     |`integer`   |`int64`       |
-|`Types\DateTimeType`    |`\DateTime`    |`string`     |`string`    |`date-time`   |
-|`Types\DateIntervalType`|`\DateInterval`|`string`     |`string`    |`duration`    |
-|`Types\ArrayType`       |`T[]`          |`T[]`        |`array`     |              |
-|`Types\MapType`         |`T[]`          |`\stdClass`  |`object`    |              |
-|`Types\ClassType`       |`UserClass`    |`\stdClass`  |`object`    |              |
+|Reflection Type Info |PHP Type       |PHP JSON Type|Swagger Type|Swagger Format|
+|---------------------|---------------|-------------|------------|--------------|
+|`StringInfo`         |`string`       |`string`     |`string`    |              |
+|`BooleanInfo`        |`boolean`      |`boolean`    |`boolean`   |              |
+|`NumberInfo`         |`int`          |`int`        |`integer`   |`int32`       |
+|                     |`float`        |`float`      |`number`    |`float`       |
+|                     |               |             |            |`double`      |
+|`LongInfo`           |`string`       |`string`     |`integer`   |`int64`       |
+|`DateTimeInfo`       |`\DateTime`    |`string`     |`string`    |`date-time`   |
+|`DateIntervalInfo`   |`\DateInterval`|`string`     |`string`    |`duration`    |
+|`ArrayInfo`          |`T[]`          |`T[]`        |`array`     |              |
+|`MapInfo`            |`T[]`          |`\stdClass`  |`object`    |              |
+|`ClassInfo`          |`UserClass`    |`\stdClass`  |`object`    |              |
 
 # JSON
 
@@ -60,10 +60,9 @@ For example
 
 ```php
 <?php
-use \RestApiCore\Types\ClassType;
-use \RestApiCore\Types\NumberType;
-use \RestApiCore\Types\StringType;
-use \RestApiCore\PropertyInfo;
+use \RestApiCore\Reflection\Types\ClassInfo;
+use \RestApiCore\Reflection\Types\NumberInfo;
+use \RestApiCore\Reflection\Types\StringInfo;
 
 class SampleClass
 {
@@ -121,20 +120,17 @@ class SampleClass
     }
 
     /**
-     * @return ClassType
+     * @return ClassInfo
      */
-    public static function createClassType()
+    public static function createClassInfo()
     {
-        return new ClassType(
-            self::class,
-            [
-                new PropertyInfo('a', 'a', NumberType::create()),
-                new PropertyInfo('b', 'b', StringType::create()->createArray()->createArray()->createArray()),
-                new PropertyInfo('c', 'CCC', NumberType::create()->createArray()),
-                new PropertyInfo('d', 'd', StringType::create()),
-                new PropertyInfo('sub', 'sub', SampleSubClass::createClassType()),
-                new PropertyInfo('subArray', 'subArray', SampleSubClass::createClassType()->createArray()),
-            ]);
+        return ClassInfo::create(self::class)
+            ->withProperty('a', 'a', NumberInfo::create())
+            ->withProperty('b', 'b', StringInfo::create()->createArray()->createArray()->createArray())            
+            ->withProperty('c', 'CCC', NumberInfo::create()->createArray())
+            ->withProperty('d', 'd', StringInfo::create())
+            ->withProperty('sub', 'sub', SampleSubClass::createClassType())
+            ->withProperty('subArray', 'subArray', SampleSubClass::createClassType()->createArray());
     }
 }
 ```

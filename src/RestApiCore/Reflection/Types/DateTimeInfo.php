@@ -9,7 +9,7 @@ use RestApiCore\Json\Common;
  * PHP: \DateTime
  * JSON: "..."
  */
-final class DateTimeInfo extends Info
+final class DateTimeInfo extends TypeInfo
 {
     /**
      * @return DateTimeInfo

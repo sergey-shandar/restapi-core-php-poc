@@ -3,7 +3,7 @@ namespace RestApiCore\Reflection\Types;
 
 use RestApiCore\Json\Common;
 
-abstract class Info
+abstract class TypeInfo
 {
     const ARRAY_TYPE = 'array';
 

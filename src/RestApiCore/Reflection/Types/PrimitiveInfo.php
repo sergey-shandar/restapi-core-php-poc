@@ -4,7 +4,7 @@ namespace RestApiCore\Reflection\Types;
 /**
  * Class PrimitiveInfo
  */
-abstract class PrimitiveInfo extends Info
+abstract class PrimitiveInfo extends TypeInfo
 {
     /**
      * @param mixed $data

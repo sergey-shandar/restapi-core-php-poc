@@ -1,10 +1,10 @@
 <?php
-namespace Reflection;
+namespace Reflection\Types;
 
 use PHPUnit\Framework\TestCase;
 use RestApiCore\Reflection\Types\StringInfo;
 
-class ArrayTypeTest extends TestCase
+class ArrayInfoTest extends TestCase
 {
     public function test()
     {

@@ -5,7 +5,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7;
 use RestApiCore\Json\Common;
-use RestApiCore\Reflection\Types\Info;
+use RestApiCore\Reflection\Types\TypeInfo;
 use RestApiCore\Requests\JsonRequest;
 use RestApiCore\Requests\Request;
 
@@ -41,12 +41,12 @@ final class ApiClient
     }
 
     /**
-     * @param Info $resultTypeInfo
+     * @param TypeInfo $resultTypeInfo
      * @param Request $apiRequest
      *
      * @return mixed
      */
-    public function request(Info $resultTypeInfo, Request $apiRequest)
+    public function request(TypeInfo $resultTypeInfo, Request $apiRequest)
     {
         $headers = $apiRequest->getHeaders();
 

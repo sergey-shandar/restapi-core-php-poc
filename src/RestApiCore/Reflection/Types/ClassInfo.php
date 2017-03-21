@@ -10,7 +10,7 @@ use RestApiCore\Reflection\PropertyInfo;
  * PHP: class A { public $x; }
  * JSON: { "x": ... }
  */
-final class ClassInfo extends Info
+final class ClassInfo extends TypeInfo
 {
     /**
      * @var string
@@ -47,11 +47,11 @@ final class ClassInfo extends Info
     /**
      * @param string $name
      * @param string $wireName
-     * @param Info $typeInfo
+     * @param TypeInfo $typeInfo
      *
      * @return ClassInfo
      */
-    public function withProperty($name, $wireName, Info $typeInfo)
+    public function withProperty($name, $wireName, TypeInfo $typeInfo)
     {
         $this->propertyInfoArray[] = new PropertyInfo($name, $wireName, $typeInfo);
         return $this;

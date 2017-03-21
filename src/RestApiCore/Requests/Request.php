@@ -1,7 +1,7 @@
 <?php
 namespace RestApiCore\Requests;
 
-use RestApiCore\Reflection\Types\Info;
+use RestApiCore\Reflection\Types\TypeInfo;
 
 abstract class Request
 {
@@ -33,7 +33,7 @@ abstract class Request
          */
         $parameters = [];
         foreach ($this->queryParameters as $key => $value) {
-            if (gettype($value) === Info::ARRAY_TYPE) {
+            if (gettype($value) === TypeInfo::ARRAY_TYPE) {
                 foreach ($value as $item) {
                     $parameters[] = self::queryParam($key, $item);
                 }

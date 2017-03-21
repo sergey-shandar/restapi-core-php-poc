@@ -13,7 +13,7 @@ namespace RestApiCore\Reflection\Types;
  * Note: Always use the JSON_BIGINT_AS_STRING option to deserialize from Json or Json::decode() function instead of
  * json_decode().
  */
-final class LongInfo extends Info
+final class LongInfo extends TypeInfo
 {
     /**
      * @return LongInfo

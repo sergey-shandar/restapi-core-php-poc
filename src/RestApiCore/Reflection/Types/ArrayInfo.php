@@ -9,19 +9,19 @@ use RestApiCore\Json\FromSeq;
  * PHP: [ 'a', 'b', 'c' ]
  * JSON: [ "a", "b", "c" ]
  */
-final class ArrayInfo extends Info
+final class ArrayInfo extends TypeInfo
 {
     /**
-     * @var Info
+     * @var TypeInfo
      */
     private $itemType;
 
     /**
      * ArrayType constructor.
      *
-     * @param Info $itemType
+     * @param TypeInfo $itemType
      */
-    public function __construct(Info $itemType)
+    public function __construct(TypeInfo $itemType)
     {
         $this->itemType = $itemType;
     }

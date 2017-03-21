@@ -9,7 +9,7 @@ use RestApiCore\Json\Common;
  * PHP: new \DateIntervalType()
  * JSON: "..."
  */
-final class DateIntervalInfo extends Info
+final class DateIntervalInfo extends TypeInfo
 {
     /**
      * @return DateIntervalInfo

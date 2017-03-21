@@ -9,18 +9,18 @@ use RestApiCore\Json\FromObject;
  * PHP: [ 'a' => 12 ]
  * JSON: { "a" : 12 }
  */
-final class MapInfo extends Info
+final class MapInfo extends TypeInfo
 {
     /**
-     * @var Info
+     * @var TypeInfo
      */
     private $itemType;
 
     /**
      * MapType constructor.
-     * @param Info $itemType
+     * @param TypeInfo $itemType
      */
-    public function __construct(Info $itemType)
+    public function __construct(TypeInfo $itemType)
     {
         $this->itemType = $itemType;
     }

@@ -12,7 +12,7 @@ use RestApiCore\Json\Common;
 final class StringInfo extends PrimitiveInfo
 {
     /**
-     * @return StringInfo
+     * @return self
      */
     public static function create()
     {

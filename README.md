@@ -46,15 +46,15 @@ REST API Core for PHP (Proof of concept)
 
 # JSON
 
-- Serialization: PHP User's Object => string
-- Deserialization: string => PHP Object => PHP User's Object
+- Serialization: PHP Type => string
+- Deserialization: string => PHP JSON Type => PHP Type
 
 # Conventions
 
 Each user class should implement
 
 1. A default constructor.
-2. A `createClassType` static function which returns `\RestApiCore\Types\ClassType`.
+2. A `createClassInfo` static function which returns `\RestApiCore\Reflection\Types\ClassInfo`.
  
 For example
 
